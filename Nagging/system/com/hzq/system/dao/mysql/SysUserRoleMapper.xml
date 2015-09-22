@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzq.system.dao.SysUserRoleMapper" >
+    <sql id="conditionQuerySql" >
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="condition.userid != null" >
+                 and userid = #{condition.userid,jdbcType=INTEGER}
+            </if>
+            <if test="condition.roleId != null" >
+                 and role_id = #{condition.roleId,jdbcType=INTEGER}
+            </if>
+            <if test="condition.addtime != null" >
+                 and addtime = #{condition.addtime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="condition.adduserid != null" >
+                 and adduserid = #{condition.adduserid,jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </sql>
+
+    <resultMap id="BaseResultMap" type="com.hzq.system.entity.SysUserRole" >
+        <result column="userid" property="userid" jdbcType="INTEGER" />
+        <result column="role_id" property="roleId" jdbcType="INTEGER" />
+        <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+        <result column="adduserid" property="adduserid" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.hzq.system.entity.SysUserRole" >
+        insert into sys_user_role
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="userid != null" >
+                userid,
+            </if>
+            <if test="roleId != null" >
+                role_id,
+            </if>
+            <if test="addtime != null" >
+                addtime,
+            </if>
+            <if test="adduserid != null" >
+                adduserid,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="userid != null" >
+                #{userid,jdbcType=INTEGER},
+            </if>
+            <if test="roleId != null" >
+                #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="addtime != null" >
+                #{addtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="adduserid != null" >
+                #{adduserid,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="conditionQuery" parameterType="com.hzq.common.entity.QueryCondition" resultMap="BaseResultMap" >
+        select userid,role_id,addtime,adduserid from sys_user_role <include refid="conditionQuerySql" />
+        <if test="condition.beginIndex != null" >
+             <![CDATA[ limit #{condition.beginIndex} , #{condition.rows} ]]>
+        </if>
+    </select>
+
+    <select id="conditionCountQuery" parameterType="com.hzq.common.entity.QueryCondition" resultType="int" >
+        select count(1) from sys_user_role <include refid="conditionQuerySql"/>
+    </select>
+
+
+	<delete id="deleteByUserId" parameterType="java.lang.String">
+		delete from  sys_user_role where userid = #{id}
+	</delete>
+	
+	
+	
+	
+</mapper>

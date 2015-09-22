@@ -1,0 +1,17 @@
+
+#添加用户的时候salt psw存入方式
+String salt=SaltGenerator.getSalt(16);
+SimpleHash hash = new SimpleHash("SHA-1", "123456", salt, 1024);
+String psw=hash.toHex();
+
+
+
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+datagrid后台的代码,reload--不建议,查询时会把页码加进去,load建议
+beanUtils.copyproperties
+
+
+iframe嵌入时,未登录跳转页面 如何从iframe跳出来?
+修改密码界面 能否让第一个先选中?
+
+

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzq.system.dao.SysPermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.hzq.system.entity.SysPermission" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="operatename" property="operatename" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="auth" property="auth" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="state" property="state" jdbcType="CHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="seq" property="seq" jdbcType="INTEGER" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="adduserid" property="adduserid" jdbcType="VARCHAR" />
+    <result column="modifytime" property="modifytime" jdbcType="TIMESTAMP" />
+    <result column="modifyuserid" property="modifyuserid" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   
+   <sql id="conditionQuerySql" >
+        <trim prefix="where" prefixOverrides="and|or" >
+            <if test="condition.id != null" >
+                 and id = #{condition.id,jdbcType=INTEGER}
+            </if>
+            <if test="condition.operatename != null" >
+                 and operatename = #{condition.operatename,jdbcType=VARCHAR}
+            </if>
+            <if test="condition.description != null" >
+                 and description = #{condition.description,jdbcType=VARCHAR}
+            </if>
+            <if test="condition.auth != null" >
+                 and auth = #{condition.auth,jdbcType=VARCHAR}
+            </if>
+            <if test="condition.url != null" >
+                 and url = #{condition.url,jdbcType=VARCHAR}
+            </if>
+            <if test="condition.type != null" >
+                 and type = #{condition.type,jdbcType=CHAR}
+            </if>
+            <if test="condition.state != null" >
+                 and state = #{condition.state,jdbcType=CHAR}
+            </if>
+            <if test="condition.pid != null" >
+                 and pid = #{condition.pid,jdbcType=VARCHAR}
+            </if>
+            <if test="condition.seq != null" >
+                 and seq = #{condition.seq,jdbcType=INTEGER}
+            </if>
+            <if test="condition.addtime != null" >
+                 and addtime = #{condition.addtime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="condition.adduserid != null" >
+                 and adduserid = #{condition.adduserid,jdbcType=VARCHAR}
+            </if>
+            <if test="condition.modifytime != null" >
+                 and modifytime = #{condition.modifytime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="condition.modifyuserid != null" >
+                 and modifyuserid = #{condition.modifyuserid,jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </sql>
+
+
+    <sql id="Base_Column_List" >
+        id, operatename, description, auth, url, type, state, pid, seq, addtime, adduserid, 
+        modifytime, modifyuserid
+    </sql>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from sys_permission
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.hzq.system.entity.SysPermission" >
+        insert into sys_permission
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="operatename != null" >
+                operatename,
+            </if>
+            <if test="description != null" >
+                description,
+            </if>
+            <if test="auth != null" >
+                auth,
+            </if>
+            <if test="url != null" >
+                url,
+            </if>
+            <if test="type != null" >
+                type,
+            </if>
+            <if test="state != null" >
+                state,
+            </if>
+            <if test="pid != null" >
+                pid,
+            </if>
+            <if test="seq != null" >
+                seq,
+            </if>
+            <if test="addtime != null" >
+                addtime,
+            </if>
+            <if test="adduserid != null" >
+                adduserid,
+            </if>
+            <if test="modifytime != null" >
+                modifytime,
+            </if>
+            <if test="modifyuserid != null" >
+                modifyuserid,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="operatename != null" >
+                #{operatename,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null" >
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="auth != null" >
+                #{auth,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null" >
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null" >
+                #{type,jdbcType=CHAR},
+            </if>
+            <if test="state != null" >
+                #{state,jdbcType=CHAR},
+            </if>
+            <if test="pid != null" >
+                #{pid,jdbcType=VARCHAR},
+            </if>
+            <if test="seq != null" >
+                #{seq,jdbcType=INTEGER},
+            </if>
+            <if test="addtime != null" >
+                #{addtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="adduserid != null" >
+                #{adduserid,jdbcType=VARCHAR},
+            </if>
+            <if test="modifytime != null" >
+                #{modifytime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyuserid != null" >
+                #{modifyuserid,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.hzq.system.entity.SysPermission" >
+        update sys_permission
+        <set >
+            <if test="operatename != null" >
+                operatename = #{operatename,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null" >
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="auth != null" >
+                auth = #{auth,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null" >
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null" >
+                type = #{type,jdbcType=CHAR},
+            </if>
+            <if test="state != null" >
+                state = #{state,jdbcType=CHAR},
+            </if>
+            <if test="pid != null" >
+                pid = #{pid,jdbcType=VARCHAR},
+            </if>
+            <if test="seq != null" >
+                seq = #{seq,jdbcType=INTEGER},
+            </if>
+            <if test="addtime != null" >
+                addtime = #{addtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="adduserid != null" >
+                adduserid = #{adduserid,jdbcType=VARCHAR},
+            </if>
+            <if test="modifytime != null" >
+                modifytime = #{modifytime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyuserid != null" >
+                modifyuserid = #{modifyuserid,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Integer" >
+        delete from sys_permission
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <select id="conditionQuery" parameterType="com.hzq.common.entity.QueryCondition" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" /> from sys_permission <include refid="conditionQuerySql" />
+        <if test="condition.beginIndex != null" >
+             <![CDATA[ limit #{condition.beginIndex} , #{condition.rows} ]]>
+        </if>
+    </select> 
+
+    <select id="conditionCountQuery" parameterType="com.hzq.common.entity.QueryCondition" resultType="int" >
+        select count(1) from sys_permission <include refid="conditionQuerySql"/>
+    </select>
+
+    <delete  id="deleteCondition" parameterType="com.hzq.common.entity.QueryCondition" >
+        delete from sys_permission  <include refid="conditionQuerySql"/>
+    </delete >
+  
+  
+  
+  	<insert id="insertRolePermission">
+  			insert into sys_role_permission values (#{id},#{permissionId},now(),#{adduserid})	
+  	</insert>
+  
+  	<delete id="deleteRolePermission">
+  		delete from sys_role_permission where role_id=#{id}
+  	</delete>
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <select id="getPermissionBySysRoles"  resultType="com.hzq.system.entity.SysPermission">
+  	select distinct * from sys_permission where id in ( select permission_id from sys_role_permission where role_id in 
+  		<foreach item="item" index="index" collection="list" 
+                         open="(" separator="," close=")">
+                        #{item.id}
+        </foreach>
+  	)  
+  </select>
+</mapper>

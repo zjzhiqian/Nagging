@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzq.system.dao.SysUserMapper">
+	 <sql id="conditionQuerySql" >
+        <trim prefix="where" prefixOverrides="and|or" >
+            <if test="condition.id != null" >
+                 and id = #{condition.id,jdbcType=INTEGER}
+            </if>
+            <if test="condition.username != null" >
+                 and username = #{condition.username,jdbcType=VARCHAR}
+            </if>
+            <if test="condition.password != null" >
+                 and password = #{condition.password,jdbcType=VARCHAR}
+            </if>
+            <if test="condition.name != null" >
+                 and name = #{condition.name,jdbcType=VARCHAR}
+            </if>
+            <if test="condition.salt != null" >
+                 and salt = #{condition.salt,jdbcType=VARCHAR}
+            </if>
+            <if test="condition.phone != null" >
+                 and phone = #{condition.phone,jdbcType=VARCHAR}
+            </if>
+            <if test="condition.state != null" >
+                 and state = #{condition.state,jdbcType=CHAR}
+            </if>
+            <if test="condition.addtime != null" >
+                 and addtime = #{condition.addtime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="condition.adduserid != null" >
+                 and adduserid = #{condition.adduserid,jdbcType=VARCHAR}
+            </if>
+            <if test="condition.modifytime != null" >
+                 and modifytime = #{condition.modifytime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="condition.modifyuserid != null" >
+                 and modifyuserid = #{condition.modifyuserid,jdbcType=VARCHAR}
+            </if>
+            <if test="condition.lastip != null" >
+                 and lastip = #{condition.lastip,jdbcType=VARCHAR}
+            </if>
+            <if test="condition.loginTime != null" >
+                 and login_time = #{condition.loginTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="condition.loginCount != null" >
+                 and login_count = #{condition.loginCount,jdbcType=BIGINT}
+            </if>
+        </trim>
+    </sql>
+
+
+  <resultMap id="BaseResultMap" type="com.hzq.system.entity.SysUser">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="state" jdbcType="CHAR" property="state" />
+    <result column="addtime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="adduserid" jdbcType="VARCHAR" property="adduserid" />
+    <result column="modifytime" jdbcType="TIMESTAMP" property="modifytime" />
+    <result column="modifyuserid" jdbcType="VARCHAR" property="modifyuserid" />
+    <result column="lastip" jdbcType="VARCHAR" property="lastip" />
+    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="login_count" jdbcType="BIGINT" property="loginCount" />
+  </resultMap>
+  
+  
+    <sql id="Base_Column_List" >
+        id, username, password, salt,name, phone, state, addtime, adduserid, modifytime, 
+        modifyuserid, lastip, login_time, login_count
+    </sql>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from sys_user
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+
+
+    <update id="update" parameterType="com.hzq.system.entity.SysUser" >
+        update sys_user
+        <set >
+            <if test="username != null" >
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null" >
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="salt != null" >
+                salt = #{salt,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null" >
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null" >
+                state = #{state,jdbcType=CHAR},
+            </if>
+            <if test="addtime != null" >
+                addtime = #{addtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="adduserid != null" >
+                adduserid = #{adduserid,jdbcType=VARCHAR},
+            </if>
+            <if test="modifytime != null" >
+                modifytime = #{modifytime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyuserid != null" >
+                modifyuserid = #{modifyuserid,jdbcType=VARCHAR},
+            </if>
+            <if test="lastip != null" >
+                lastip = #{lastip,jdbcType=VARCHAR},
+            </if>
+            <if test="loginTime != null" >
+                login_time = #{loginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="loginCount != null" >
+                login_count = login_count + 1
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Integer" >
+        delete from sys_user
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+
+    <select id="conditionQuery" parameterType="com.hzq.common.entity.QueryCondition" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" /> from sys_user <include refid="conditionQuerySql"/>  
+        <if test="condition.beginIndex != null" >
+             <![CDATA[ limit #{condition.beginIndex} , #{condition.rows} ]]>
+        </if>
+    </select>
+
+    <select id="conditionCountQuery" parameterType="com.hzq.common.entity.QueryCondition" resultType="int" >
+        select count(1) from sys_user <include refid="conditionQuerySql"/>
+    </select>
+  
+
+  	
+  <select id="findUserByUsername" parameterType="java.lang.String" resultType="com.hzq.system.entity.SysUser">
+  		select 
+  		<include refid="Base_Column_List"/>
+  		from sys_user where username=#{username}
+  </select>
+  
+  <insert id="insert" parameterType="com.hzq.system.entity.SysUser">
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="salt != null">
+        salt,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="addtime != null">
+        addtime,
+      </if>
+      <if test="adduserid != null">
+        adduserid,
+      </if>
+      <if test="modifytime != null">
+        modifytime,
+      </if>
+      <if test="modifyuserid != null">
+        modifyuserid,
+      </if>
+      <if test="lastip != null">
+        lastip,
+      </if>
+      <if test="loginTime != null">
+        login_time,
+      </if>
+      <if test="loginCount != null">
+        login_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adduserid != null">
+        #{adduserid,jdbcType=VARCHAR},
+      </if>
+      <if test="modifytime != null">
+        #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyuserid != null">
+        #{modifyuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="lastip != null">
+        #{lastip,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null">
+        #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginCount != null">
+        #{loginCount,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  
+ 
+ <select id="getRolesByUserId" resultType="com.hzq.system.entity.SysUserRole" parameterType="java.lang.String">
+ 	select userid,role_id as roleId from sys_user_role where userid=#{id}
+ 
+ </select>
+ 
+ <delete id="deleteUserRoleByUserId">
+ 	delete from sys_user_role where userid=#{id}
+ </delete>
+ 
+ <insert id="insertUserRole">
+ 	insert into sys_user_role values (#{userid},#{roleid},now(),#{adduserid})
+ </insert>
+  
+</mapper>
