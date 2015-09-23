@@ -40,6 +40,15 @@ public class MenuTree implements Serializable{
 	
 	private String pid;
 	
+	private Integer seq;
+	
+	
+	public Integer getSeq() {
+		return seq;
+	}
+	public void setSeq(Integer seq) {
+		this.seq = seq;
+	}
 	public String getPid() {
 		return pid;
 	}
@@ -87,6 +96,11 @@ public class MenuTree implements Serializable{
 	}
 	public void setState(String state) {
 		this.state = state;
+	}
+	@Override
+	public String toString() {
+		return "MenuTree [id=" + id + ", text=" + text + ", children=" + children + ", iconCls=" + iconCls + ", checked=" + checked + ", attributes=" + attributes + ", state=" + state + ", pid="
+				+ pid + ", seq=" + seq + "]";
 	}
 	
 	

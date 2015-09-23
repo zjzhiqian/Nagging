@@ -1,15 +1,21 @@
 package com.hzq.system.web;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-
-
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hzq.common.base.BaseController;
+import com.hzq.common.entity.Json;
 import com.hzq.common.entity.MenuTree;
 import com.hzq.system.entity.ShiroUser;
 import com.hzq.system.entity.SysPermission;
@@ -36,6 +43,35 @@ public class SysMenuController extends BaseController{
 	@Autowired
 	private PermissionService permissionService;
 	
+	private static List<Map<String,String>> Listmap=new ArrayList<Map<String,String>>();
+	
+	public SysMenuController() throws IOException {
+		if(Listmap.isEmpty()){
+			InputStream in=SysMenuController.class.getResourceAsStream("/icon.css"); 
+			if(in==null){
+				throw new RuntimeException("类 SysMenuController 需要加载图标 icon.css");
+			}
+			String str=IOUtils.toString(in);
+			String[] rs=str.split("}");
+			List<Map<String,String>> tmpList=new ArrayList<Map<String,String>>();
+			for(int i=0;i<rs.length;i++){
+				if("".equals(rs[i].trim())){
+					continue;
+				}
+				int index=rs[i].indexOf("{");
+				String icon=rs[i].trim().substring(1,index-2);
+				int index_url1=rs[i].indexOf("(");
+				int index_url2=rs[i].indexOf(")");
+				String tmpurl=rs[i].substring(index_url1+2,index_url2);
+				String url=tmpurl.replaceAll("'", "");
+				Map<String,String> map=new HashMap<String,String>();
+				map.put("icon",icon);
+				map.put("url",url);
+				tmpList.add(map);
+			}
+			Listmap.addAll(tmpList);
+		}
+	}
 	
 	/**
 	 * 根据用户拥有的权限查询Menu
@@ -88,6 +124,7 @@ public class SysMenuController extends BaseController{
 	public List<MenuTree>  menus(){
 		//查询表中所有数据
 		List<SysPermission> permissions=permissionService.getAllPermissions();
+		PermissionUtil.sort(permissions);
 		List<MenuTree> treeDataList=PermissionUtil.copyPermissionToTree(permissions,null);
 		List<MenuTree> menuTree=TreeUtil.getfatherNode(treeDataList);
 		return menuTree;
@@ -95,11 +132,71 @@ public class SysMenuController extends BaseController{
 	
 	
 	@RequestMapping(value="addmenu/{id}",method=RequestMethod.GET)
-	public String addmenu(@PathVariable("id")String id,@RequestParam("text")String text,@RequestParam("type")String type,HttpServletRequest request){
+	public String addmenuPage(@PathVariable("id")String id,@RequestParam("text")String text,@RequestParam("type")int type,HttpServletRequest request){
 		request.setAttribute("nodeName", text);
 		request.setAttribute("pid", id);
-		request.setAttribute("type",type);
+		request.setAttribute("ptype",type);
+		request.setAttribute("type",type+1);
 		return "system/menuAdd";
 	}
+	
+	
+	/**
+	 * 新增菜单
+	 * @param permission
+	 * @param result
+	 * @return
+	 * @author huangzhiqian
+	 * @date 2015年9月23日
+	 */
+	@RequestMapping(value="addmenu",method=RequestMethod.POST)
+	@ResponseBody
+	public Json addmenu(@Valid SysPermission permission,BindingResult result){
+		if(result.getErrorCount()>0){
+			for(FieldError err:result.getFieldErrors()){
+				return new Json(err.getDefaultMessage());
+			}
+		}
+		return permissionService.addPermission(permission);
+	}
+	
+	
+	
+	/**
+	 * 删除节点以及节点下所有菜单
+	 * @param id
+	 * @return
+	 * @author huangzhiqian
+	 * @date 2015年9月23日
+	 */
+	@RequestMapping(value="delmenu/{id}",method=RequestMethod.POST)
+	@ResponseBody
+	public Json delmenu(@PathVariable("id")String id){
+		List<SysPermission> pList=permissionService.getAllPermissions();
+		List<String> childIds=TreeUtil.getChildrenPermissionIds(id, pList);
+		childIds.add(id);
+		return permissionService.deleteMenu(childIds);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@RequestMapping(value="menuImageList",method=RequestMethod.POST)
+	@ResponseBody
+	public List<Map<String,String>> showMenuImages(){
+		return Listmap;
+	}
+	
+	
 	
 }

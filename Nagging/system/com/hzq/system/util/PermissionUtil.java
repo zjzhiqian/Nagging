@@ -174,6 +174,10 @@ public class PermissionUtil {
 					tree.setPid(pid);
 				}
 			    
+			    Integer seq=permission.getSeq();
+			    tree.setSeq(seq);
+			    
+			    
 			    Map<String,Object> map=new HashMap<String,Object>();
 			    String url=permission.getUrl();
 			    if(url!=null){
@@ -196,7 +200,9 @@ public class PermissionUtil {
 
 	
 	
-	
+	public static  void sort(List<SysPermission> p){
+		p.sort(new SysPermissionComparator());
+	}
 	
 	
 	

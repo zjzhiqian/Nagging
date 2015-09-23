@@ -2,7 +2,6 @@ package com.hzq.system.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;

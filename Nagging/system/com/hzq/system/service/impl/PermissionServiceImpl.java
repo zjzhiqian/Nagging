@@ -72,6 +72,31 @@ public class PermissionServiceImpl extends BaseService<SysPermission>implements 
 			return new Json(false);
 		}
 	}
+
+
+	@Override
+	public Json addPermission(SysPermission permission) {
+		if(sysPermissionMapper.insert(permission)>0){
+			return new Json(true,"新增成功");
+		}else{
+			return new Json(false);
+		}
+	}
+
+
+	@Override
+	public Json deleteMenu(List<String> childIds) {
+		boolean flag=true;String msg="删除成功";
+		for(String id:childIds){
+			if(sysPermissionMapper.deleteById(id)>0){
+				continue;
+			}else{
+				flag=false; msg="删除出错";
+				break;
+			}
+		}
+		return new Json(flag,msg);
+	}
 	
 
 }

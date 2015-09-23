@@ -3,25 +3,28 @@ package com.hzq.system.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
+
 public class SysPermission implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
-
+	@Length(min=1,max=20,message="长度不合法")
     private String operatename;
-
+	@Length(min=1,max=20,message="长度不合法")
     private String description;
-
+	@Length(min=1,max=20,message="长度不合法")
     private String auth;
-
+	
     private String url;
-
     private String type;
 
     private String state;
 
     private String pid;
-
+    
     private Integer seq;
 
     private Date addtime;

@@ -12,7 +12,8 @@
 
 
 	<form id="menuAdd-form" align="center">
-		<input type="hidden" value="${pid}">
+		<input type="hidden" value="${pid}" name="pid">
+		<input type="hidden" value="${type }" name="type">
 		<div style="margin-top: 10px">
 			<label>父节点:</label>
 			<input class="easyui-textbox" type="text" value="${nodeName }" data-options="readonly:true" />
@@ -25,19 +26,27 @@
 			<label>&nbsp;描述:</label> 
 			<input class="easyui-textbox" type="text" name="description" required="required"/>
 		</div>
-		<div style="margin-top: 10px">
-			<label>&nbsp;图标:</label> 
-			<input id="pic" class="easyui-textbox" type="text" name="auth" required="required"/>
-			<a href="javaScript:void(0);" id="picture-select">选择</a>
-			<div id="menu-image" class="menuImage">
-    			<ul id="menu-image-ul"></ul>
+		<c:if test="${ptype!=2}">
+			<div style="margin-top: 10px">
+				<label>&nbsp;&nbsp;&nbsp;&nbsp;图标:</label> 
+				<input width="150px" id="pic" class="easyui-textbox" type="text" name="auth" required="required" readonly="readonly"/>
+				<a href="javaScript:void(0);" id="picture-select">选择</a>
+				<div id="menu-image" class="menuImage">
+	    			<ul id="menu-image-ul"></ul>
+				</div>
 			</div>
-		</div>
+		</c:if>
+		<c:if test="${ptype==2}">
+			<div style="margin-top: 10px">
+				<label>&nbsp;权限:</label> 
+				<input width="150px" id="pic" class="easyui-textbox" type="text" name="auth" required="required"/>
+			</div>
+		</c:if>
 		<div style="margin-top: 10px">
 			<label>&nbsp;排序:</label> 
-			<input class="easyui-textbox" type="text" name="seq" required="required"/>
+			<input class="easyui-textbox" type="text" name="seq" required="required" data-options="validType:['integer']"/>
 		</div>
-		<c:if test="${type==1}">
+		<c:if test="${ptype==1}">
 		<div style="margin-top: 10px">
 			<label>&nbsp;链接</label> 
 			<input class="easyui-textbox" type="text" name="url" required="required"/>
@@ -49,51 +58,72 @@
 	
 	<script type="text/javascript">
 			$(function(){
+				<c:if test="${ptype!=2}">
 				$("#picture-select").click(function(){
-					var  max= $("#pic").offset();
-					var min = $("#menuAdd-form").offset();
-					console.log(max)
-					console.log(min)
-					var left = max.left-min.left+5;
-					var top = max.top-min.top+50;
 					$("#menu-image").slideDown("fast");
-					/* $.ajax({   
+					$.ajax({   
 			            url :'${ctx}/system/menuImageList',
 			            type:'post',
 			            dataType:'json',
-			            success:function(json){
+			            async:false,
+			            success:function(rs){
 			            	$("#menu-image-ul").html("");
-			            	for(var i=0;i<json.length;i++){
-			            		var html = '<li><a href="javaScript:void(0);" image="'+json[i]+'"><img src="image/menu/'+json[i]+'"></a></li>';
-			            		$("#menu-image-ul").append(html);
+			            	for(var i=0;i<rs.length;i++){
+			            		var icon=rs[i].icon;
+			            		var url="${ctx}/js/easyui/themes/"+rs[i].url;
+			            		var html=$.formatString("<li><a href='javaScript:void(0)';><img value='{0}' src='{1}'></a></li>",icon,url);
+			            		$("#menu-image-ul").append(html); 
 			            	}
 			            }
-			        }); */
-			        var html = '<li><a href="javaScript:void(0);" image="59"><img src="js/easyui/themes/icons/help.png"></a></li>';
-			        for(var i=0;i<50;i++){
-			        	$("#menu-image-ul").append(html);
-			        }
-			        
+			        });
 					$("#menu-image").show();
 					
-					/* $("body").bind("mousedown", function(event){
-						//if (!(event.target.id == "accesscontrol-menu-operateimage" || event.target.id == "accesscontrol-menu-image" || $(event.target).parents("#accesscontrol-menu-image").length>0)) {
+					$("body").bind("mousedown", function(event){
+						if (!(event.target.id == "menu-operateimage" || event.target.id == "menu-image" || $(event.target).parents("#menu-image").length>0)) {
 							$("#menu-image").hide();
-						//}
-					}); */
-					/* $("#menu-image-ul li img").mouseover(function() {
-							$("#menu-image-ul li img").addClass("menuImageOn");
+						}
 					});
 					$("#menu-image-ul li img").mouseover(function() {
-							$("#menu-image-ul li img").removeClass("menuImageOn");
-					}); */
-					$("#menu-image-ul li a").click(function() {
-						var image = $(this).attr("image");
-						console.log(image)	
+							$(this).addClass("menuImageOn");
+					});
+					$("#menu-image-ul li img").mouseout(function() {
+							$(this).removeClass("menuImageOn");
+					});
+					
+					$("#menu-image-ul li a img").click(function(){
+						var image = $(this).attr("value");
 						$("#pic").textbox("setValue",image);
 						$("#menu-image").hide();
 					});
 				});
+				</c:if>
+				
+				$("#btn-menuAdd").click(function(){
+					if($("#menuAdd-form").form("validate")){
+						loading();
+						$.ajax({
+							url :'${ctx}/system/addmenu',
+			            	type:'post',
+			            	data:$("#menuAdd-form").serialize(),
+			            	success:function(r){
+			            		loaded();
+			            		if(r&&r.flag){
+			            			showmsg(r.msg)
+			            			$("#menu-tree").tree('reload');
+			            			parent.$.modalDialog.handler.dialog('close');
+			            			
+			            		}else{
+			            			showerror(r.msg);
+			            		}
+			            	}
+						})
+					
+					};
+				
+				})
+				
+				
+				
 				
 			})
 	

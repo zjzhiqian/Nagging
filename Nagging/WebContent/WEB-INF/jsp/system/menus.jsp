@@ -11,11 +11,9 @@
 			<div title="" data-options="region:'west'" style="width: 200px">
 				<div class="easyui-layout" data-options="fit:true">
 					<div data-options="region:'north'" style="height: 30px">
-						<a id="btn-add" href="#" class="easyui-linkbutton"
-							data-options="iconCls:'icon-search'" style="height: 25px">新增</a>
-						<a id="btn-edit" href="#" class="easyui-linkbutton"
-							data-options="iconCls:'icon-search'">修改</a> <a id="btn" href="#"
-							class="easyui-linkbutton" data-options="iconCls:'icon-search'">删除</a>
+						<a id="btn-add" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="height: 25px">新增</a>
+						<a id="btn-edit" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">修改</a> 
+						<a id="btn-delete" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">删除</a>
 					</div>
 					<div data-options="region:'center'">
 						<div id="menu-tree" />
@@ -79,25 +77,67 @@
 			console.log(node)
 			if(node&&node.attributes && node.attributes.type){
 				var id=node.id;
+				var title="新增菜单";
+				if(node.attributes.type=="2"){
+					title="新增权限"
+				}
 				parent.$.modalDialog({
 					href : "${ctx}/system/addmenu/"+id+"?text="+node.text+"&type="+node.attributes.type,
-					title : '新增菜单',
+					title : title,
 					cache : false,
 					modal : true,
 					width : 400,
 					height : 280,
 					buttons : [ {
-						id : 'btn-changepsw',
+						id : 'btn-menuAdd',
 						text : '添加',
 						width : 100,
 						iconCls : 'icon-ok',
 					} ]
 				});
 			}else{
-				alertinfo("请选择父节点");
-				return false;
+				$.messager.confirm('请确认', '确定要增加一个顶级菜单吗', function(r){
+					if (r){
+						var node=menu_tree.tree("getSelected");
+						parent.$.modalDialog({
+							href : "${ctx}/system/addmenu/-1?text=无&type=-1",
+							title : "新增顶级菜单",
+							cache : false,
+							modal : true,
+							width : 400,
+							height : 280,
+							buttons : [ {
+								id : 'btn-menuAdd',
+								text : '添加',
+								width : 100,
+								iconCls : 'icon-ok',
+							} ]
+						});
+					}
+				});
 			}
 
+		})
+		
+		
+		
+		$("#btn-delete").click(function(){
+			$.messager.confirm('请确认', '确定删除此节点吗', function(r){
+					if (r){
+						var node=menu_tree.tree("getSelected");
+						$.ajax({
+							url:"${ctx}/system/delmenu/"+node.id,
+							success:function(r){
+								if(r&&r.flag){
+									showmsg(r.msg)
+								}else{
+									showerror(r.msg);
+								}
+							}
+						})
+					}
+				});
+		
 		})
 	</script>
 <body>

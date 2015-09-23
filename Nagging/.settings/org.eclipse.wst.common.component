@@ -6,6 +6,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/system"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/lucene"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/temp"/>
         <property name="java-output-path" value="/Nagging/build/classes"/>
         <property name="context-root" value="Nagging"/>
     </wb-module>

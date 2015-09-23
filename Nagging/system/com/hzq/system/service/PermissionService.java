@@ -43,6 +43,22 @@ public interface PermissionService {
 	 * @return
 	 */
 	Json updateRolePermission(String id, String idArray);
+	/**
+	 * 新增权限(菜单)
+	 * @param permission
+	 * @return
+	 * @author huangzhiqian
+	 * @date 2015年9月23日
+	 */
+	Json addPermission(SysPermission permission);
+	/**
+	 * 删除菜单以及所有子菜单
+	 * @param childIds
+	 * @return
+	 * @author huangzhiqian
+	 * @date 2015年9月23日
+	 */
+	Json deleteMenu(List<String> childIds);
 
 
 
