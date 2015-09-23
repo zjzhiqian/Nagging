@@ -68,29 +68,3 @@
 	background:url('icons/more.png') no-repeat center center;
 }
 
-
-.icon-mini-add{
-	background:url('icons/mini_add.png') no-repeat center center;
-}
-.icon-mini-edit{
-	background:url('icons/mini_edit.png') no-repeat center center;
-}
-.icon-mini-refresh{
-	background:url('icons/mini_refresh.png') no-repeat center center;
-}
-
-.icon-large-picture{
-	background:url('icons/large_picture.png') no-repeat center center;
-}
-.icon-large-clipart{
-	background:url('icons/large_clipart.png') no-repeat center center;
-}
-.icon-large-shapes{
-	background:url('icons/large_shapes.png') no-repeat center center;
-}
-.icon-large-smartart{
-	background:url('icons/large_smartart.png') no-repeat center center;
-}
-.icon-large-chart{
-	background:url('icons/large_chart.png') no-repeat center center;
-}

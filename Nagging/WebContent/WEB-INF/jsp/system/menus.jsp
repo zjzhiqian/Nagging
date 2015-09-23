@@ -8,12 +8,18 @@
 
 		<div class="easyui-layout" data-options="fit:true">
 
-			<div title="" data-options="region:'west'" style="width: 200px">
+			<div title="" data-options="region:'west'" style="width: 500px">
 				<div class="easyui-layout" data-options="fit:true">
 					<div data-options="region:'north'" style="height: 30px">
-						<a id="btn-add" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="height: 25px">新增</a>
-						<a id="btn-edit" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">修改</a> 
-						<a id="btn-delete" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">删除</a>
+						<shiro:hasPermission name="menu:add">	
+						 <a id="btn-add" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" style="height: 25px">新增</a>
+						</shiro:hasPermission>
+						 <shiro:hasPermission name="menu:edit">	
+						<a id="btn-edit" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改</a> 
+						 </shiro:hasPermission>
+						<shiro:hasPermission name="menu:delete">	
+						 <a id="btn-delete" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>
+						</shiro:hasPermission>
 					</div>
 					<div data-options="region:'center'">
 						<div id="menu-tree" />
@@ -127,23 +133,27 @@
 		
 		//删除
 		$("#btn-delete").click(function(){
-			$.messager.confirm('请确认', '确定删除此节点吗', function(r){
-					if (r){
-						var node=menu_tree.tree("getSelected");
-						$.ajax({
-							url:"${ctx}/system/delmenu/"+node.id,
-							success:function(r){
-								if(r&&r.flag){
-									showmsg(r.msg)
-									$("#menu-tree").tree('reload');
-								}else{
-									alerterror(r.msg);
+			var node=menu_tree.tree("getSelected");
+			if(node!=null){
+				$.messager.confirm('请确认', '确定删除此节点吗', function(r){
+						if (r){
+							var node=menu_tree.tree("getSelected");
+							$.ajax({
+								url:"${ctx}/system/delmenu/"+node.id,
+								success:function(r){
+									if(r&&r.flag){
+										showmsg(r.msg)
+										$("#menu-tree").tree('reload');
+									}else{
+										alerterror(r.msg);
+									}
 								}
-							}
-						})
-					}
-				});
-		
+							})
+						}
+					});
+			}else{
+				alertinfo("请选择一个节点")
+			}
 		})
 		
 		//修改

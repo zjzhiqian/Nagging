@@ -36,7 +36,6 @@ public class Main {
 		
 		System.out.println(new BigDecimal("0.00").setScale(0).toPlainString());
 		
-		
 	}
 	
 	

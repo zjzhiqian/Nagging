@@ -52,7 +52,7 @@ public class ShiroRealm extends AuthorizingRealm {
 		if(sysUser==null){
 			return null;
 		}
-		if("0".equals(sysUser.getState())){
+		if("1".equals(sysUser.getState())){
 			throw new LockedAccountException();
 		}
 		ShiroUser shiroUser=new ShiroUser(sysUser.getId(),sysUser.getUsername(), sysUser.getName(),sysUser.getPhone());

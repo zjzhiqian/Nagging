@@ -11,7 +11,7 @@ datagrid后台的代码,reload--不建议,查询时会把页码加进去,load建
 beanUtils.copyproperties
 
 
-iframe嵌入时,未登录跳转页面 如何从iframe跳出来?
+iframe嵌入时,未登录跳转页面 如何从iframe跳出来?(已解决)
 修改密码界面 能否让第一个先选中?
 
 

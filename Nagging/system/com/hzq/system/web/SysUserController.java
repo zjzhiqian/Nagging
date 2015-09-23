@@ -157,15 +157,10 @@ public class SysUserController extends BaseController {
 			return j;
 		}
 
-		SysUser dataUser = sysUserService.findUserByUsername(sysUser.getUsername().trim());
-		if (dataUser != null) {
-			j.setMsg("用户名重复");
-			return j;
-		}
 
 		sysuser.setName(sysUser.getName());
 		sysuser.setPhone(sysUser.getPhone());
-		sysuser.setUsername(sysUser.getUsername());
+		//sysuser.setUsername(sysUser.getUsername());
 		sysuser.setId(sysUser.getId());
 		sysuser.setModifytime(new Date());
 		sysuser.setModifyuserid(getShiroUser().getId() + "");
