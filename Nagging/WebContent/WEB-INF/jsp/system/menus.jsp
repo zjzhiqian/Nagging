@@ -39,8 +39,6 @@
 				url : '${ctx}/system/menus',
 				lines : true,
 				multiple : true,
-				/* panelHeight:300,
-				panelWidth:300, */
 				onBeforeLoad : function(node, param) {
 					if (menu_tree) {//加载Tree之前
 						parent.$.messager.progress({
@@ -71,7 +69,8 @@
 			})
 
 		})
-
+	
+		//新增
 		$("#btn-add").click(function() {
 			var node=menu_tree.tree("getSelected");
 			console.log(node)
@@ -88,6 +87,9 @@
 					modal : true,
 					width : 400,
 					height : 280,
+					onBeforeClose:function(){
+						menu_tree.tree("reload")
+					},
 					buttons : [ {
 						id : 'btn-menuAdd',
 						text : '添加',
@@ -106,6 +108,9 @@
 							modal : true,
 							width : 400,
 							height : 280,
+							onBeforeClose:function(){
+								menu_tree.tree("reload")
+							},
 							buttons : [ {
 								id : 'btn-menuAdd',
 								text : '添加',
@@ -120,7 +125,7 @@
 		})
 		
 		
-		
+		//删除
 		$("#btn-delete").click(function(){
 			$.messager.confirm('请确认', '确定删除此节点吗', function(r){
 					if (r){
@@ -130,8 +135,9 @@
 							success:function(r){
 								if(r&&r.flag){
 									showmsg(r.msg)
+									$("#menu-tree").tree('reload');
 								}else{
-									showerror(r.msg);
+									alerterror(r.msg);
 								}
 							}
 						})
@@ -139,5 +145,35 @@
 				});
 		
 		})
+		
+		//修改
+		$("#btn-edit").click(function() {
+			var node=menu_tree.tree("getSelected");
+			if(node==null){
+				alertinfo("请选择节点");
+			}else if(node&&node.id){
+				var title="修改菜单";
+				if(node.attributes.type=="2"){
+					title="修改权限"
+				}
+				parent.$.modalDialog({
+					href : "${ctx}/system/editmenu/"+node.id,
+					title : title,
+					cache : false,
+					modal : true,
+					width : 400,
+					height : 280,
+					onBeforeClose:function(){
+						menu_tree.tree("reload")
+					},
+					buttons : [ {
+						id : 'btn-menuEdit',
+						text : '保存',
+						width : 100,
+						iconCls : 'icon-save',
+					} ]
+				});				
+			}
+		});
 	</script>
 <body>

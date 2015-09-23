@@ -1,8 +1,8 @@
 package com.hzq.system.web;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,31 +45,37 @@ public class SysMenuController extends BaseController{
 	
 	private static List<Map<String,String>> Listmap=new ArrayList<Map<String,String>>();
 	
-	public SysMenuController() throws IOException {
+	public SysMenuController(){
+		//读取图标信息存入内存
 		if(Listmap.isEmpty()){
 			InputStream in=SysMenuController.class.getResourceAsStream("/icon.css"); 
 			if(in==null){
 				throw new RuntimeException("类 SysMenuController 需要加载图标 icon.css");
 			}
-			String str=IOUtils.toString(in);
-			String[] rs=str.split("}");
-			List<Map<String,String>> tmpList=new ArrayList<Map<String,String>>();
-			for(int i=0;i<rs.length;i++){
-				if("".equals(rs[i].trim())){
-					continue;
+			try{
+				String str=IOUtils.toString(in);
+				String[] rs=str.split("}");
+				List<Map<String,String>> tmpList=new ArrayList<Map<String,String>>();
+				for(int i=0;i<rs.length;i++){
+					if("".equals(rs[i].trim())){
+						continue;
+					}
+					int index=rs[i].indexOf("{");
+					String icon=rs[i].trim().substring(1,index-2);
+					int index_url1=rs[i].indexOf("(");
+					int index_url2=rs[i].indexOf(")");
+					String tmpurl=rs[i].substring(index_url1+2,index_url2);
+					String url=tmpurl.replaceAll("'", "");
+					Map<String,String> map=new HashMap<String,String>();
+					map.put("icon",icon);
+					map.put("url",url);
+					tmpList.add(map);
 				}
-				int index=rs[i].indexOf("{");
-				String icon=rs[i].trim().substring(1,index-2);
-				int index_url1=rs[i].indexOf("(");
-				int index_url2=rs[i].indexOf(")");
-				String tmpurl=rs[i].substring(index_url1+2,index_url2);
-				String url=tmpurl.replaceAll("'", "");
-				Map<String,String> map=new HashMap<String,String>();
-				map.put("icon",icon);
-				map.put("url",url);
-				tmpList.add(map);
+				Listmap.addAll(tmpList);
+			}catch(Exception e){
+				e.printStackTrace();
+				throw new RuntimeException("com.hzq.system.web.SysMenuController 加载出错");
 			}
-			Listmap.addAll(tmpList);
 		}
 	}
 	
@@ -124,6 +130,11 @@ public class SysMenuController extends BaseController{
 	public List<MenuTree>  menus(){
 		//查询表中所有数据
 		List<SysPermission> permissions=permissionService.getAllPermissions();
+		for(SysPermission p:permissions){
+			StringBuffer bf=new StringBuffer();
+			bf.append(p.getOperatename()).append("[").append(p.getSeq()).append("]");
+			p.setOperatename(bf.toString());
+		}
 		PermissionUtil.sort(permissions);
 		List<MenuTree> treeDataList=PermissionUtil.copyPermissionToTree(permissions,null);
 		List<MenuTree> menuTree=TreeUtil.getfatherNode(treeDataList);
@@ -132,6 +143,7 @@ public class SysMenuController extends BaseController{
 	
 	
 	@RequestMapping(value="addmenu/{id}",method=RequestMethod.GET)
+	@RequiresPermissions("menu:add")
 	public String addmenuPage(@PathVariable("id")String id,@RequestParam("text")String text,@RequestParam("type")int type,HttpServletRequest request){
 		request.setAttribute("nodeName", text);
 		request.setAttribute("pid", id);
@@ -150,6 +162,7 @@ public class SysMenuController extends BaseController{
 	 * @date 2015年9月23日
 	 */
 	@RequestMapping(value="addmenu",method=RequestMethod.POST)
+	@RequiresPermissions("menu:add")
 	@ResponseBody
 	public Json addmenu(@Valid SysPermission permission,BindingResult result){
 		if(result.getErrorCount()>0){
@@ -157,6 +170,9 @@ public class SysMenuController extends BaseController{
 				return new Json(err.getDefaultMessage());
 			}
 		}
+		ShiroUser user=getShiroUser();
+		permission.setAddtime(new Date());
+		permission.setAdduserid(user.getId()+"");
 		return permissionService.addPermission(permission);
 	}
 	
@@ -170,6 +186,7 @@ public class SysMenuController extends BaseController{
 	 * @date 2015年9月23日
 	 */
 	@RequestMapping(value="delmenu/{id}",method=RequestMethod.POST)
+	@RequiresPermissions("menu:delete")
 	@ResponseBody
 	public Json delmenu(@PathVariable("id")String id){
 		List<SysPermission> pList=permissionService.getAllPermissions();
@@ -178,12 +195,45 @@ public class SysMenuController extends BaseController{
 		return permissionService.deleteMenu(childIds);
 	}
 	
+	/**
+	 * 修改菜单(权限)页面
+	 * @param id
+	 * @param request
+	 * @return
+	 * @author huangzhiqian
+	 * @date 2015年9月23日
+	 */
+	@RequestMapping(value="editmenu/{id}",method=RequestMethod.GET)
+	@RequiresPermissions("menu:edit")
+	public String editmenuPage(@PathVariable("id")int id,HttpServletRequest request){
+		SysPermission p=permissionService.getPermissionById(id);
+		request.setAttribute("permission", p);
+		return "system/menuEdit";
+	}
 	
-	
-	
-	
-	
-	
+	/**
+	 * 修改菜单(权限)操作
+	 * @param id
+	 * @param permission
+	 * @param result
+	 * @return
+	 * @author huangzhiqian
+	 * @date 2015年9月23日
+	 */
+	@RequestMapping(value="editmenu/{id}",method=RequestMethod.POST)
+	@ResponseBody
+	@RequiresPermissions("menu:edit")
+	public Json editmenu(@PathVariable("id")int id,@Valid SysPermission permission,BindingResult result){
+		if(result.getErrorCount()>0){
+			for(FieldError err:result.getFieldErrors()){
+				return new Json(err.getDefaultMessage());
+			}
+		}
+		ShiroUser user=getShiroUser();
+		permission.setModifytime(new Date());
+		permission.setModifyuserid(user.getId()+"");
+		return permissionService.updatePermission(permission);
+	}
 	
 	
 	

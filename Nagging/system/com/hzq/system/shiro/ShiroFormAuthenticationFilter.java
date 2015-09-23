@@ -174,7 +174,7 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
 				out.close();
 				return false;
 			}
-			// saveRequestAndRedirectToLogin(request,response);(这条登陆成功会跳转到上一个登陆页面)
+			// saveRequestAndRedirectToLogin(request,response);(这条登陆成功会跳转到上一个请求页面)
 			redirectToLogin(request, response);// (这条登陆成功后直接跳转到配置文件的页面)
 			return false;
 		}

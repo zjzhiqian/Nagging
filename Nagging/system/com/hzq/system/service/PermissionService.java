@@ -59,6 +59,22 @@ public interface PermissionService {
 	 * @date 2015年9月23日
 	 */
 	Json deleteMenu(List<String> childIds);
+	/**
+	 * 根据id查询获取权限
+	 * @param id
+	 * @return
+	 * @author huangzhiqian
+	 * @date 2015年9月23日
+	 */
+	SysPermission getPermissionById(int id);
+	/**
+	 * 更新权限信息
+	 * @param permission
+	 * @return
+	 * @author huangzhiqian
+	 * @date 2015年9月23日
+	 */
+	Json updatePermission(SysPermission permission);
 
 
 

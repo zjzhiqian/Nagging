@@ -12,44 +12,38 @@
 
 
 	<form id="menuAdd-form" align="center">
-		<input type="hidden" value="${pid}" name="pid">
-		<input type="hidden" value="${type }" name="type">
-		<div style="margin-top: 10px">
-			<label>父节点:</label>
-			<input class="easyui-textbox" type="text" value="${nodeName }" data-options="readonly:true" />
-		</div>
 		<div style="margin-top: 10px">
 			<label>&nbsp;名称:</label> 
-			<input class="easyui-textbox" type="text" name="operatename" required="required"/>
+			<input class="easyui-textbox" type="text" name="operatename" required="required" value="${permission.operatename }"/>
 		</div>
 		<div style="margin-top: 10px">
 			<label>&nbsp;描述:</label> 
-			<input class="easyui-textbox" type="text" name="description" required="required"/>
+			<input class="easyui-textbox" type="text" name="description" required="required" value="${permission.description }"/>
 		</div>
-		<c:if test="${ptype!=2}">
+		<c:if test="${permission.type!=3}">
 			<div style="margin-top: 10px">
 				<label>&nbsp;&nbsp;&nbsp;&nbsp;图标:</label> 
-				<input width="150px" id="pic" class="easyui-textbox" type="text" name="auth" required="required" readonly="readonly"/>
+				<input width="150px" id="pic" class="easyui-textbox" type="text" name="auth" required="required" readonly="readonly" value="${permission.auth }"/>
 				<a href="javaScript:void(0);" id="picture-select">选择</a>
 				<div id="menu-image" class="menuImage">
 	    			<ul id="menu-image-ul"></ul>
 				</div>
 			</div>
 		</c:if>
-		<c:if test="${ptype==2}">
+		<c:if test="${permission.type==3}">
 			<div style="margin-top: 10px">
 				<label>&nbsp;权限:</label> 
-				<input width="150px" id="pic" class="easyui-textbox" type="text" name="auth" required="required"/>
+				<input width="150px" id="pic" class="easyui-textbox" type="text" name="auth" required="required" value="${permission.auth }"/>
 			</div>
 		</c:if>
 		<div style="margin-top: 10px">
 			<label>&nbsp;排序:</label> 
-			<input class="easyui-textbox" type="text" name="seq" required="required" data-options="validType:['integer']"/>
+			<input class="easyui-textbox" type="text" name="seq" required="required" data-options="validType:['integer']" value="${permission.seq }"/>
 		</div>
-		<c:if test="${ptype==1}">
+		<c:if test="${permission.type==2}">
 		<div style="margin-top: 10px">
 			<label>&nbsp;链接</label> 
-			<input class="easyui-textbox" type="text" name="url" required="required"/>
+			<input class="easyui-textbox" type="text" name="url" required="required" value="${permission.url }"/>
 		</div>
 		</c:if>
 		
@@ -58,7 +52,7 @@
 	
 	<script type="text/javascript">
 			$(function(){
-				<c:if test="${ptype!=2}">
+				<c:if test="${permission.type!=3}">
 				$("#picture-select").click(function(){
 					$("#menu-image").slideDown("fast");
 					$.ajax({   
@@ -98,16 +92,15 @@
 				});
 				</c:if>
 				
-				$("#btn-menuAdd").click(function(){
+				$("#btn-menuEdit").click(function(){
 					if($("#menuAdd-form").form("validate")){
 						loading();
 						$.ajax({
-							url :'${ctx}/system/addmenu',
+							url :'${ctx}/system/editmenu/${permission.id}',
 			            	type:'post',
 			            	data:$("#menuAdd-form").serialize(),
 			            	success:function(r){
 			            		loaded();
-			            		console.log(r)
 			            		if(r&&r.flag){
 			            			showmsg(r.msg)
 			            			parent.$("#menu-tree").tree('reload');

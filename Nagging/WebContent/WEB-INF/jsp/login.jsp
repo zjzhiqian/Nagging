@@ -6,7 +6,10 @@
 <title>平台</title>
 <link rel="stylesheet" type="text/css" href="${ctx}/styles/style.css">
 <link rel="stylesheet" type="text/css" href="${ctx}/styles/login.css">
-
+<script language="JavaScript"> 
+if (window != top) 
+	top.location.href = location.href; 
+</script>
 <style type="text/css">
 
 .indexbtnlink {
@@ -173,7 +176,7 @@
 		 
  		 $("#username").val("123");
 		 $("#password").val("123456");
-		  loginsubmit(); 
+		 loginsubmit(); 
  		 
 	})
 

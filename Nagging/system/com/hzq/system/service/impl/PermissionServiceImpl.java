@@ -97,6 +97,22 @@ public class PermissionServiceImpl extends BaseService<SysPermission>implements 
 		}
 		return new Json(flag,msg);
 	}
+
+
+	@Override
+	public SysPermission getPermissionById(int id) {
+		return sysPermissionMapper.findById(id);
+	}
+
+
+	@Override
+	public Json updatePermission(SysPermission permission) {
+		if(sysPermissionMapper.update(permission)>0){
+			return new Json(true,"修改成功");
+		}else{
+			return new Json(false);
+		}
+	}
 	
 
 }
