@@ -21,10 +21,9 @@ public class CustomExceptionHandler {
 	  public ModelAndView handleArithmeticException(Exception ex){
 		  	ModelAndView mv = new ModelAndView();  
 	        mv.addObject("exception", ex);  
-	        mv.setViewName("unauthorized");  
+	        mv.setViewName("error/unauthorized");  
 	        return mv;  
 	  }
-	  
 	  
 	  /*@ExceptionHandler({Exception.class})
 	  public ModelAndView handleException(Exception ex){
@@ -35,10 +34,15 @@ public class CustomExceptionHandler {
 	  }*/
 	  
 	  
-
+	  /**
+	   * 解决数据绑定异常
+	   * @param ex
+	   * @return
+	   */
 	  @ExceptionHandler({BindException.class})
 	  @ResponseStatus(value=HttpStatus.METHOD_NOT_ALLOWED)
 	  public ModelAndView handleBindException(Exception ex){
+		  	//TODO 数据绑定异常的跳转
 		  	ModelAndView mv = new ModelAndView();  
 	        mv.addObject("exception", ex);  
 	        mv.setViewName("unauthorized");  
