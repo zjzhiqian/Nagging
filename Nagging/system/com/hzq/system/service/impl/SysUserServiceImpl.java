@@ -175,4 +175,19 @@ public class SysUserServiceImpl extends BaseService<SysUser> implements SysUserS
 			return new Json("用户编号为空");
 		}
 	}
+
+	@Override
+	public Json changeState(int id, int state) {
+		ShiroUser u=getShiroUser();
+		SysUser user=new SysUser();
+		user.setId(id);
+		user.setState(state+"");
+		user.setModifytime(new Date());
+		user.setModifyuserid(u.getId()+"");
+		if(sysUserMapper.update(user)>0){
+			return new Json(true,"修改用户状态成功");
+		}else{
+			return new Json(false);
+		}
+	}
 }

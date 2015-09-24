@@ -13,16 +13,43 @@
 			dg.datagrid('uncheckAll');
 			parent.$.modalDialog({
 				title : '用户授权',
-				width : 500,
-				height : 300,
+				width : 400,
+				height : 200,
 				href : '${ctx}/system/authorization/' + id,
 				buttons : [ {
 					id:'btn-auth',
 					text : '授权',
-					width : 100
+					width : 100 ,
+					handler :function(){
+						parent.$.modalDialog.dg=dg;
+					}
 				}
 			  ]
 			});
+		}
+		
+		function changeState(id,state){
+			var msg="";
+			if(state=="1"){
+				msg="确认禁用该用户吗";
+			}else{
+				msg="确认启用该用户吗";
+			}
+			$.messager.confirm("请确认",msg,function(r){
+				if(r){
+					$.ajax({
+						url:$.formatString("${ctx}/system/changeState/{0}/{1}",id,state),
+						success:function(r){
+							if(r&&r.flag){
+								showmsg(r.msg);
+								dg.datagrid('reload');
+							}else{
+								alerterror(r.msg)
+							}
+						}
+					})
+				}
+			})
 		}
 
 
@@ -65,12 +92,13 @@
 		        		}
 		        	}	
 		        },
-		        {field:'state',title:'状态',width:100,
+		        {field:'state',title:'操作',width:100,align:'center',
 		        	formatter:function(value,row,index){
-		        		if(value=='1'){
-		        			return '启用';
-		        		}else if(value=='2'){
-		        			return '禁用';
+		        		var id=row.id;
+		        		if(value=='0'){
+		        			return $.formatString('<a href="#" onclick="changeState(\'{0}\',\'{1}\');">禁用</a>',id,1)
+		        		}else if(value=='1'){
+		        			return $.formatString('<a href="#" onclick="changeState(\'{0}\',\'{1}\');">启用</a>',id,0)
 		        		}else {
 		        			return '';
 		        		}

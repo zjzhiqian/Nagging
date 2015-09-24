@@ -32,6 +32,14 @@ public interface SysPermissionMapper extends BaseMapper<SysPermission>{
 	 * @return
 	 */
 	int deleteRolePermission(@Param("id")String id);
+	/**
+	 * 角色,权限关联表删除数据
+	 * @param id 权限id
+	 * @return
+	 * @author huangzhiqian
+	 * @date 2015年9月24日
+	 */
+	int deleteRolePermissionByPermissionId(@Param("id")String id);
 	
 	
 	

@@ -107,11 +107,10 @@
 			            	data:$("#menuAdd-form").serialize(),
 			            	success:function(r){
 			            		loaded();
-			            		console.log(r)
 			            		if(r&&r.flag){
 			            			showmsg(r.msg)
-			            			parent.$("#menu-tree").tree('reload');
 			            			parent.$.modalDialog.handler.dialog('close');
+			            			parent.$.modalDialog.menu_tree.tree('reload')
 			            		}else{
 			            			alerterror(r.msg);
 			            		}

@@ -65,7 +65,20 @@ public class SysUserController extends BaseController {
 	public String changePassword() {
 		return "system/pswChange";
 	}
-
+	
+	/**
+	 * 启用或者禁用用户
+	 * @param id
+	 * @param state
+	 * @return
+	 * @author huangzhiqian
+	 * @date 2015年9月24日
+	 */
+	@RequestMapping(value="changeState/{id}/{state}", method = RequestMethod.POST)
+	@ResponseBody
+	public Json changeState(@PathVariable("id")int id,@PathVariable("state")int state){
+		return sysUserService.changeState(id,state);
+	}
 	/**
 	 * 修改密码
 	 * 

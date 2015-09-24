@@ -191,7 +191,7 @@
     	<div data-options="region:'center'" style="overflow: hidden;">
 			<div id="index_tabs" style="overflow: hidden;">
 				<div title="首页" data-options="border:false" style="overflow: hidden;">
-					<iframe src="${ctx }/system/menus" frameborder="0"
+					<iframe src="${ctx }/system/welcome" frameborder="0"
 						style="border: 0; width: 100%; height: 98%;"></iframe>
 				</div>
 			</div>

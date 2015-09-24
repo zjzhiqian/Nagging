@@ -114,14 +114,17 @@
 							modal : true,
 							width : 400,
 							height : 280,
-							onBeforeClose:function(){
+							/* onBeforeClose:function(){
 								menu_tree.tree("reload")
-							},
+							}, */
 							buttons : [ {
 								id : 'btn-menuAdd',
 								text : '添加',
 								width : 100,
 								iconCls : 'icon-ok',
+								handler:function(){
+									parent.$.modalDialog.menu_tree = menu_tree;
+								}
 							} ]
 						});
 					}
@@ -173,14 +176,14 @@
 					modal : true,
 					width : 400,
 					height : 280,
-					onBeforeClose:function(){
-						menu_tree.tree("reload")
-					},
 					buttons : [ {
 						id : 'btn-menuEdit',
 						text : '保存',
 						width : 100,
 						iconCls : 'icon-save',
+						handler : function(){
+							parent.$.modalDialog.menu_tree = menu_tree;
+						}
 					} ]
 				});				
 			}

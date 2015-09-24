@@ -234,14 +234,10 @@
   		delete from sys_role_permission where role_id=#{id}
   	</delete>
  
-  
-  
-  
-  
-  
-  
-  
-  
+  	<delete id="deleteRolePermissionByPermissionId">
+  		delete from sys_role_permission where permission_id=#{id}
+  	</delete>
+  	
   
   
   <select id="getPermissionBySysRoles"  resultType="com.hzq.system.entity.SysPermission">

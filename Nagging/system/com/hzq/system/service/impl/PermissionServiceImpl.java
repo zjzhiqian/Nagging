@@ -89,6 +89,7 @@ public class PermissionServiceImpl extends BaseService<SysPermission>implements 
 		boolean flag=true;String msg="删除成功";
 		for(String id:childIds){
 			if(sysPermissionMapper.deleteById(id)>0){
+				sysPermissionMapper.deleteRolePermissionByPermissionId(id);
 				continue;
 			}else{
 				flag=false; msg="删除出错";

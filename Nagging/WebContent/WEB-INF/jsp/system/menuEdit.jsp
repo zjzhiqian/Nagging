@@ -66,6 +66,7 @@
 			            		var icon=rs[i].icon;
 			            		var url="${ctx}/js/easyui/themes/"+rs[i].url;
 			            		var html=$.formatString("<li><a href='javaScript:void(0)';><img value='{0}' src='{1}'></a></li>",icon,url);
+			            		//console.log(html)
 			            		$("#menu-image-ul").append(html); 
 			            	}
 			            }
@@ -103,8 +104,9 @@
 			            		loaded();
 			            		if(r&&r.flag){
 			            			showmsg(r.msg)
-			            			parent.$("#menu-tree").tree('reload');
+			            			parent.$.modalDialog.menu_tree.tree('reload')
 			            			parent.$.modalDialog.handler.dialog('close');
+			            			
 			            		}else{
 			            			alerterror(r.msg);
 			            		}

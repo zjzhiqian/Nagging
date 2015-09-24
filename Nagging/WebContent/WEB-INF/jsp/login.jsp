@@ -176,7 +176,7 @@ if (window != top)
 		 
  		 $("#username").val("123");
 		 $("#password").val("123456");
-		 //loginsubmit(); 
+		 loginsubmit(); 
  		 	
 	})
 

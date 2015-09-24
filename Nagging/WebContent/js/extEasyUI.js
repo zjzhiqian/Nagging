@@ -31,12 +31,13 @@ $.extend($.fn.validatebox.defaults.rules, {
 		},
 		message : '密码不一致！'
 	},
+	
 	integer : {// 验证正整数 
-    validator : function(value) { 
-        return /^[0-9]+\d*$/i.test(value); 
-    }, 
-    message : '请输入整数' 
-}, 
+	    validator : function(value) { 
+	        return /^[0-9]+\d*$/i.test(value); 
+	    }, 
+	    message : '请输入整数' 
+	}, 
 });
 
 

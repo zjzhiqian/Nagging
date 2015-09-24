@@ -66,6 +66,15 @@ public interface SysUserService {
 	 * @return
 	 */
 	Json updateRole(int id, String ids);
+	/**
+	 * 启用或者禁用用户
+	 * @param id
+	 * @param state
+	 * @return
+	 * @author huangzhiqian
+	 * @date 2015年9月24日
+	 */
+	Json changeState(int id, int state);
 
 	
 }
