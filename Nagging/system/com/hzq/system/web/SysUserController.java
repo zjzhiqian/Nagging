@@ -76,6 +76,7 @@ public class SysUserController extends BaseController {
 	 */
 	@RequestMapping(value="changeState/{id}/{state}", method = RequestMethod.POST)
 	@ResponseBody
+	@RequiresPermissions("user:edit")
 	public Json changeState(@PathVariable("id")int id,@PathVariable("state")int state){
 		return sysUserService.changeState(id,state);
 	}
