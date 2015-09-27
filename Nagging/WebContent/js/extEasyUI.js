@@ -68,6 +68,50 @@ $.modalDialog = function(options) {
 };
 
 
+
+
+
+/**
+ * 
+ * @requires jQuery,EasyUI
+ * 
+ * panel关闭时回收内存，主要用于layout使用iframe嵌入网页时的内存泄漏问题
+ */
+$.fn.panel.defaults.onBeforeDestroy = function() {
+	var frame = $('iframe', this);
+	try {
+		if (frame.length > 0) {
+			for ( var i = 0; i < frame.length; i++) {
+				frame[i].src = '';
+				frame[i].contentWindow.document.write('');
+				frame[i].contentWindow.close();
+			}
+			frame.remove();
+			if (navigator.userAgent.indexOf("MSIE") > 0) {// IE特有回收内存方法
+				try {
+					CollectGarbage();
+				} catch (e) {
+				}
+			}
+		}
+	} catch (e) {
+	}
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * @requires jQuery,EasyUI
  * 
@@ -99,79 +143,6 @@ $.extend($.fn.tree.methods, {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * 
- * @requires jQuery,EasyUI
- * 
- * panel关闭时回收内存，主要用于layout使用iframe嵌入网页时的内存泄漏问题
- */
-$.fn.panel.defaults.onBeforeDestroy = function() {
-	var frame = $('iframe', this);
-	try {
-		if (frame.length > 0) {
-			for ( var i = 0; i < frame.length; i++) {
-				frame[i].src = '';
-				frame[i].contentWindow.document.write('');
-				frame[i].contentWindow.close();
-			}
-			frame.remove();
-			if (navigator.userAgent.indexOf("MSIE") > 0) {// IE特有回收内存方法
-				try {
-					CollectGarbage();
-				} catch (e) {
-				}
-			}
-		}
-	} catch (e) {
-	}
-};
 
 /**
  * @requires jQuery,EasyUI

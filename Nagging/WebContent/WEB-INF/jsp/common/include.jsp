@@ -42,13 +42,19 @@
   					top.location.href="${ctx}/login";
   				}
   			},
+  			beforeSend: function (xhr) {
+  				
+            },
+  			complete: function (xhr) {
+  				loaded();
+            },
   			error: function(jqXHR, textStatus, errorMsg){ // 出错时默认的处理函数
 	  			try {
-						parent.$.messager.progress('close');
+	  					loaded();
 						alert("进了ERROR方法")
 						//parent.$.messager.alert('错误', XMLHttpRequest.responseText);
 				} catch (e) {
-						a//lert(XMLHttpRequest.responseText);
+						lert(XMLHttpRequest.responseText);
 				}
   		    }
   		});
