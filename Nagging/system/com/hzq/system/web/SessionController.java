@@ -81,7 +81,7 @@ public class SessionController extends BaseController{
 	@RequiresPermissions("session:delete")
 	public Json forceLogout(@PathVariable("sessionId") String id) {
 //		String sessionId=AESUtil.decrypt(id);
-		if(StringUtils.endsWithIgnoreCase(id, getShiroUser().getSessionId().toString())){
+		if(StringUtils.equalsIgnoreCase(id, getShiroUser().getSessionId().toString())){
 			return new Json(false,"干嘛踢自己");
 		}
 		try {

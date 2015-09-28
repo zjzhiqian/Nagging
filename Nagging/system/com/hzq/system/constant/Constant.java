@@ -38,6 +38,10 @@ public class Constant {
 	public static final int SALT_LENGTH_HALF=16;
 	
 	/**
+	 * 密码错误尝试的最大次数
+	 */
+	public static final int MAX_TIME_PSW_ERROR=5;
+	/**
 	 * session踢出的Key
 	 */
 	public  static final String SHIRO_KICK_KEY = "shiro_kicked";

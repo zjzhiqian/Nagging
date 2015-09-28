@@ -22,6 +22,8 @@ import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheManager;
 
+import com.hzq.system.constant.Constant;
+
 /**
  * 
  * 记录验证失败次数HashedCredentialsMatcher 用ehcache,超过密码尝试最大次数后会锁定账号
@@ -55,7 +57,7 @@ public class ShiroCredentialsMatcher extends HashedCredentialsMatcher {
         }  
       //用AtomicInteger 保证并发原子性
         AtomicInteger retryCount = (AtomicInteger)element.getObjectValue();  
-        if(retryCount.incrementAndGet() > 5) {
+        if(retryCount.incrementAndGet() > Constant.MAX_TIME_PSW_ERROR) {
             throw new ExcessiveAttemptsException(); 
         }  
   

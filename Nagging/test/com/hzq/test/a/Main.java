@@ -80,8 +80,6 @@ public class Main {
 		String s=mapper.writeValueAsString(Listmap);
 		System.out.println(s);
 		
-		
-		
 	}
 	
 	

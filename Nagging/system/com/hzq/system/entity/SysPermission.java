@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 
 
 public class SysPermission implements Serializable{
