@@ -36,6 +36,14 @@ public interface SysUserMapper extends BaseMapper<SysUser>{
 	 * @return
 	 */
 	int insertUserRole(@Param("userid")int id, @Param("roleid")String string,@Param("adduserid") Integer id2);
+	
+	/**
+	 * 登录成功后的操作
+	 * @param id
+	 * @param lastIp 更新ip
+	 * @param date	更新最后登录时间,登录次数
+	 */
+	void doAfterLogIn(@Param("id")Integer id, @Param("lastIp")String lastIp);
 
 	
 	

@@ -15,7 +15,6 @@ import java.security.SecureRandom;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.Validate;
-import org.apache.shiro.crypto.hash.SimpleHash;
 
 /**
  * 

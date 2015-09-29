@@ -68,7 +68,6 @@
 			validType : [ "eqPwd['#new-psw']" ]
 		})
 		
-		$("#old-psw").next("span").find(".textbox-value").focus();
-
+		$("#old-psw").textbox().next("span").find("input").focus();
 	})
 </script>

@@ -2,7 +2,6 @@ package com.hzq.common.base;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;

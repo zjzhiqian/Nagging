@@ -3,7 +3,6 @@ package com.hzq.system.shiro;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -33,7 +32,6 @@ import com.hzq.common.util.AjaxUtil;
 import com.hzq.common.util.CommonUtils;
 import com.hzq.system.constant.Constant;
 import com.hzq.system.entity.ShiroUser;
-import com.hzq.system.entity.SysUser;
 import com.hzq.system.service.SysUserService;
 
 /**
@@ -192,7 +190,7 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
 		
 		
 		String lastIp=CommonUtils.getIP((HttpServletRequest) request);
-		sysUserService.updateUserForLogin(shirouser.getId(),lastIp,new Date());
+		sysUserService.updateUserForLogin(shirouser.getId(),lastIp);
 		SecurityUtils.getSubject().getSession().setAttribute("user", shirouser);
 
 		return super.onLoginSuccess(token, subject, request, response);

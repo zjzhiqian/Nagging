@@ -1,6 +1,5 @@
 package com.hzq.system.service;
 
-import java.util.Date;
 import java.util.List;
 
 import com.hzq.common.entity.Grid;
@@ -79,12 +78,12 @@ public interface SysUserService {
 	/**
 	 * 登陆成功后的操作
 	 * @param id
-	 * @param lastIp
-	 * @param date
+	 * @param lastIp 更新ip
+	 * @param date	更新最后登录时间,登录次数
 	 * @author huangzhiqian
 	 * @date 2015年9月29日
 	 */
-	void updateUserForLogin(Integer id, String lastIp, Date date);
+	void updateUserForLogin(Integer id, String lastIp);
 
 	
 }

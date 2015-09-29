@@ -190,4 +190,10 @@ public class SysUserServiceImpl extends BaseService<SysUser> implements SysUserS
 			return new Json(false);
 		}
 	}
+
+	@Override
+	public void updateUserForLogin(Integer id, String lastIp) {
+		sysUserMapper.doAfterLogIn(id,lastIp);
+		
+	}
 }

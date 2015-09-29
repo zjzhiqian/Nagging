@@ -71,6 +71,7 @@
 		<tx:attributes>
 			<tx:method name="get*" read-only="true"/>
 			<tx:method name="find*" read-only="true"/>
+			<tx:method name="condition*" read-only="true"/>
 			<tx:method name="*"/>
 		</tx:attributes>
 	</tx:advice>
