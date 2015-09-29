@@ -121,7 +121,7 @@ public class SysMenuController extends BaseController{
 	
 	
 	/**
-	 * 查看所有菜单
+	 * 查看所有菜单(用于菜单管理页面)
 	 * @return
 	 * @author huangzhiqian
 	 * @date 2015年9月22日

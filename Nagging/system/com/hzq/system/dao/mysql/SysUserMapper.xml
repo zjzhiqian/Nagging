@@ -78,7 +78,10 @@
         from sys_user
         where id = #{id,jdbcType=INTEGER}
     </select>
-
+	
+	<update id="AddLoginCount" parameterType="int">
+		update sys_user set login_count=login_count+1 where id=#{id}
+	</update>
 
 
     <update id="update" parameterType="com.hzq.system.entity.SysUser" >
@@ -119,9 +122,6 @@
             </if>
             <if test="loginTime != null" >
                 login_time = #{loginTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="loginCount != null" >
-                login_count = login_count + 1
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}

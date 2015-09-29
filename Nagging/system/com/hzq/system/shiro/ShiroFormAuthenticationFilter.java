@@ -189,12 +189,10 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
 		ShiroUser shirouser = (ShiroUser) subject.getPrincipal();
 		Serializable sessionId=subject.getSession().getId();
 		shirouser.setSessionId(AESUtil.encrypt(sessionId.toString()));
-		SysUser sysuser = new SysUser();
-		sysuser.setId(shirouser.getId());
-		sysuser.setLastip(CommonUtils.getIP((HttpServletRequest) request));
-		sysuser.setLoginTime(new Date());
-		sysuser.setLoginCount(0);// 只要不为空,Mapper里面+1
-		sysUserService.updateUser(sysuser);
+		
+		
+		String lastIp=CommonUtils.getIP((HttpServletRequest) request);
+		sysUserService.updateUserForLogin(shirouser.getId(),lastIp,new Date());
 		SecurityUtils.getSubject().getSession().setAttribute("user", shirouser);
 
 		return super.onLoginSuccess(token, subject, request, response);

@@ -1,5 +1,6 @@
 package com.hzq.system.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.hzq.common.entity.Grid;
@@ -75,6 +76,15 @@ public interface SysUserService {
 	 * @date 2015年9月24日
 	 */
 	Json changeState(int id, int state);
+	/**
+	 * 登陆成功后的操作
+	 * @param id
+	 * @param lastIp
+	 * @param date
+	 * @author huangzhiqian
+	 * @date 2015年9月29日
+	 */
+	void updateUserForLogin(Integer id, String lastIp, Date date);
 
 	
 }

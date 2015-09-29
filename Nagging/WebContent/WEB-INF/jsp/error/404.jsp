@@ -6,6 +6,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	404 ${exception }
+	 EROOR 404 NOT FOUND  ${exception }
 </body>
 </html>

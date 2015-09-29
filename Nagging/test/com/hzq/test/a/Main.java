@@ -13,18 +13,16 @@ package com.hzq.test.a;
 
 import java.io.File;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.shiro.crypto.hash.SimpleHash;
+import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hzq.common.util.SaltGenerator;
 
 /**
  * 
@@ -81,6 +79,34 @@ public class Main {
 		System.out.println(s);
 		
 	}
+	
+	
+	
+	
+	@Test
+	public void doTest(){
+		LinkedList<Integer>  a=new LinkedList<Integer>();
+		a.add(1);
+		a.add(2);
+//		System.out.println(a.peek());
+//		System.out.println(a.element());
+//		System.out.println(a.getFirst());
+		System.out.println(a);
+		
+//		System.out.println(a.poll());
+		System.out.println(a);
+//		System.out.println(a.removeFirst());
+//		System.out.println(a.remove());
+		
+		System.out.println(a.pop());
+		System.out.println();
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 }
