@@ -172,8 +172,9 @@
 							  if(editRow==undefined){
 								   var index=dg.datagrid('getRowIndex',rows[0])
 						    	   dg.datagrid('beginEdit',index);
-								   dg.datagrid('getEditor', {index:'1',field: 'username' }).disable();
-						    	   editRow=index;
+								   var ed=dg.datagrid('getEditor', {index:index,field: 'username' });
+								   $(ed.target).combobox('readonly');
+								   editRow=index;
 						    	   dg.datagrid('unselectAll');
 					    	   }
 						  }else{

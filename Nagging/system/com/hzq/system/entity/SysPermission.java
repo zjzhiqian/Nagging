@@ -10,11 +10,11 @@ public class SysPermission implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
-	@Length(min=1,max=20,message="长度不合法")
+	@Length(min=1,max=20,message="名称长度必须为1~20")
     private String operatename;
-	@Length(min=1,max=20,message="长度不合法")
+	@Length(min=1,max=20,message="描述长度必须为1~20")
     private String description;
-	@Length(min=1,max=20,message="长度不合法")
+	@Length(min=1,max=40,message="长度不合法")
     private String auth;
 	
     private String url;

@@ -3,9 +3,6 @@
 springMVC + spring + mybatis  
 		使用spring4的新特性 泛型以依赖注入+ 自己优化的Mybatis-generator生产Dao以及Mapper.xml实现了 绝大部分单表操作无需操作任何dao层
 
-DataSource
-		使用alibaba.druid数据源 可以对访问和数据执行进行监控
-
 shiro权限管理	
 	    用户登陆部分  使用1024次SHA-1+salt的加密
 	    集成了验证码,保证一个用户ID只有一个Session,登陆次数过多锁定(ehcache缓存)

@@ -8,8 +8,8 @@
 
 		<div class="easyui-layout" data-options="fit:true">
 
-			<div title="" data-options="region:'west'" style="width: 500px">
-				<div class="easyui-layout" data-options="fit:true">
+			<div title="" data-options="region:'west',split:false" style="width: 500px">
+				<div class="easyui-layout" data-options="fit:true,split:false">
 					<div data-options="region:'north'" style="height: 30px">
 						<shiro:hasPermission name="menu:add">	
 						 <a id="btn-add" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" style="height: 25px">新增</a>
@@ -21,7 +21,7 @@
 						 <a id="btn-delete" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>
 						</shiro:hasPermission>
 					</div>
-					<div data-options="region:'center'">
+					<div data-options="region:'center',split:false">
 						<div id="menu-tree" />
 					</div>
 
