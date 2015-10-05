@@ -40,10 +40,9 @@ public class SysUserServiceImpl extends BaseService<SysUser> implements SysUserS
 	}
 
 	@Override
-	public Json addUser(SysUser user) {
+	public Json addUser(SysUser user){
 		Json json=new Json();
 		//判断是否有用户名重复
-		
 		SysUser sysuser=findUserByUsername(user.getUsername().trim());
 		if(sysuser!=null){
 			json.setMsg("用户名重复");

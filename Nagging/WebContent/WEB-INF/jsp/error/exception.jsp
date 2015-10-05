@@ -6,8 +6,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<!-- 	404页面 -->
+<!-- 	通用Exception -->
 	 EROOR 404 NOT FOUND  ${exception }
 </body>
 </html>

@@ -20,3 +20,6 @@ if (window != top)
 $("#old-psw").textbox().next("span").find("input").focus();
 
 后台抛出异常 service层 能在Action层catch?然后事务能回滚? 如果不能 那只能Action层抛出异常 ,那如何处理Ajax? Exception 的Advice 是只处理Controller层的异常?
+
+索引通用类---- 模板方法设计模式
+

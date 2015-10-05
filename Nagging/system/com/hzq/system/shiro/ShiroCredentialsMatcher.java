@@ -33,23 +33,22 @@ public class ShiroCredentialsMatcher extends HashedCredentialsMatcher {
 
     private String cacheKey;
     private CacheManager cacheManager;
-    private Cache<String,Element> passwordRetryCache;
-    
-    
-    public void setCacheKey(String cacheKey) {
+	private Cache<String, Element> passwordRetryCache;
+
+	public void setCacheKey(String cacheKey) {
 		this.cacheKey = cacheKey;
 	}
-    public void setCacheManager(CacheManager cacheManager) {
+
+	public void setCacheManager(CacheManager cacheManager) {
 		this.cacheManager = cacheManager;
-		this.passwordRetryCache= this.cacheManager.getCache(cacheKey);
+		this.passwordRetryCache = this.cacheManager.getCache(cacheKey);
 	}
-    
+
 	@Override
-	public boolean doCredentialsMatch(AuthenticationToken token,
-			AuthenticationInfo info) {
-		
-		String username = (String)token.getPrincipal();  
-        //retry count + 1  
+	public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
+
+		String username = (String) token.getPrincipal();
+		// retry count + 1
         Element element = passwordRetryCache.get(username);  
         if(element == null) {  
         	element=new Element(username, new AtomicInteger(0));
@@ -66,9 +65,8 @@ public class ShiroCredentialsMatcher extends HashedCredentialsMatcher {
             //clear retry count  
             passwordRetryCache.remove(username);  
         }  
-
 		
-		return super.doCredentialsMatch(token, info);
+		return matches;
 	}
 }
 

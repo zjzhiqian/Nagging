@@ -1,20 +1,15 @@
 package com.hzq.test.test;
 
-import org.apache.catalina.core.ApplicationContext;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.mgt.DefaultSecurityManager;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.subject.Subject;
-import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.hzq.common.util.SpringContextUtils;
+import com.hzq.test.entity.User;
 
 /**
  * @author hzq
@@ -79,8 +74,14 @@ public class ShiroTest {
 		
 	}
 	
-	
-	
+	@Test
+	public void dp() throws ClassNotFoundException{
+		Class<? extends Pet> clazz=Dog.class;
+		System.out.println(clazz.isInstance(new Pet()));
+		if(new Dog() instanceof Pet){
+			System.out.println(1);
+		}
+	}
 	
 	
 	

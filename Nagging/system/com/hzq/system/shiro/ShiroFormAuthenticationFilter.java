@@ -95,7 +95,6 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
 		} else if (shiroSession.getAttribute(Constant.SHIRO_KICK_KEY) != null) {
 			// 用户没有被踢出,使之失效
 			subject.logout();
-			// shiroSession.setTimeout(0);
 			if (AjaxUtil.isAjaxRequest(req)) {
 				PrintWriter out = res.getWriter();
 				res.setStatus(700);

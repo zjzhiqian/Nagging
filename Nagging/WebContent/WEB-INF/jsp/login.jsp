@@ -6,12 +6,11 @@
 <title>平台</title>
 <link rel="stylesheet" type="text/css" href="${ctx}/styles/style.css">
 <link rel="stylesheet" type="text/css" href="${ctx}/styles/login.css">
-<script language="JavaScript"> 
-if (window != top) 
-	top.location.href = location.href; 
+<script language="JavaScript">
+	if (window != top)
+		top.location.href = location.href;
 </script>
 <style type="text/css">
-
 .indexbtnlink {
 	cursor: hand;
 	display: block;
@@ -26,33 +25,31 @@ if (window != top)
 	font-weight: bold;
 	text-decoration: none;
 }
-
 </style>
 
 <script type="text/javascript">
-
 	//刷新验证码
-	function randomcode_refresh(){
-		var time = new Date().getTime(); 
-		$("#randomcode_img").attr("src","${ctx}/validatecode.jsp?t="+time);
+	function randomcode_refresh() {
+		var time = new Date().getTime();
+		$("#randomcode_img").attr("src", "${ctx}/validatecode.jsp?t=" + time);
 	}
-	
+
 	//重置btn
-	function btnReset(){
+	function btnReset() {
 		$("#loginform input").val('');
 		randomcode_refresh();
 	}
-	
+
 	//登录提示方法
 	function loginsubmit() {
 		//避免遮挡验证码
 		$("#randomcode").validatebox({
-			required:true,
-			validType:{
-				length:[4,4]
+			required : true,
+			validType : {
+				length : [ 4, 4 ]
 			}
 		})
-		if($("#loginform").form('validate')){
+		if ($("#loginform").form('validate')) {
 			$("#loginform").submit();
 			parent.$.messager.progress({
 				title : '提示',
@@ -60,11 +57,10 @@ if (window != top)
 			});
 		}
 	}
-	
 </script>
 </head>
 <body style="background: #f6fdff url(${ctx}/images/login/bg1.jpg) repeat-x;">
-	<form id="loginform" name="loginform" action="${ctx}/login"  method="post">
+	<form id="loginform" name="loginform" action="${ctx}/login" method="post">
 		<div class="logincon">
 			<div class="cen_con">
 				<img alt="" src="${ctx}/images/login/bg2.png">
@@ -84,21 +80,14 @@ if (window != top)
 						</tr>
 						<tr>
 							<td>验证码：</td>
-							<td>
-								<input id="randomcode" name="randomcode" size="4" /> 
-								<img id="randomcode_img" onclick="randomcode_refresh()" src="${ctx}/validatecode.jsp" alt="" width="56" height="20" align='absMiddle' /> 
-								<a href=javascript:randomcode_refresh()>刷新</a>
-							</td>
+							<td><input id="randomcode" name="randomcode" size="4" /> <img id="randomcode_img" onclick="randomcode_refresh()" src="${ctx}/validatecode.jsp" alt="" width="56" height="20" align='absMiddle' /> <a href=javascript:randomcode_refresh()>刷新</a></td>
 						</tr>
 						<tr>
 							<td></td>
-							<td><input type="checkbox" name="rememberMe" class="mcheckbox"/>&nbsp;&nbsp;一天内自动登陆</td>
+							<td><input type="checkbox" name="rememberMe" class="mcheckbox" />&nbsp;&nbsp;一天内自动登陆</td>
 						</tr>
 						<tr>
-							<td colSpan="2" align="center">
-								<input type="button" class="indexbtnlink" onclick="loginsubmit()" value="登&nbsp;&nbsp;录" />
-								<input id="btn-reset" type="reset" onclick="btnReset()" class="indexbtnlink" value="重&nbsp;&nbsp;置" />
-							</td>
+							<td colSpan="2" align="center"><input type="button" class="indexbtnlink" onclick="loginsubmit()" value="登&nbsp;&nbsp;录" /> <input id="btn-reset" type="reset" onclick="btnReset()" class="indexbtnlink" value="重&nbsp;&nbsp;置" /></td>
 						</tr>
 					</tbody>
 				</table>
@@ -106,79 +95,68 @@ if (window != top)
 		</div>
 	</form>
 </body>
-<script type="text/javascript">		
-
-	
-
-
-	$(function(){
+<script type="text/javascript">
+	$(function() {
 
 		//判断是否被踢出来
-		var iskicked="${iskicked}";
-		if(iskicked){
+		var iskicked = "${iskicked}";
+		if (iskicked) {
 			alert("账号异地登陆")
-			top.location.href="${ctx}/login"
+			top.location.href = "${ctx}/login"
 		}
-		
-		
-		
-		
-		if(browser.isIe){
+
+		if (browser.isIe) {
 			$.messager.show({
 				title : '警告',
 				msg : '为正常使用系统,建议您使用谷歌或者火狐浏览器！',
 				timeout : 1000 * 30
 			});
-		}	
-		
-		var key=new Date().getTime()+"";
-	 	$.cookie(key, 'the_value');  
-		var val=$.cookie(key);
-		if(val==null){
-			$.messager.alert('警告','为正常使用系统,请开启Cookie','error');
 		}
-		$.cookie(key, null);  
-		
-		
-		 $("#username").validatebox({
-			required:true,
-			validType:{
-				length:[0,10]
+
+		var key = new Date().getTime() + "";
+		$.cookie(key, 'the_value');
+		var val = $.cookie(key);
+		if (val == null) {
+			$.messager.alert('警告', '为正常使用系统,请开启Cookie', 'error');
+		}
+		$.cookie(key, null);
+
+		$("#username").validatebox({
+			required : true,
+			validType : {
+				length : [ 0, 10 ]
 			}
 		})
-		
+
 		$("#password").validatebox({
-			required:true,
-			validType:{
-				length:[0,10]
+			required : true,
+			validType : {
+				length : [ 0, 10 ]
 			}
 		})
-		
-		$("#username").on('keyup',function(event){
-			if(event.keyCode=='13'){
+
+		$("#username").on('keyup', function(event) {
+			if (event.keyCode == '13') {
 				$("#password").focus();
 			}
 		})
-		$("#password").on('keyup',function(event){
-			if(event.keyCode=='13'){
+		$("#password").on('keyup', function(event) {
+			if (event.keyCode == '13') {
 				$("#randomcode").focus();
 			}
 		})
-		$("#randomcode").on('keyup',function(event){
-			if(event.keyCode=='13'){
+		$("#randomcode").on('keyup', function(event) {
+			if (event.keyCode == '13') {
 				loginsubmit()
 			}
 		})
 		$("#username").focus();
-		 
-		 $("#randomcode").val("1111");
-		 
-		 
- 		 $("#username").val("123");
-		 $("#password").val("123456");
-		 loginsubmit(); 
- 		 	
-	})
 
+		$("#randomcode").val("1111");
+		$("#username").val("123");
+		$("#password").val("123456");
+		loginsubmit();
+
+	})
 </script>
 </html>

@@ -32,6 +32,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class LoginController {
 	private static final String IndexErrorKey="loginErrorMsg";
 	
+	@RequestMapping(value="",method=RequestMethod.GET)
+	public String goIndexJsp(){
+		return "index/index";
+	}
 	
 	@RequestMapping(value="login",method=RequestMethod.GET)
 	public String login(){

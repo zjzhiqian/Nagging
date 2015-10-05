@@ -34,9 +34,9 @@
   				404: function(){
   					$.messager.alert("错误","页面找不到！","error");
   				},
-  				405 : function(){
+  				/* 405 : function(){
   					alert("无权限操作！")
-  				},
+  				}, */
   				700 : function(){
   					alert("账号异地登陆")
   					top.location.href="${ctx}/login";
@@ -54,7 +54,7 @@
 						alert("进了ERROR方法")
 						//parent.$.messager.alert('错误', XMLHttpRequest.responseText);
 				} catch (e) {
-						lert(XMLHttpRequest.responseText);
+						alert(XMLHttpRequest.responseText);
 				}
   		    }
   		});

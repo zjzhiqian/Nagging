@@ -72,7 +72,7 @@
 			<tx:method name="get*" read-only="true"/>
 			<tx:method name="find*" read-only="true"/>
 			<tx:method name="condition*" read-only="true"/>
-			<tx:method name="*"/>
+			<tx:method name="*" rollback-for="java.lang.Exception"/>
 		</tx:attributes>
 	</tx:advice>
 	<aop:config>

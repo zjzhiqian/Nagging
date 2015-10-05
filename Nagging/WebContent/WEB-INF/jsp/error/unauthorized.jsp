@@ -6,6 +6,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<!-- 无权限 -->
 	未授权 ${exception }
 </body>
 </html>

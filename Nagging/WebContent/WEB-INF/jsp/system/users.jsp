@@ -196,7 +196,7 @@
 				    	  }
 				    	  var rows=dg.datagrid('getSelections');
 				    	  if(rows.length>0){
-				    		  $.messager.confirm('请确认','确认要删除当前所有选择数据吗?',function(r){
+				    		  $.messager.confirm('请确认','确认要删除所选用户?',function(r){
 				    			  if(r){
 				    				  var ids=[];
 				    				  for(var i=0;i<rows.length;i++){

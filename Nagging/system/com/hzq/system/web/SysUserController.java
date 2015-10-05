@@ -51,7 +51,6 @@ import com.hzq.system.service.SysUserService;
 public class SysUserController extends BaseController {
 	@Autowired
 	private SysUserService sysUserService;
-	
 
 	/**
 	 * 打开修改密码页面
@@ -65,21 +64,23 @@ public class SysUserController extends BaseController {
 	public String changePassword() {
 		return "system/pswChange";
 	}
-	
+
 	/**
 	 * 启用或者禁用用户
+	 * 
 	 * @param id
 	 * @param state
 	 * @return
 	 * @author huangzhiqian
 	 * @date 2015年9月24日
 	 */
-	@RequestMapping(value="changeState/{id}/{state}", method = RequestMethod.POST)
+	@RequestMapping(value = "changeState/{id}/{state}", method = RequestMethod.POST)
 	@ResponseBody
 	@RequiresPermissions("user:edit")
-	public Json changeState(@PathVariable("id")int id,@PathVariable("state")int state){
-		return sysUserService.changeState(id,state);
+	public Json changeState(@PathVariable("id") int id, @PathVariable("state") int state) {
+		return sysUserService.changeState(id, state);
 	}
+
 	/**
 	 * 修改密码
 	 * 
@@ -89,8 +90,7 @@ public class SysUserController extends BaseController {
 	 */
 	@RequestMapping(value = "changePsw", method = RequestMethod.POST)
 	@ResponseBody
-	public Json dochangePassword(@RequestParam("oldpsw") String oldpsw,
-			@RequestParam("newpsw") String newpsw) {
+	public Json dochangePassword(@RequestParam("oldpsw") String oldpsw, @RequestParam("newpsw") String newpsw) {
 		Json json = new Json();
 		if (checkPswLength(oldpsw) && checkPswLength(newpsw)) {
 			json = sysUserService.changPsw(oldpsw, newpsw);
@@ -128,8 +128,7 @@ public class SysUserController extends BaseController {
 	@RequestMapping(value = "useradd", method = RequestMethod.POST)
 	@RequiresPermissions("user:add")
 	@ResponseBody
-	public Json addUser(@Valid SysUser user, BindingResult result)
-			throws Exception {
+	public Json addUser(@Valid SysUser user, BindingResult result) throws Exception {
 		if (result.getErrorCount() > 0) {
 			for (FieldError err : result.getFieldErrors()) {
 				return new Json(err.getDefaultMessage());
@@ -139,8 +138,7 @@ public class SysUserController extends BaseController {
 		user.setAddtime(new Date());
 		user.setAdduserid(shiroUser.getId() + "");
 		String salt = SaltGenerator.getSalt(Constant.SALT_LENGTH_HALF);
-		SimpleHash hash = new SimpleHash(Constant.ENCRYPT_TYPE, "123456", salt,
-				Constant.ENCRYPT_TIMES);
+		SimpleHash hash = new SimpleHash(Constant.ENCRYPT_TYPE, "123456", salt, Constant.ENCRYPT_TIMES);
 		String psw = hash.toHex();
 		user.setPassword(psw);
 		user.setSalt(salt);
@@ -171,10 +169,9 @@ public class SysUserController extends BaseController {
 			return j;
 		}
 
-
 		sysuser.setName(sysUser.getName());
 		sysuser.setPhone(sysUser.getPhone());
-		//sysuser.setUsername(sysUser.getUsername());
+		// sysuser.setUsername(sysUser.getUsername());
 		sysuser.setId(sysUser.getId());
 		sysuser.setModifytime(new Date());
 		sysuser.setModifyuserid(getShiroUser().getId() + "");
@@ -213,8 +210,7 @@ public class SysUserController extends BaseController {
 				j.setFlag(true);
 				msg = "删除选择用户成功";
 			} else {
-				msg = "删除id:" + errorIds.substring(0, errorIds.length() - 1)
-						+ " 失败";
+				msg = "删除id:" + errorIds.substring(0, errorIds.length() - 1) + " 失败";
 			}
 			j.setMsg(msg);
 		} else {
@@ -222,46 +218,40 @@ public class SysUserController extends BaseController {
 		}
 		return j;
 	}
-	
-	@RequestMapping(value="authorization/{id}",method=RequestMethod.GET)
+
+	@RequestMapping(value = "authorization/{id}", method = RequestMethod.GET)
 	@RequiresPermissions("user:edit")
-	public String authorization(@PathVariable("id")int id,HttpServletRequest req){
-		SysUser user=sysUserService.getUserById(id);
-		String roleIds="";
-		if(user!=null){
-			List<SysUserRole> sysuserRoles=sysUserService.getUserRolesByUserId(id);
-			if(sysuserRoles!=null&&sysuserRoles.size()>0){
-				for(SysUserRole userrole:sysuserRoles){
-					roleIds=roleIds+userrole.getRoleId()+",";
+	public String authorization(@PathVariable("id") int id, HttpServletRequest req) {
+		SysUser user = sysUserService.getUserById(id);
+		String roleIds = "";
+		if (user != null) {
+			List<SysUserRole> sysuserRoles = sysUserService.getUserRolesByUserId(id);
+			if (sysuserRoles != null && sysuserRoles.size() > 0) {
+				for (SysUserRole userrole : sysuserRoles) {
+					roleIds = roleIds + userrole.getRoleId() + ",";
 				}
-				roleIds=roleIds.substring(0, roleIds.length()-1);
+				roleIds = roleIds.substring(0, roleIds.length() - 1);
 			}
 			user.setRoleIds(roleIds);
 			req.setAttribute("edituser", user);
 		}
 		return "system/userDetail";
 	}
+
 	/**
 	 * 修改用户权限
+	 * 
 	 * @param id
 	 * @param req
 	 * @return
 	 */
-	@RequestMapping(value="authorization/{id}",method=RequestMethod.POST)
+	@RequestMapping(value = "authorization/{id}", method = RequestMethod.POST)
 	@RequiresPermissions("user:edit")
 	@ResponseBody
-	public Json authorizationSave(@PathVariable("id")int id,HttpServletRequest req){
-		String ids=req.getParameter("ids");
-		return sysUserService.updateRole(id,ids);
+	public Json authorizationSave(@PathVariable("id") int id, HttpServletRequest req) {
+		String ids = req.getParameter("ids");
+		return sysUserService.updateRole(id, ids);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 
 	/**
 	 * 校验密码长度 默认6~10
@@ -270,8 +260,7 @@ public class SysUserController extends BaseController {
 	 * @return
 	 */
 	private boolean checkPswLength(String psw) {
-		if (psw.length() <= Constant.PSW_MAX_LENGTH
-				&& psw.length() >= Constant.PSW_MIN_LENGTH) {
+		if (psw.length() <= Constant.PSW_MAX_LENGTH && psw.length() >= Constant.PSW_MIN_LENGTH) {
 			return true;
 		}
 		return false;
