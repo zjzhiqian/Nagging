@@ -44,7 +44,9 @@
         <property name="globalSessionTimeout" value="1000000"/>
         <!-- 删除失效的session -->
         <property name="deleteInvalidSessions" value="true"/>
-        
+        <property name="sessionListeners">
+        	<ref bean="shiroSessionListener"/>
+        </property>
         
  		<property name="sessionDAO" ref="sessionDAO"/>
         <property name="sessionIdCookieEnabled" value="true"/>
