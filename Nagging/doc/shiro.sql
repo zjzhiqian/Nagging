@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50529
 File Encoding         : 65001
 
-Date: 2015-09-24 22:05:15
+Date: 2015-10-05 17:17:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,7 +35,7 @@ CREATE TABLE `sys_permission` (
   `modifyuserid` varchar(20) DEFAULT NULL COMMENT '修改人用户编号',
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8 COMMENT='功能权限';
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8 COMMENT='功能权限';
 
 -- ----------------------------
 -- Records of sys_permission
@@ -63,6 +63,7 @@ INSERT INTO `sys_permission` VALUES ('75', '系统资源2', '系统资源--2级�
 INSERT INTO `sys_permission` VALUES ('76', '菜单新增', '菜单新增权限', 'menu:add', null, '3', '1', '29', '1', '2015-09-23 17:33:02', '1', '2015-09-23 17:33:43', '1');
 INSERT INTO `sys_permission` VALUES ('77', '菜单删除', '菜单删除权限', 'menu:delete', null, '3', '1', '29', '2', '2015-09-23 17:33:38', '1', null, null);
 INSERT INTO `sys_permission` VALUES ('78', '菜单修改', '菜单修改权限', 'menu:edit', null, '3', '1', '29', '3', '2015-09-23 17:34:12', '1', null, null);
+INSERT INTO `sys_permission` VALUES ('97', '索引管理', '索引模块', 'icon-kpilot', null, '0', '1', '-1', '2', '2015-09-25 09:37:16', '1', '2015-09-25 09:38:03', '1');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -78,7 +79,7 @@ CREATE TABLE `sys_role` (
   `modifytime` datetime DEFAULT NULL COMMENT '修改时间',
   `modifyuserid` varchar(20) DEFAULT NULL COMMENT '修改人用户编号',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COMMENT='角色表（权限表）';
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COMMENT='角色表（权限表）';
 
 -- ----------------------------
 -- Records of sys_role
@@ -99,29 +100,30 @@ CREATE TABLE `sys_role_permission` (
 -- ----------------------------
 -- Records of sys_role_permission
 -- ----------------------------
-INSERT INTO `sys_role_permission` VALUES ('29', '13', '2015-09-24 22:02:55', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '14', '2015-09-24 22:02:55', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '29', '2015-09-24 22:02:55', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '32', '2015-09-24 22:02:55', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '76', '2015-09-24 22:02:55', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '77', '2015-09-24 22:02:55', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '78', '2015-09-24 22:02:55', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '15', '2015-09-24 22:02:55', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '5', '2015-09-24 22:02:55', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '9', '2015-09-24 22:02:55', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '11', '2015-09-24 22:02:55', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '12', '2015-09-24 22:02:55', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '16', '2015-09-24 22:02:55', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '22', '2015-09-24 22:02:55', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '23', '2015-09-24 22:02:55', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '24', '2015-09-24 22:02:55', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '25', '2015-09-24 22:02:55', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '26', '2015-09-24 22:02:55', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '27', '2015-09-24 22:02:55', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '28', '2015-09-24 22:02:55', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '17', '2015-09-24 22:02:55', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '20', '2015-09-24 22:02:55', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '75', '2015-09-24 22:02:55', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '13', '2015-09-25 09:37:47', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '14', '2015-09-25 09:37:47', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '29', '2015-09-25 09:37:47', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '32', '2015-09-25 09:37:47', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '76', '2015-09-25 09:37:47', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '77', '2015-09-25 09:37:47', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '78', '2015-09-25 09:37:47', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '15', '2015-09-25 09:37:47', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '5', '2015-09-25 09:37:47', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '9', '2015-09-25 09:37:47', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '11', '2015-09-25 09:37:47', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '12', '2015-09-25 09:37:47', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '16', '2015-09-25 09:37:47', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '22', '2015-09-25 09:37:47', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '23', '2015-09-25 09:37:47', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '24', '2015-09-25 09:37:47', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '25', '2015-09-25 09:37:47', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '26', '2015-09-25 09:37:47', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '27', '2015-09-25 09:37:47', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '28', '2015-09-25 09:37:47', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '17', '2015-09-25 09:37:47', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '20', '2015-09-25 09:37:47', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '75', '2015-09-25 09:37:47', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '97', '2015-09-25 09:37:47', '1');
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -134,7 +136,7 @@ CREATE TABLE `sys_user` (
   `name` varchar(30) DEFAULT NULL COMMENT '姓名',
   `salt` varchar(32) DEFAULT NULL COMMENT '电话',
   `phone` varchar(20) DEFAULT NULL COMMENT '手机号码',
-  `state` char(1) NOT NULL DEFAULT '1' COMMENT '0禁用1启用',
+  `state` char(1) NOT NULL DEFAULT '0' COMMENT '0启用1禁用',
   `addtime` datetime DEFAULT NULL COMMENT '添加时间',
   `adduserid` varchar(20) DEFAULT NULL COMMENT '添加人用户编号',
   `modifytime` datetime DEFAULT NULL COMMENT '修改时间',
@@ -143,12 +145,12 @@ CREATE TABLE `sys_user` (
   `login_time` datetime DEFAULT NULL COMMENT '上次登录时间',
   `login_count` bigint(20) DEFAULT '0' COMMENT '总登陆次数',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COMMENT='系统用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COMMENT='系统用户表';
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', '123', '9bb0f71b526ede9a67fc5a667a3cdbc15dab7f39', '管理员', 'f85b3e354a271983e3d88fe26985821d', '321', '0', '2015-09-05 16:00:24', '1', '2015-09-24 16:56:40', '1', '本地', '2015-09-24 22:04:18', '623');
+INSERT INTO `sys_user` VALUES ('1', '123', '9bb0f71b526ede9a67fc5a667a3cdbc15dab7f39', '管理员2', 'f85b3e354a271983e3d88fe26985821d', '321213', '0', '2015-09-05 16:00:24', '1', '2015-10-05 13:55:26', '1', '本地', '2015-10-05 16:36:26', '754');
 
 -- ----------------------------
 -- Table structure for sys_user_role
@@ -164,4 +166,4 @@ CREATE TABLE `sys_user_role` (
 -- ----------------------------
 -- Records of sys_user_role
 -- ----------------------------
-INSERT INTO `sys_user_role` VALUES ('1', '29', '2015-09-24 16:56:40', '1');
+INSERT INTO `sys_user_role` VALUES ('1', '29', '2015-09-29 17:44:40', '1');
