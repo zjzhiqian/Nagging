@@ -9,7 +9,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.hzq.common.util.SpringContextUtils;
-import com.hzq.test.entity.User;
 
 /**
  * @author hzq

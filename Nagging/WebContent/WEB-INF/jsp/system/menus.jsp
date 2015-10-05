@@ -22,7 +22,7 @@
 						</shiro:hasPermission>
 					</div>
 					<div data-options="region:'center',split:false">
-						<div id="menu-tree" />
+						<div id="menu-tree" >
 					</div>
 
 				</div>
@@ -67,7 +67,7 @@
 								$(this).tree('collapse', node.target);
 							}
 						} else if (type == "3") {
-							//TODO 显示菜单详情
+							
 						}
 
 					}
@@ -81,6 +81,13 @@
 			var node=menu_tree.tree("getSelected");
 			console.log(node)
 			if(node&&node.attributes && node.attributes.type){
+				
+				if(node.attributes.type=="3"){
+					alertwarning('请选择正确的父节点');
+					return false;
+				}
+				
+				
 				var id=node.id;
 				var title="新增菜单";
 				if(node.attributes.type=="2"){
@@ -93,14 +100,14 @@
 					modal : true,
 					width : 400,
 					height : 280,
-					onBeforeClose:function(){
-						menu_tree.tree("reload")
-					},
 					buttons : [ {
 						id : 'btn-menuAdd',
 						text : '添加',
 						width : 100,
 						iconCls : 'icon-ok',
+						handler : function(){
+							parent.$.modalDialog.menu_tree = menu_tree;
+						}
 					} ]
 				});
 			}else{

@@ -1,16 +1,12 @@
 package com.hzq.lucene.study;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.Analyzer.TokenStreamComponents;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.FieldType;
-import org.apache.lucene.document.TextField;
-import org.apache.lucene.document.Field.Store;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexOptions;
 import org.apache.lucene.index.IndexReader;
@@ -23,7 +19,6 @@ import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.RAMDirectory;
 
 public class HelloLuCene {

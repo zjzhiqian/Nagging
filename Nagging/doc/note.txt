@@ -1,4 +1,5 @@
-开发运行环境 JDK1.8+Tomcat7  (SpringMVC部分GET乱码解决  Tomcat的Connector加上这个参数  URIEncoding="UTF-8" )    
+开发运行环境 JDK1.8+Tomcat7  (SpringMVC部分GET乱码解决      <Connector connectionTimeout="20000" port="8080" protocol="HTTP/1.1" redirectPort="8443" URIEncoding="UTF-8" /> )
+
 
 springMVC + spring + mybatis  
 		使用spring4的新特性 泛型以依赖注入+ 自己优化的Mybatis-generator生产Dao以及Mapper.xml实现了 绝大部分单表操作无需操作任何dao层

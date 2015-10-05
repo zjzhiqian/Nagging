@@ -73,7 +73,7 @@ public class SpringContextUtils implements ApplicationContextAware {
 	 * @return  
 	 * @throws NoSuchBeanDefinitionException 
 	 */
-	public static Class getType(String name)
+	public static Class<?> getType(String name)
 			throws NoSuchBeanDefinitionException {
 		return applicationContext.getType(name);
 	}

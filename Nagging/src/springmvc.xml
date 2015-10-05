@@ -46,26 +46,6 @@
 	<!-- 处理静态资源 -->
 	<mvc:default-servlet-handler />
 	
-	
-<!-- 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-		<property name="messageConverters">
-			<list>
-				<bean class="org.springframework.http.converter.StringHttpMessageConverter">
-					<property name="supportedMediaTypes">
-						<list>
-							<bean class="org.springframework.http.MediaType">
-								<constructor-arg index="0" value="text"/>
-								<constructor-arg index="1" value="json"/>
-								<constructor-arg index="2" value="UTF-8"/>
-							</bean>
-						</list>
-					</property>
-				</bean>
-			</list>
-		</property>
-	</bean>
-	 -->
-	
 	<!-- 必配,注册Mapping,Adapter,ExceptionResolver,JSR303,数据转换等 -->
 	<!-- 处理responseBody 里面日期类型 -->  
 	<mvc:annotation-driven >

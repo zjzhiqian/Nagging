@@ -33,7 +33,7 @@ public class PetCount {
 	}
 
 	public static void countPets(PetCreator creator) {
-			PetCounter counter=new PetCounter();
+//			PetCounter counter=new PetCounter();
 			
 	}
 
