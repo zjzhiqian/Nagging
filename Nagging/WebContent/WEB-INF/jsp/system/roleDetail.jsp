@@ -31,11 +31,10 @@
 		var role_tree;
 		function editRolePermission(){
 			
-			
-			
 			var nodes=role_tree.tree('getChecked');
 			var idArray=[];
 			for(var i=0;i<nodes.length;i++){
+// 				console.log(nodes[i])
 				idArray.push(nodes[i].id);
 			}
 			var ids=idArray.join(',');
@@ -64,7 +63,7 @@
 				multiple : true,
 				/* panelHeight:300,
 				panelWidth:300, */
-				cascadeCheck:false,
+// 				cascadeCheck:true,
 				checkbox:true,
 				onLoadSuccess : function(node, data) {
 					role_tree.tree('expandAll',node);
