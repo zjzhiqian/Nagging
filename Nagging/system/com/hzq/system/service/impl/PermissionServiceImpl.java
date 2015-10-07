@@ -54,7 +54,7 @@ public class PermissionServiceImpl extends BaseService<SysPermission>implements 
 		
 		ShiroUser user=getShiroUser();
 		if(sysPermissionMapper.deleteRolePermission(id)>=0){
-			boolean flag=false;String msg="修改权限信息成功";
+			boolean flag=true;String msg="修改权限信息成功";
 			if(StringUtils.isNotEmpty(idArray)){
 				String[] arrsys=idArray.split(",");
 				for(String insertId:arrsys){
@@ -66,7 +66,7 @@ public class PermissionServiceImpl extends BaseService<SysPermission>implements 
 				}
 				return new Json(flag,msg);
 			}else{
-				return new Json(true,msg);
+				return new Json(flag,msg);
 			}
 		}else{
 			return new Json(false);

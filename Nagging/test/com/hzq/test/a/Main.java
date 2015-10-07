@@ -85,21 +85,21 @@ public class Main {
 	
 	@Test
 	public void doTest(){
-		LinkedList<Integer>  a=new LinkedList<Integer>();
-		a.add(1);
-		a.add(2);
-//		System.out.println(a.peek());
-//		System.out.println(a.element());
-//		System.out.println(a.getFirst());
-		System.out.println(a);
-		
-//		System.out.println(a.poll());
-		System.out.println(a);
-//		System.out.println(a.removeFirst());
-//		System.out.println(a.remove());
-		
-		System.out.println(a.pop());
-		System.out.println();
+//		LinkedList<Integer>  a=new LinkedList<Integer>();
+//		a.add(1);
+//		a.add(2);
+////		System.out.println(a.peek());
+////		System.out.println(a.element());
+////		System.out.println(a.getFirst());
+//		System.out.println(a);
+//		
+////		System.out.println(a.poll());
+//		System.out.println(a);
+////		System.out.println(a.removeFirst());
+////		System.out.println(a.remove());
+//		
+//		System.out.println(a.pop());
+//		System.out.println();
 	}
 	
 	

@@ -138,7 +138,7 @@ var createGridHeaderContextMenu = function(e, field) {
 	});
 };
 $.fn.datagrid.defaults.onHeaderContextMenu = createGridHeaderContextMenu;
-
+$.fn.treegrid.defaults.onHeaderContextMenu = createGridHeaderContextMenu;
 
 
 
