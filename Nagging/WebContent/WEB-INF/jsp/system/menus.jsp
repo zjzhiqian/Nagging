@@ -121,9 +121,6 @@
 							modal : true,
 							width : 400,
 							height : 280,
-							/* onBeforeClose:function(){
-								menu_tree.tree("reload")
-							}, */
 							buttons : [ {
 								id : 'btn-menuAdd',
 								text : '添加',

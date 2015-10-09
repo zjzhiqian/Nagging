@@ -142,13 +142,21 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
 				// 取出页面的验证码
 				// 输入的验证和session中的验证进行对比
 				String randomcode = req.getParameter("randomcode");
-				// if(randomcode!=null && validateCode!=null &&
-				// !randomcode.toLowerCase().equals(validateCode.toLowerCase())){
-				// //如果校验失败，将验证码错误失败信息，通过shiroLoginFailure设置到request中
-				// httpServletRequest.setAttribute("shiroLoginFailure","validataCodeError");
-				// //拒绝访问，不再校验账号和密码
-				// return true;
-				// }
+				if(randomcode==null||validateCode==null){
+					req.setAttribute("shiroLoginFailure","validataCodeError");
+					//拒绝访问，不再校验账号和密码
+					return true;
+				}
+				if(!randomcode.toLowerCase().equals(validateCode.toLowerCase())){
+					
+//				 	如果校验失败，将验证码错误失败信息，通过shiroLoginFailure设置到request中
+					//TODO 取消万能验证码1111
+					if(!"1111".equals(randomcode)){
+						req.setAttribute("shiroLoginFailure","validataCodeError");
+						//拒绝访问，不再校验账号和密码
+						return true;
+					}
+				}	
 				boolean logInflag = executeLogin(request, response);// 尝试登陆,返回是否登陆成功(返回false是登陆成功,返回true是登陆失败)
 				// 登录成功,如果在异地有登录,则踢出那边用户
 				if (!logInflag) {
@@ -157,10 +165,10 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
 				return logInflag;
 			} else {
 				// 登录的get请求
-
 				// allow them to see the login page ;)
 				return true;
 			}
+				
 		} else {
 
 			// 如果是Ajax,交给通用Ajax处理(在include.jsp设置)
