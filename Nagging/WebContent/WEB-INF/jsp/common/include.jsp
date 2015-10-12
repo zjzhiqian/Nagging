@@ -1,7 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
-<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <c:set var="ctx" value="${pageContext.request.contextPath }"/>
+
 <script type="text/javascript" src="${ctx}/js/easyui/jquery.min.js"></script>
 <script type="text/javascript" src="${ctx}/js/easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${ctx}/js/easyui/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
@@ -12,7 +13,14 @@
 <script type="text/javascript" src="${ctx}/js/extJquery.js"></script>
 
 
-<link rel="stylesheet" type="text/css"  href="${ctx}/js/easyui/themes/default/easyui.css"  />
+
+<body>
+	<%
+		String easyuiTheme="gray";
+	 %>
+</body>
+
+<link rel="stylesheet" type="text/css"  href="${ctx}/js/easyui/themes/<%=easyuiTheme %>/easyui.css"  />
 <link rel="stylesheet" type="text/css" href="${ctx}/js/easyui/themes/icon.css"  />
 
 <meta http-equiv="pragma" content="no-cache">
