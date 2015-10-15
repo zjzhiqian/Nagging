@@ -2,11 +2,14 @@ package com.hzq.common.entity;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 /**
  * @author hzq
  *ajax返回通用json
  * 2015年9月3日 下午11:27:36 
  */
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Json implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private boolean flag=false;

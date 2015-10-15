@@ -7,6 +7,8 @@ String psw=hash.toHex();
 
 
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+
+@JsonSerialize(typing=JsonSerialize.Typing.DYNAMIC)
 datagrid后台的代码,reload--不建议,查询时会把页码加进去,load建议
 beanUtils.copyproperties
 
