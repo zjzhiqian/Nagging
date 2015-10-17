@@ -45,12 +45,6 @@ public class Json implements Serializable{
 	}
 	
 
-	public Json(boolean flag, Object obj) {
-		super();
-		this.flag = flag;
-		this.obj = obj;
-	}
-
 	public Json(boolean flag, String msg, Object obj) {
 		super();
 		this.flag = flag;
