@@ -23,6 +23,7 @@
 	var JobId="";
 	$("#data-grab").click(function(){
 		JobId=setInterval(getDataNum,1000);
+		$(this).linkbutton("disable");
 		$.ajax({
 			url:"${ctx}/lucene/tianyaBegin",
 			success:function(r){
@@ -47,7 +48,9 @@
 					$("#data-num").html(r.msg)
 				}else{
 					showmsg(r.msg)
+					$("#data-num").html(r.msg)
 					clearInterval(JobId);
+					$("#data-grab").linkbutton("enable");
 				}
 			}
 		})

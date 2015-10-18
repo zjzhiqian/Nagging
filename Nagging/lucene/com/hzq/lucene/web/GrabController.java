@@ -35,8 +35,7 @@ public class GrabController {
 		}else{
 			j=new Json(true,"抓取开始");
 		}
-		//TODO 异步处理
-		doGrab();
+		new Thread(new DataGetTask()).start();
 		return j;
 	}
 	
@@ -46,16 +45,22 @@ public class GrabController {
 		if(!FinishFlag){
 			return new Json(true,dataList.size()+"");
 		}else{
-			return new Json(false,"抓取完毕");
+			return new Json(false,String.format("抓取完毕,抓取到了%d条数据", dataList.size()));
 		}
 	}
 	
 	/**
-	 * 天涯论坛数据抓取方法
+	 * 天涯论坛数据抓取线程
 	 */
-	private void doGrab(){
-		for(int i=0;i<100000000;i++){
-			dataList.add("3");
+	private class DataGetTask implements Runnable{
+
+		@Override
+		public void run() {
+			for(int i=0;i<100000000;i++){
+				dataList.add("3");
+			}
+			FinishFlag=true;
 		}
+		
 	}
 }
