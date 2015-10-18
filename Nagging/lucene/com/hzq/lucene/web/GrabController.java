@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hzq.common.entity.Json;
+import com.hzq.lucene.util.DataAnalyserUtil;
 
 
 @Controller
@@ -26,6 +27,10 @@ public class GrabController {
 	
 	public static void setDataList(List<String> dataList) {
 		GrabController.dataList = dataList;
+	}
+
+	public static List<String> getDataList() {
+		return dataList;
 	}
 
 	private static boolean FinishFlag;
@@ -74,31 +79,7 @@ public class GrabController {
 			for(int i=0;i<100000000;i++){
 				dataList.add("3");
 			}
-			//TODO 以实际数据抓取逻辑替换
-			try {
-				CloseableHttpClient httpclient = null;
-				CloseableHttpResponse response = null;
-				String url = "http://www.autohome.com.cn/ashx/series_allspec.ashx";
-				httpclient = HttpClients.custom().build();
-				try {
-						try {
-							HttpGet httpget = new HttpGet(url);
-							response = httpclient.execute(httpget);
-							HttpEntity entity = response.getEntity();
-							String content = EntityUtils.toString(entity);
-							System.err.println(content);
-							EntityUtils.consume(entity);
-						
-						} finally {
-							response.close();
-						}
-				} finally {
-					httpclient.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new RuntimeException(e.getMessage());
-			}
+			DataAnalyserUtil.getTianyaData();
 			FinishFlag=true;
 		}
 		
