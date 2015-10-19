@@ -179,15 +179,6 @@
 		<img  src="images/block.gif" width="20" height="23" style="float: left"> 
 		<span style="padding-left: 10px; float: none; " >欢迎进入系统</span>
 		<span style="padding-right: 50px; float: right;">欢迎当前用户：${user.nick }
-			<a href="##" style="padding-left: 10px" ><font color="white">换肤</font>
-				<div class="bs">
-						<a class="styleswitch a1" style="CURSOR: pointer" title="橘黄色" rel="orange"></a>
-						<a class="styleswitch a2" style="CURSOR: pointer" title="竹绿色" rel="green"></a> 
-						<a class="styleswitch a3" style="CURSOR: pointer" title="天蓝色" rel="blue"></a>	
-						<a class="styleswitch a4" style="CURSOR: pointer" title="黑灰色" rel="gray"></a>	
-						<a class="styleswitch a5" style="CURSOR: pointer" title="艳红色" rel="pink"></a>		
-				</div>
-			</a>
 			<a href="#" onclick="changePsw()" style="padding-left: 20px"><font color="white">修改密码</font></a> &nbsp;&nbsp;
 			<a  href="#" onclick="logout()"><font color="white">退出系统</font></a>
 		</span>
