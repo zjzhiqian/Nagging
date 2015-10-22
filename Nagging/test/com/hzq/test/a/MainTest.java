@@ -77,7 +77,7 @@ public class MainTest {
 //			}else{
 //				post.setIsBest(0);
 //			}
-//			//url,标题 TODO 内有XXX张图片
+//			//url,标题
 //			Elements ele01=ele00.select("a");
 //			if(ele01!=null&&ele01.size()>0){
 //				String href=ele01.get(0).attr("href");

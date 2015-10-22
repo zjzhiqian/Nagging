@@ -16,13 +16,13 @@ import java.util.concurrent.Executors;
 
 /**
  * 
- * 
+ * 执行线程任务的Service
  * @author huangzhiqian
  */
 public class ThreadService {
 	private static ExecutorService threadService;
 	static {
-		threadService=Executors.newFixedThreadPool(1);
+		threadService=Executors.newFixedThreadPool(10);
 	}
 	
 	public static ExecutorService getThreadService() {

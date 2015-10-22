@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzq.lucene.dao.TianYaPostMapper" >
+    <sql id="conditionQuerySql" >
+        <trim prefix="where" prefixOverrides="and|or" >
+            <if test="condition.id != null" >
+                 and id = #{condition.id,jdbcType=BIGINT}
+            </if>
+            <if test="condition.content != null" >
+                 and content = #{condition.content,jdbcType=VARCHAR}
+            </if>
+            <if test="condition.url != null" >
+                 and url = #{condition.url,jdbcType=VARCHAR}
+            </if>
+            <if test="condition.title != null" >
+                 and title = #{condition.title,jdbcType=VARCHAR}
+            </if>
+            <if test="condition.adduserId != null" >
+                 and adduser_id = #{condition.adduserId,jdbcType=VARCHAR}
+            </if>
+            <if test="condition.adduserName != null" >
+                 and adduser_name = #{condition.adduserName,jdbcType=VARCHAR}
+            </if>
+            <if test="condition.addTime != null" >
+                 and add_time = #{condition.addTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="condition.lastReplyTime != null" >
+                 and last_reply_time = #{condition.lastReplyTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="condition.click != null" >
+                 and click = #{condition.click,jdbcType=BIGINT}
+            </if>
+            <if test="condition.reply != null" >
+                 and reply = #{condition.reply,jdbcType=BIGINT}
+            </if>
+            <if test="condition.isBest != null" >
+                 and is_best = #{condition.isBest,jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </sql>
+
+    <resultMap id="BaseResultMap" type="com.hzq.lucene.entity.TianYaPost" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="content" property="content" jdbcType="VARCHAR" />
+        <result column="url" property="url" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="adduser_id" property="adduserId" jdbcType="VARCHAR" />
+        <result column="adduser_name" property="adduserName" jdbcType="VARCHAR" />
+        <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+        <result column="last_reply_time" property="lastReplyTime" jdbcType="TIMESTAMP" />
+        <result column="click" property="click" jdbcType="BIGINT" />
+        <result column="reply" property="reply" jdbcType="BIGINT" />
+        <result column="is_best" property="isBest" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, content, url, title, adduser_id, adduser_name, add_time, last_reply_time, click, 
+        reply, is_best
+    </sql>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select 
+        <include refid="Base_Column_List" />
+        from lucene_tianyapost
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <insert id="insert" parameterType="com.hzq.lucene.entity.TianYaPost" >
+        insert into lucene_tianyapost
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="content != null" >
+                content,
+            </if>
+            <if test="url != null" >
+                url,
+            </if>
+            <if test="title != null" >
+                title,
+            </if>
+            <if test="adduserId != null" >
+                adduser_id,
+            </if>
+            <if test="adduserName != null" >
+                adduser_name,
+            </if>
+            <if test="addTime != null" >
+                add_time,
+            </if>
+            <if test="lastReplyTime != null" >
+                last_reply_time,
+            </if>
+            <if test="click != null" >
+                click,
+            </if>
+            <if test="reply != null" >
+                reply,
+            </if>
+            <if test="isBest != null" >
+                is_best,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="content != null" >
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null" >
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null" >
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="adduserId != null" >
+                #{adduserId,jdbcType=VARCHAR},
+            </if>
+            <if test="adduserName != null" >
+                #{adduserName,jdbcType=VARCHAR},
+            </if>
+            <if test="addTime != null" >
+                #{addTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastReplyTime != null" >
+                #{lastReplyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="click != null" >
+                #{click,jdbcType=BIGINT},
+            </if>
+            <if test="reply != null" >
+                #{reply,jdbcType=BIGINT},
+            </if>
+            <if test="isBest != null" >
+                #{isBest,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.hzq.lucene.entity.TianYaPost" >
+        update lucene_tianyapost
+        <set >
+            <if test="content != null" >
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null" >
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null" >
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="adduserId != null" >
+                adduser_id = #{adduserId,jdbcType=VARCHAR},
+            </if>
+            <if test="adduserName != null" >
+                adduser_name = #{adduserName,jdbcType=VARCHAR},
+            </if>
+            <if test="addTime != null" >
+                add_time = #{addTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastReplyTime != null" >
+                last_reply_time = #{lastReplyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="click != null" >
+                click = #{click,jdbcType=BIGINT},
+            </if>
+            <if test="reply != null" >
+                reply = #{reply,jdbcType=BIGINT},
+            </if>
+            <if test="isBest != null" >
+                is_best = #{isBest,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Long" >
+        delete from lucene_tianyapost
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <select id="conditionQuery" parameterType="com.hzq.common.entity.QueryCondition" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" /> from lucene_tianyapost <include refid="conditionQuerySql" />
+        <if test="condition.beginIndex != null" >
+             <![CDATA[ limit #{condition.beginIndex} , #{condition.rows} ]]>
+        </if>
+    </select>
+
+    <select id="conditionCountQuery" parameterType="com.hzq.common.entity.QueryCondition" resultType="int" >
+        select count(1) from lucene_tianyapost <include refid="conditionQuerySql"/>
+    </select>
+
+    <delete  id="deleteCondition" parameterType="com.hzq.common.entity.QueryCondition" >
+        delete from lucene_tianyapost  <include refid="conditionQuerySql"/>
+    </delete >
+
+</mapper>
