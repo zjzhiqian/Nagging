@@ -171,3 +171,21 @@ CREATE TABLE `sys_user_role` (
 -- Records of sys_user_role
 -- ----------------------------
 INSERT INTO `sys_user_role` VALUES ('1', '29', '2015-09-29 17:44:40', '1');
+
+
+CREATE TABLE `t_bbs_post_tianya` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '帖子编号',
+  `content` varchar(2000) DEFAULT '' COMMENT '帖子内容',
+  `url` varchar(40) NOT NULL DEFAULT '',
+  `title` varchar(40) NOT NULL DEFAULT '' COMMENT '标题',
+  `adduserId` bigint(15) NOT NULL DEFAULT '0' COMMENT '发帖人编号',
+  `adduserName` varchar(30) NOT NULL DEFAULT '' COMMENT '用户昵称',
+  `addTime` datetime DEFAULT NULL COMMENT '发帖时间',
+  `lastReplyTime` datetime DEFAULT NULL COMMENT '最后回复时间',
+  `click` bigint(20) DEFAULT NULL,
+  `reply` bigint(20) DEFAULT NULL,
+  `isBest` varchar(1) NOT NULL DEFAULT '0' COMMENT '是否加精',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
