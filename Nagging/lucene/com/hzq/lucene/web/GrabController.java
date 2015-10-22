@@ -3,39 +3,36 @@ package com.hzq.lucene.web;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hzq.common.entity.Json;
+import com.hzq.lucene.entity.TianYaPost;
+import com.hzq.lucene.threadService.ThreadService;
 import com.hzq.lucene.util.DataAnalyserUtil;
 
 
 @Controller
 @RequestMapping("lucene")
 public class GrabController {
-	public static List<String> dataList;
+	/**天涯帖子抓取数据List**/
+	public static List<TianYaPost> dataList;
+	/**天涯数据是否抓取完毕Flag**/
+	private static boolean FinishFlag;
 	
-	public static void setDataList(List<String> dataList) {
-		GrabController.dataList = dataList;
-	}
-
-	public static List<String> getDataList() {
+	public static List<TianYaPost> getDataList() {
 		return dataList;
 	}
 
-	private static boolean FinishFlag;
+
+	public static void setDataList(List<TianYaPost> dataList) {
+		GrabController.dataList = dataList;
+	}
+
 	static {
-		dataList=Collections.synchronizedList(new ArrayList<String>());
+		dataList=Collections.synchronizedList(new ArrayList<TianYaPost>());
 	}
 	@RequestMapping("tianya")
 	public String showTianyaGrabPage(){
@@ -53,9 +50,8 @@ public class GrabController {
 		}else{
 			j=new Json(true,"抓取开始");
 		}
-		//TODO 尝试开启多线程进行抓取数据
-		ExecutorService service=Executors.newFixedThreadPool(1);
-		service.execute(new DataGetTask());
+		//开启异步线程执行任务
+		ThreadService.getThreadService().execute(new TianYaDataTask());
 		return j;
 	}
 	
@@ -70,17 +66,13 @@ public class GrabController {
 	}
 	
 	/**
-	 * 天涯论坛数据抓取线程
+	 * 天涯论坛数据抓取Task
 	 */
-	private class DataGetTask implements Runnable{
+	private class TianYaDataTask implements Runnable{
 
 		@Override
 		public void run() {
-			for(int i=0;i<100000000;i++){
-				dataList.add("3");
-			}
-			DataAnalyserUtil.getTianyaData();
-			FinishFlag=true;
+			DataAnalyserUtil.grabTianYaData();
 		}
 		
 	}
