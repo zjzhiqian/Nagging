@@ -73,18 +73,7 @@ public class GrabController {
 		
 	}
 	
-	
-	@RequestMapping("testsave")
-	public void testSave(){
-		TianYaPost p=new TianYaPost();
-		p.setClick(3L);
-		List<TianYaPost> l=new ArrayList<TianYaPost>();
-		for(int i=0;i<=2;i++){
-			l.add(p);
-		}
-		tianYaPostService.savePosts(l);
-		
-	}
+
 	
 	
 	

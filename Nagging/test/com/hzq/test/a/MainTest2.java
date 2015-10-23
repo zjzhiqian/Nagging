@@ -11,11 +11,17 @@
  */
 package com.hzq.test.a;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.TreeMap;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
 import com.hzq.system.entity.SysUser;
 
@@ -25,12 +31,10 @@ import com.hzq.system.entity.SysUser;
  * @author huangzhiqian
  */
 public class MainTest2 {
-	private static List<String> m=Collections.synchronizedList(new ArrayList<String>());
 	
-	public static void main(String[] args) {
-		m.add("2");
-		m.clear();
-		System.out.println(m);
+	public static void main(String[] args) throws IOException {
+		String content="concwqdqwdqwd";
+		FileUtils.copyInputStreamToFile(IOUtils.toInputStream(content),new File("E:\\post\\"+"3"+".html"));
 	}
 
 }
