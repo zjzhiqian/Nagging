@@ -34,6 +34,7 @@
 					showmsg(r.msg)
 				}else{
 					showmsg(r.msg)
+					$("#data-num").html("0")
 				}
 			}
 		})
