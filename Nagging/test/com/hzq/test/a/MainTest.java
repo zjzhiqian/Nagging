@@ -1,18 +1,11 @@
 package com.hzq.test.a;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -38,16 +31,17 @@ public class MainTest {
 	private static CloseableHttpResponse response = null;
 	private static boolean FinishFlag=false;
 	private static Long time1;
+	private static SimpleDateFormat sdf=null;
 	static {
 		httpclient = HttpClients.custom().build();
 		time1=System.currentTimeMillis();
+		sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	}
 	
 	public static void grabTianYaData(){
 		AddTianYaPostByUrl(TIANYA_URL,httpclient,response);
 	}
 	
-	//TODO 获取帖子内容
 		private static void AddTianYaPostByUrl(String tianyaUrl,CloseableHttpClient httpclient,CloseableHttpResponse response){
 			try {
 				HttpGet httpget = new HttpGet(tianyaUrl);
@@ -74,7 +68,7 @@ public class MainTest {
 						String pageUrl=next.attr("href");
 						String nextPageUrl="http://bbs.tianya.cn/"+pageUrl;
 						ThreadService.getThreadService().execute(new AddTianYaTask(nextPageUrl, httpclient, response));
-						System.out.println(nextPageUrl);
+//						System.out.println(nextPageUrl);
 					}
 				}
 				
@@ -101,13 +95,12 @@ public class MainTest {
 						href=ele01.get(0).attr("href");
 						if(StringUtils.isNotEmpty(href)){
 							String postUrl="http://bbs.tianya.cn"+href.trim();
-							System.err.println(postUrl);
 							HttpGet postGet = new HttpGet(postUrl);
 							HttpResponse postResponse = httpclient.execute(postGet);
 							HttpEntity Postentity = postResponse.getEntity();
 							String Postcontent = EntityUtils.toString(Postentity);
-							FileUtils.copyInputStreamToFile(IOUtils.toInputStream(Postcontent),new File("E:\\post\\"+href+".html"));
-							
+//							FileUtils.copyInputStreamToFile(IOUtils.toInputStream(Postcontent),new File("E:\\posts\\"+href+".html"));
+							ThreadService.getThreadService().execute(new TianYaPageTask(post,Postcontent));
 							EntityUtils.consume(Postentity);
 							
 							post.setUrl(postUrl);
@@ -181,8 +174,47 @@ public class MainTest {
 					e.printStackTrace();
 				}
 			}
+		}
+		
+		private static class TianYaPageTask implements Runnable{
+			private TianYaPost post;
+			private String postcontent;
 			
+			public TianYaPageTask(TianYaPost post, String postcontent) {
+				this.post=post;
+				this.postcontent=postcontent;
+			}
 			
+			@Override
+			public void run() {
+				
+				Document doc=Jsoup.parse(postcontent);
+				
+				//发帖时间获取
+				Elements eles=doc.select("div.atl-info");
+				for(Element ele:eles){
+					String eleText=ele.text();
+					if(eleText.contains("时间")&&eleText.contains("回复")&&eleText.contains("点击")){
+						String time=ele.text().substring(eleText.indexOf("时间：")+3,eleText.indexOf("点击")).trim();
+						Date addTime;
+						try {
+							addTime = sdf.parse(time);
+							post.setAddTime(addTime);
+						} catch (ParseException e) {
+							e.printStackTrace();
+						}
+						break;
+					}
+				}
+				//帖子内容
+				Elements eles2=doc.select("div.bbs-content*");
+				for(Element ele2:eles2){
+					String content=ele2.text();
+					content.replaceAll("<br>", "");
+					post.setContent(content);
+				}
+				
+			}
 		}
 	
 	

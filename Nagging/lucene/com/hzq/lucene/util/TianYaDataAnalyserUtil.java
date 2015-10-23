@@ -5,10 +5,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.management.RuntimeErrorException;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -33,10 +32,12 @@ public class TianYaDataAnalyserUtil {
 	private static final String TIANYA_URL="http://bbs.tianya.cn/list-lookout-1.shtml";
 	private static CloseableHttpClient httpclient = null;
 	private static CloseableHttpResponse response = null;
+	private static SimpleDateFormat sdf2= null;
+	private volatile static int count=0;
 	
 	static {
 		httpclient = HttpClients.custom().build();
-		
+		sdf2=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	}
 	/**
 	 * 进行天涯帖子数据抓取
@@ -48,7 +49,6 @@ public class TianYaDataAnalyserUtil {
 		AddTianYaPostByUrl(TIANYA_URL,httpclient,response);
 	}
 	
-	//TODO 获取帖子内容
 	private static void AddTianYaPostByUrl(String tianyaUrl,CloseableHttpClient httpclient,CloseableHttpResponse response){
 		try {
 			HttpGet httpget = new HttpGet(tianyaUrl);
@@ -57,18 +57,30 @@ public class TianYaDataAnalyserUtil {
 			String content = EntityUtils.toString(entity);
 			EntityUtils.consume(entity);
 			
+			count++;
+			
 			Document doc=Jsoup.parse(content);
 			
 			//下一页按钮的url(开启异步线程根据下一页url继续解析)
 			Elements nexts=doc.select("div.links");
 			nexts=nexts.get(0).select("a");
-			if(!nexts.text().contains("下一页")){
-				//睡眠10秒,保证其他线程的解析执行完毕
-				synchronized (TianYaDataAnalyserUtil.class) {
-					Thread.sleep(3000L);
+			
+			synchronized (TianYaDataAnalyserUtil.class) {
+				
+				if(count++==5){
+					Thread.sleep(10000L);
 					GrabController.FinishFlag=true;
-				}	
+				}
 			}
+			
+			
+//			if(!nexts.text().contains("下一页")){
+//				//睡眠10秒,保证其他线程的解析执行完毕
+//				synchronized (TianYaDataAnalyserUtil.class) {
+//					Thread.sleep(3000L);
+//					GrabController.FinishFlag=true;
+//				}	
+//			}
 			for(Element next:nexts){
 				if(next.text().indexOf("下一页")!=-1){
 					String pageUrl=next.attr("href");
@@ -93,14 +105,25 @@ public class TianYaDataAnalyserUtil {
 				}else{
 					post.setIsBest("0");
 				}
-				//url,标题
+				//url,标题,帖子内容,发帖时间
 				Elements ele01=ele00.select("a");
 				String href="";
 				if(ele01!=null&&ele01.size()>0){
+					//url
 					href=ele01.get(0).attr("href");
 					if(StringUtils.isNotEmpty(href)){
-						post.setUrl("http://bbs.tianya.cn"+href.trim());
+						String postUrl="http://bbs.tianya.cn"+href.trim();
+						HttpGet postGet = new HttpGet(postUrl);
+						HttpResponse postResponse = httpclient.execute(postGet);
+						HttpEntity Postentity = postResponse.getEntity();
+						String Postcontent = EntityUtils.toString(Postentity);
+//						FileUtils.copyInputStreamToFile(IOUtils.toInputStream(Postcontent),new File("E:\\posts\\"+href+".html"));
+						ThreadService.getThreadService().execute(new TianYaPageTask(post,Postcontent));
+						EntityUtils.consume(Postentity);
+						
+						post.setUrl(postUrl);
 					}
+					//标题
 					String title=ele01.text();
 					if(StringUtils.isNotEmpty(title)){
 						post.setTitle(title.trim());
@@ -145,6 +168,7 @@ public class TianYaDataAnalyserUtil {
 			}
 			
 		}catch(Exception e){
+			e.printStackTrace();
 			throw new RuntimeException("抓取数据出错!");
 		}finally {
 			try {
@@ -155,6 +179,11 @@ public class TianYaDataAnalyserUtil {
 		
 	}
 	
+	/**
+	 * 数据抓取Task
+	 * @author huangzhiqian
+	 *
+	 */
 	private static class AddTianYaTask implements Runnable{
 		private CloseableHttpClient httpclient;
 		private CloseableHttpResponse response;
@@ -172,6 +201,65 @@ public class TianYaDataAnalyserUtil {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	/**
+	 * 帖子内容分析Task
+	 * @author huangzhiqian
+	 *
+	 */
+	private static class TianYaPageTask implements Runnable{
+		private TianYaPost post;
+		private String postcontent;
+		
+		public TianYaPageTask(TianYaPost post, String postcontent) {
+			this.post=post;
+			this.postcontent=postcontent;
+		}
+		@Override
+		public void run() {
+			
+			Document doc=Jsoup.parse(postcontent);
+			
+			//发帖时间获取
+			Elements eles=doc.select("div.atl-info");
+			for(Element ele:eles){
+				String eleText=ele.text();
+				if(eleText.contains("时间")&&eleText.contains("回复")&&eleText.contains("点击")){
+					String time=ele.text().substring(eleText.indexOf("时间：")+3,eleText.indexOf("点击")).trim();
+					Date addTime;
+					try {
+						addTime = sdf2.parse(time);
+						post.setAddTime(addTime);
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+					break;
+				}
+			}
+			//帖子内容
+			Elements eles2=doc.getElementsByAttributeValue("class","bbs-content clearfix");
+			for(Element ele2:eles2){
+				String content=ele2.text();
+				content.replaceAll("<br>", "");
+				post.setContent(content);
+			}
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 	}
