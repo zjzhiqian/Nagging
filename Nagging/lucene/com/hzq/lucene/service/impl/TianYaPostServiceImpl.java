@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hzq.common.base.BaseService;
+import com.hzq.common.entity.QueryCondition;
 import com.hzq.lucene.dao.TianYaPostMapper;
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.service.TianYaPostService;
@@ -33,6 +34,11 @@ public class TianYaPostServiceImpl extends BaseService<TianYaPost> implements Ti
 	public void deleteAllTianYaData() {
 		tianYaPostMapper.deleteAllTianYaData();
 		
+	}
+
+	@Override
+	public List<TianYaPost> findAllPosts() {
+		return tianYaPostMapper.conditionQuery(new QueryCondition());
 	}
 	
 }

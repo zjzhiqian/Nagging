@@ -33,10 +33,7 @@ public interface BaseMapper< T extends Serializable> {
 	 */
 	T findById(int id);
 	
-	/**查询出所有数据
-	 * @return
-	 */
-	List<T> findAll();
+	
 	
 	/**查询出总数量
 	 * @return

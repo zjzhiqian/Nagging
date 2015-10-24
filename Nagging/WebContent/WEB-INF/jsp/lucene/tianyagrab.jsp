@@ -7,11 +7,13 @@
 </head>
 <body>
 	<div class="easyui-layout" data-options="fit:true" style="margin-top: 0px">
-		
 	
 		<div data-options="region:'north'" style="height:30px">
 		   <shiro:hasPermission name="lucene:tianyagrab">			
 			<a id="data-grab" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" style="height: 25px">开始抓取</a>
+		   </shiro:hasPermission>
+		   <shiro:hasPermission name="lucene:tianyaindex">			
+			<a id="data-index" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" style="height: 25px">生成索引</a>
 		   </shiro:hasPermission>
 		</div>
 		<div data-options="region:'center'" style="overflow: hidden;">
@@ -25,13 +27,14 @@
 <script type="text/javascript">
 	var JobId="";
 	$("#data-grab").click(function(){
-		JobId=setInterval(getDataNum,3000);
+		JobId=setInterval(getDataNum,800);
 		$(this).linkbutton("disable");
 		$.ajax({
 			url:"${ctx}/lucene/tianyaBegin",
 			success:function(r){
 				if(r&&r.flag){
 					showmsg(r.msg)
+					$("#data-num").html("");
 				}else{
 					showmsg(r.msg)
 					$("#data-num").html("0")
@@ -40,9 +43,6 @@
 		})
 		return false;
 	})
-	
-	
-	
 	
 	function getDataNum(){
 		$.ajax({
@@ -59,6 +59,27 @@
 			}
 		})
 	}
+	
+	
+	//索引
+	$("#data-index").click(function(){
+		loading("索引生成中,请稍等")
+		$.ajax({
+			url:"${ctx}/lucene/tianyaPostIndex",
+			success:function(r){
+				loaded()
+				if(r&&r.flag){
+					showmsg(r.msg)
+				}else{
+					alerterror(r.msg)
+				}
+			}
+			
+			
+		})
+		
+		
+	})
 	
 
 </script>

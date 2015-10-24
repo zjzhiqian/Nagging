@@ -57,13 +57,8 @@ public abstract class BaseService <T extends Serializable >{
 	protected final T findById(int id){
 		return mapper.findById(id);
 	}
-	/**
-	 * 查询出所有数据
-	 * @return
-	 */
-	protected final List<T> findAll(){
-		return mapper.findAll();
-	}
+	
+	
 	/**
 	 * 查询出总数量
 	 * @return

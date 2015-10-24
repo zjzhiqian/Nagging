@@ -78,7 +78,6 @@ public class GrabController {
 							if(post.getContent().length()>20000){
 								post.setContent("此贴数据太长,暂不存入");
 							}
-							System.err.println(post.getContent());
 							tianYaPostService.savePost(post);
 						}
 					}

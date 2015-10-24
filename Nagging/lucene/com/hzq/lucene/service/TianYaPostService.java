@@ -19,5 +19,11 @@ public interface TianYaPostService {
 	 * 删除所有数据
 	 */
 	void deleteAllTianYaData();
+	
+	/**
+	 * 查询所有数据
+	 * @return
+	 */
+	List<TianYaPost> findAllPosts();
 
 }

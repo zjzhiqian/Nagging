@@ -19,7 +19,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.hzq.common.base.BaseController;
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.threadService.ThreadService;
 import com.hzq.lucene.web.GrabController;
@@ -120,12 +119,13 @@ public class TianYaDataAnalyserUtil {
 			Elements nexts=doc.select("div.links");
 			nexts=nexts.get(0).select("a");
 			if(!nexts.text().contains("下一页")){
-				//睡眠30秒,保证其他线程的解析执行完毕
-				synchronized (BaseController.class) {
-					Thread.sleep(15000L);
-					GrabController.FinishFlag=true;
-					System.err.println("数据抓取完毕"+GrabController.getDataList().size());
-				}	
+				//睡眠60秒,保证其他线程的解析出来的数据set到Post中
+				try{
+					Thread.sleep(600000L);
+				}catch(InterruptedException e){
+					//doNothing
+				}
+				GrabController.FinishFlag=true;
 			}
 			for(Element next:nexts){
 				if(next.text().indexOf("下一页")!=-1){
@@ -136,7 +136,6 @@ public class TianYaDataAnalyserUtil {
 				}
 			}
 		}catch(Exception e){
-			e.printStackTrace();
 			AddTianYaPostByUrl(tianyaUrl);
 		}
 		
@@ -223,9 +222,7 @@ public class TianYaDataAnalyserUtil {
 					ThreadService.getThreadService().execute(new TianYaPageTask(post, postUrl));
 				}
 			}catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("...");
-				System.out.println(postUrl);
+				
 			}
 			
 		}

@@ -45,5 +45,9 @@ public class Constant {
 	 * session踢出的Key
 	 */
 	public  static final String SHIRO_KICK_KEY = "shiro_kicked";
+	/**
+	 * TianYa帖子索引储存路径
+	 */
+	public static final String Index_TianYaPost_Path="E:\\luceneIindex";
 }
 
