@@ -195,5 +195,9 @@
     <delete  id="deleteCondition" parameterType="com.hzq.common.entity.QueryCondition" >
         delete from lucene_tianyapost  <include refid="conditionQuerySql"/>
     </delete >
-
+	
+	<delete id="deleteAllTianYaData">
+		delete from lucene_tianyapost
+	</delete>
+	
 </mapper>

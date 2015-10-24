@@ -10,5 +10,14 @@ public interface TianYaPostService {
 	 * @param dataList
 	 */
 	void savePosts(List<TianYaPost> dataList);
+	/**
+	 * 添加一条数据
+	 * @param post
+	 */
+	void savePost(TianYaPost post);
+	/**
+	 * 删除所有数据
+	 */
+	void deleteAllTianYaData();
 
 }

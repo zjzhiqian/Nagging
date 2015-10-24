@@ -9,6 +9,7 @@ package com.hzq.lucene.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 
@@ -56,7 +57,17 @@ public class TianYaPost implements Serializable {
      */
     private String isBest;
 
-    public Long getId() {
+    private AtomicInteger RetryCount=new AtomicInteger(0);
+    
+    
+    
+	public AtomicInteger getRetryCount() {
+		return RetryCount;
+	}
+	public void setRetryCount(AtomicInteger retryCount) {
+		RetryCount = retryCount;
+	}
+	public Long getId() {
         return id;
     }
     public void setId(Long id) {

@@ -2,6 +2,7 @@ package com.hzq.lucene.web;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hzq.common.entity.Json;
-import com.hzq.common.util.SpringContextUtils;
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.service.TianYaPostService;
 import com.hzq.lucene.threadService.ThreadService;
@@ -20,6 +20,9 @@ import com.hzq.lucene.util.TianYaDataAnalyserUtil;
 @Controller
 @RequestMapping("lucene")
 public class GrabController {
+	
+	private static volatile long getCount=0;
+	
 	@Autowired
 	TianYaPostService tianYaPostService;
 	
@@ -38,7 +41,7 @@ public class GrabController {
 	}
 
 	static {
-		dataList=Collections.synchronizedList(new ArrayList<TianYaPost>());
+		dataList=Collections.synchronizedList(new LinkedList<TianYaPost>());
 	}
 	@RequestMapping("tianya")
 	public String showTianyaGrabPage(){
@@ -50,25 +53,46 @@ public class GrabController {
 	@ResponseBody
 	public Json startGrab(){
 		FinishFlag=false;
-		Json j=new Json("数据不为空,重新开始数据抓取");
+		//把抓取数量设置为0
+		getCount=0;
 		if(dataList.size()>0){
 			dataList.clear();
-		}else{
-			j=new Json(true,"抓取开始");
 		}
+		tianYaPostService.deleteAllTianYaData();
 		//开启异步线程执行任务
 		ThreadService.getThreadService().execute(new TianYaDataTask());
-		return j;
+		return new Json(true,"抓取开始");
 	}
 	
 	@RequestMapping("tianyaShowNum")
 	@ResponseBody
 	public synchronized Json showGrabNum(){
 			if(!FinishFlag){
-				return new Json(true,dataList.size()+"");
+				if(dataList.size()>0){
+					List<TianYaPost> posts=new ArrayList<TianYaPost>();
+					posts.addAll(dataList);
+					for(TianYaPost post:posts){
+						if(post.getContent()!=null){
+							dataList.remove(post);
+							getCount++;
+							if(post.getContent().length()>20000){
+								post.setContent("此贴数据太长,暂不存入");
+							}
+							System.err.println(post.getContent());
+							tianYaPostService.savePost(post);
+						}
+					}
+				}
+				return new Json(true,getCount+"");
 			}else{
-				ThreadService.getThreadService().execute(new tianyaSavePostTask());
-				return new Json(false,String.format("抓取完毕,抓取到了%d条数据", dataList.size()));
+				if(dataList.size()>0){
+					List<TianYaPost> posts=new ArrayList<TianYaPost>();
+					posts.addAll(dataList);
+					dataList.removeAll(posts);
+					getCount=getCount+dataList.size();
+					tianYaPostService.savePosts(posts);
+				}
+				return new Json(false,String.format("抓取完毕,抓取到了%d条数据", getCount));
 			}
 		
 	}
@@ -90,16 +114,4 @@ public class GrabController {
 		
 	}
 	
-	/**
-	 * 天涯论坛数据保存到数据库线程
-	 */
-	private class tianyaSavePostTask implements Runnable{
-		@Override
-		public void run() {
-			TianYaPostService postService=(TianYaPostService) SpringContextUtils.getBean("tianYaPostServiceImpl");
-			List<TianYaPost> insertList=new ArrayList<TianYaPost>(dataList);
-			postService.savePosts(insertList);
-		}
-		
-	}
 }

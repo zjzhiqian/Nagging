@@ -25,7 +25,7 @@
 <script type="text/javascript">
 	var JobId="";
 	$("#data-grab").click(function(){
-		JobId=setInterval(getDataNum,6000);
+		JobId=setInterval(getDataNum,3000);
 		$(this).linkbutton("disable");
 		$.ajax({
 			url:"${ctx}/lucene/tianyaBegin",

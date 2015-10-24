@@ -22,5 +22,17 @@ public class TianYaPostServiceImpl extends BaseService<TianYaPost> implements Ti
 		}
 		
 	}
+
+	@Override
+	public void savePost(TianYaPost post) {
+		insert(post);
+		
+	}
+
+	@Override
+	public void deleteAllTianYaData() {
+		tianYaPostMapper.deleteAllTianYaData();
+		
+	}
 	
 }

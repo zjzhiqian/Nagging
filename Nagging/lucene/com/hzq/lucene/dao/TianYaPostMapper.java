@@ -12,6 +12,10 @@ import com.hzq.common.base.BaseMapper;
 
 
 public interface TianYaPostMapper extends BaseMapper<TianYaPost> {
+	/**
+	 * 删除天涯帖子表格所有数据
+	 */
+	void deleteAllTianYaData();
 
 
 
