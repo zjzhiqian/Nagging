@@ -17,7 +17,7 @@
 		   </shiro:hasPermission>
 		</div>
 		<div data-options="region:'center'" style="overflow: hidden;">
-			<div style="margin-left: 50px;margin-top: 50px">数据已抓取数量 :<span id="data-num">0</span> </div>
+			<div style="margin-left: 50px;margin-top: 50px">数据已抓取数量 : <span id="data-num">0</span> </div>
 		</div>
 	</div>
 	
