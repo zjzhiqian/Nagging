@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <form id="pswChangeForm">
-	<table style="padding-left: 100px; padding-top: 20px;">
+	<table style="margin-left: 100;margin-top: 20px">
 		<tr>
 			<td><input id="old-psw" type="password" name='oldpsw'></td>
 		</tr>

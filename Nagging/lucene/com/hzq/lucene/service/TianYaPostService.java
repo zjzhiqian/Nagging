@@ -2,7 +2,10 @@ package com.hzq.lucene.service;
 
 import java.util.List;
 
+import com.hzq.common.entity.Grid;
+import com.hzq.common.entity.QueryCondition;
 import com.hzq.lucene.entity.TianYaPost;
+import com.hzq.system.entity.SysUser;
 
 public interface TianYaPostService {
 	/**
@@ -25,5 +28,11 @@ public interface TianYaPostService {
 	 * @return
 	 */
 	List<TianYaPost> findAllPosts();
+	/**
+	 * 获取DataGrid数据
+	 * @param condition
+	 * @return
+	 */
+	Grid<TianYaPost> getDataGridResult(QueryCondition condition);
 
 }

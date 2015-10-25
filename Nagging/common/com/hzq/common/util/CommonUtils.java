@@ -9,6 +9,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.hzq.common.entity.QueryCondition;
 
 /**
@@ -142,7 +144,14 @@ public class CommonUtils {
 		if (tmp != null) {
 			for (String key : tmp.keySet()) {
 				String[] values = tmp.get(key);
-				map.put(key, values.length == 1 ? values[0].trim() : values);
+				if(values.length==1){
+					//为空则不加入查询条件
+					if(StringUtils.isNotEmpty(values[0])){
+						map.put(key,values[0].trim());
+					}
+				}else{
+					map.put(key,values);
+				}
 			}
 		}
 		String pg=(String) map.get("page");

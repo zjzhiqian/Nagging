@@ -4,11 +4,12 @@
 <c:set var="ctx" value="${pageContext.request.contextPath }"/>
 
 <script type="text/javascript" src="${ctx}/js/easyui/jquery.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/bootstrapt/bootstrap.min.js"></script>
 <script type="text/javascript" src="${ctx}/js/easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${ctx}/js/easyui/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
 <script type="text/javascript" src="${ctx}/js/jquery.cookie.js"></script>
 <script type="text/javascript" src="${ctx}/js/extBrowser.js"></script>
-<script type="text/javascript" src="${ctx}/js/menuload.js"></script>
+<%-- <script type="text/javascript" src="${ctx}/js/menuload.js"></script> --%>
 <script type="text/javascript" src="${ctx}/js/extEasyUI.js"></script>
 <script type="text/javascript" src="${ctx}/js/extJquery.js"></script>
 
@@ -20,6 +21,7 @@
 	 %>
 </body>
 
+<link rel="stylesheet" type="text/css" href="${ctx}/js/bootstrapt/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"  href="${ctx}/js/easyui/themes/<%=easyuiTheme %>/easyui.css"  />
 <link rel="stylesheet" type="text/css" href="${ctx}/js/easyui/themes/icon.css"  />
 

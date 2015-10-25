@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hzq.common.base.BaseService;
+import com.hzq.common.entity.Grid;
 import com.hzq.common.entity.QueryCondition;
 import com.hzq.lucene.dao.TianYaPostMapper;
 import com.hzq.lucene.entity.TianYaPost;
@@ -39,6 +40,13 @@ public class TianYaPostServiceImpl extends BaseService<TianYaPost> implements Ti
 	@Override
 	public List<TianYaPost> findAllPosts() {
 		return tianYaPostMapper.conditionQuery(new QueryCondition());
+	}
+
+	@Override
+	public Grid<TianYaPost> getDataGridResult(QueryCondition condition) {
+		List<TianYaPost> gridResult=tianYaPostMapper.conditionQuery(condition);
+		int count=tianYaPostMapper.conditionCountQuery(condition);
+		return new Grid<TianYaPost>(gridResult,count);
 	}
 	
 }

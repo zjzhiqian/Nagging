@@ -13,7 +13,7 @@
                  and url = #{condition.url,jdbcType=VARCHAR}
             </if>
             <if test="condition.title != null" >
-                 and title = #{condition.title,jdbcType=VARCHAR}
+                  and title like concat(#{condition.title},'%')
             </if>
             <if test="condition.adduserId != null" >
                  and adduser_id = #{condition.adduserId,jdbcType=VARCHAR}
@@ -21,9 +21,14 @@
             <if test="condition.adduserName != null" >
                  and adduser_name = #{condition.adduserName,jdbcType=VARCHAR}
             </if>
-            <if test="condition.addTime != null" >
-                 and add_time = #{condition.addTime,jdbcType=TIMESTAMP}
+            <if test="condition.postTime1 != null" >
+                 and add_time >= #{condition.postTime1,jdbcType=TIMESTAMP}
             </if>
+            
+            <if test="condition.postTime2 != null" >
+           		 <![CDATA[ and add_time <= #{condition.postTime2,jdbcType=TIMESTAMP} ]]>
+            </if>
+            
             <if test="condition.lastReplyTime != null" >
                  and last_reply_time = #{condition.lastReplyTime,jdbcType=TIMESTAMP}
             </if>
