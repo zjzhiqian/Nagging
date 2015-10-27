@@ -121,7 +121,7 @@ public class TianYaDataAnalyserUtil {
 			if(!nexts.text().contains("下一页")){
 				//睡眠60秒,保证其他线程的解析出来的数据set到Post中
 				try{
-					Thread.sleep(60000L);
+					Thread.sleep(120000L);
 				}catch(InterruptedException e){
 					//doNothing
 				}

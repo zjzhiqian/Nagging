@@ -6,6 +6,7 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.Field.Store;
 import org.apache.lucene.document.LongField;
+import org.apache.lucene.document.NumericDocValuesField;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
@@ -51,6 +52,9 @@ public class generateIndexController {
 				doc = new Document();
 				//ID
 				doc.add(new Field("id", post.getId() + "", LuceneIndexUtil.IdFielType));
+				
+				doc.add(new Field("title", post.getTitle() + "", LuceneIndexUtil.TitleFielType));
+				
 				//content TODO content为空
 				doc.add(new Field("content", post.getContent() == null ? "" : post.getContent().toLowerCase(), LuceneIndexUtil.ContentFielType));
 				//url
@@ -59,13 +63,29 @@ public class generateIndexController {
 				doc.add(new StringField("adduser", post.getAdduserId(), Store.YES));
 				//addUsername
 				doc.add(new TextField("addusername", post.getAdduserName(), Store.YES));
+				
 				//addTime TODO getAddTime为空
-				doc.add(new LongField("addtime", post.getAddTime() == null ? System.currentTimeMillis() : post.getAddTime().getTime(), Store.YES));
+				if(post.getAddTime()!=null){
+					doc.add(new LongField("addtime",post.getAddTime().getTime(), Store.YES));
+					//排序处理
+					doc.add(new NumericDocValuesField("addtime",post.getAddTime().getTime()));  
+				}
+				
 				//lastReplyTime
 				doc.add(new LongField("lastreplytime", post.getLastReplyTime().getTime(), Store.YES));
-//				TODO 需要排序需另外处理
-//				只有这样才可以对指定域进行排序(既要加这个DocValueField 也要加Field)
-//				dfDocument.add(new NumericDocValuesField("id",Long.parseLong(id)));  
+				
+				//click
+				doc.add(new LongField("click",post.getClick(), Store.YES));
+				//排序处理
+				doc.add(new NumericDocValuesField("click",post.getClick()));  
+				
+				//reply
+				doc.add(new LongField("reply",post.getReply(), Store.YES));
+				//排序处理
+				doc.add(new NumericDocValuesField("reply",post.getReply()));  
+				//isBest
+				doc.add(new StringField("isBest",post.getIsBest(), Store.YES));
+				
 				writer.addDocument(doc);
 			}	
 		} catch (Exception e) {

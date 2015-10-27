@@ -10,7 +10,6 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import org.wltea.analyzer.lucene.IKAnalyzer;
 /**
  * Lucene生成索引的工具类,生成时默认分词器为IKAnalyser
  * @author huangzhiqian
@@ -25,12 +24,9 @@ public class LuceneIndexUtil {
 	/**Title Field(保存内容,分词,保留权重,偏移量等)**/
 	public static FieldType TitleFielType =null;
 	
-	/**
-	 * 默认分词器
-	 */
 	private static Analyzer defaultAnalyzer = null;
 	static {
-		defaultAnalyzer=new IKAnalyzer();
+		defaultAnalyzer=LuceneUtil.getAnalyzer();
 		
 		//  Id
 		IdFielType = new FieldType();

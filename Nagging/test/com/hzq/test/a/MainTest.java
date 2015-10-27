@@ -28,7 +28,6 @@ public class MainTest {
 	private static List<TianYaPost> postList = new ArrayList<TianYaPost>();
 	private static final String TIANYA_URL = "http://bbs.tianya.cn/list-lookout-1.shtml";
 	private static CloseableHttpClient httpclient = null;
-	private static boolean FinishFlag = false;
 	private volatile static int PageNum = 0;
 	private volatile static int IndexNum = 0;
 	static {
@@ -116,7 +115,6 @@ public class MainTest {
 			if (!nexts.text().contains("下一页")) {
 				// 睡眠10秒,保证其他线程的解析执行完毕
 				Thread.sleep(30000L);
-				FinishFlag = true;
 				System.out.println("数据抓取完毕" + PageNum);
 			}
 			for (Element next : nexts) {

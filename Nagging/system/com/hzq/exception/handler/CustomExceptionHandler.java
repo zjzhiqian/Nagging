@@ -68,6 +68,7 @@ public class CustomExceptionHandler {
 
 	@ExceptionHandler({Exception.class })
 	public ModelAndView HandleException(HttpServletRequest req,HttpServletResponse res,Exception ex) {
+		ex.printStackTrace();
 		if(AjaxUtil.isAjaxRequest(req)){
 			doForAjax("系统错误", res,200);
 			return null;

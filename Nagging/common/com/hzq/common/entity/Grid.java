@@ -13,10 +13,14 @@ public class Grid<T> implements Serializable {
 	private List<T> rows;
 	private int total;
 	private T footer;
+	private Object o;
 	
-	
-	
-	
+	public Object getO() {
+		return o;
+	}
+	public void setO(Object o) {
+		this.o = o;
+	}
 	public Grid() {
 		super();
 	}
@@ -51,8 +55,7 @@ public class Grid<T> implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "DataGridResult [rows=" + rows + ", total=" + total
-				+ ", footer=" + footer + "]";
+		return "Grid [rows=" + rows + ", total=" + total + ", footer=" + footer + ", o=" + o + "]";
 	}
 	
 }

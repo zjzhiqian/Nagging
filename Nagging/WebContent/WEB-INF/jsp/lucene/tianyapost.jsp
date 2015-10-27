@@ -8,18 +8,32 @@
 
 <body>
 	<div class="easyui-layout" data-options="fit:true" style="margin-top: 0px">
-		<div data-options="region:'north'" style="height:30px;overflow: hidden">
+		<div data-options="region:'north'" style="height:60px;overflow: hidden">
 		
 			<form class="form-inline" style="margin-top: 2px" id="form-commonQuery">
 				  <div>
 				    <label for="form-title" style="margin-left: 10px">标题:</label>
 				    <input type="text" name='title' id="form-title" class="easyui-textbox"  width="150px">
+				    <label style="margin-left: 60px">内容:</label>
+				    <input type="text" name='content' class="easyui-textbox"  width="150px" >
+				    
 				    <label style="margin-left: 60px">发帖时间:</label>
 				    <input type="text" name='postTime1' class="easyui-datetimebox" >
 				        至<input type="text" name='postTime2' class="easyui-datetimebox">
-					<shiro:hasPermission name="lucene:tianyapostquery">	
-						<a id="reset" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="height: 25px">重置</a>		
-						<a id="commonquery" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="height: 25px">查询</a>
+				  </div>
+					
+				  <div>
+				  	<label style="margin-left: 10px">排序:</label>
+				  	<select id="cc" class="easyui-combobox" name="sort" style="width:180px;">
+				  		<option value=""></option>
+					    <option value="1">发帖时间</option>
+					    <option value="2">点击数</option>
+					    <option value="3">回复数</option>
+					</select>
+				    <shiro:hasPermission name="lucene:tianyapostquery">	
+					<a id="reset" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="height: 25px;margin-left: 500px">重置</a>		
+					<a id="commonquery" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="height: 25px">普通查询</a>
+					<a id="indexquery" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="height: 25px">lucene检索</a>
 				    </shiro:hasPermission>
 				  </div>
 			</form>
@@ -35,7 +49,8 @@
 				fit:true,
 			    url:'${ctx}/lucene/tianyaquery',
 			    columns:[[
-			        {field:'id',title:'编号',width:100,checkbox:true},
+// 			        {field:'id',title:'编号',width:100,checkbox:true},
+					{field:'id',title:'编号',width:100},
 			        {field:'title',title:'标题',width:300},
 			        {field:'adduserId',title:'发帖人编号',width:60,align:'right'},
 			        {field:'adduserName',title:'发帖人',width:100},
@@ -73,55 +88,42 @@
 			    toolbar:[
 						
 				],
-				onAfterEdit:function(index,rowData,changes){
-					var inserted=dg.datagrid('getChanges','inserted');
-					var updated=dg.datagrid('getChanges','updated');
-					var url=""; var json="";
-					if(inserted.length>0){
-						url='${ctx}/system/useradd';
+				onLoadSuccess:function(data){
+					if(data.o&&data.o.flag){
+						showmsg($.formatString("加载数据一共用了{0}秒",Number(data.o.msg)/1000))
+					}else{
+						console.log(2321)
+						alerterror(data.o.msg)
 					}
-					if(updated.length>0){
-						url='${ctx}/system/useredit';
-					}
-					if(url==""){
-						editRow=undefined;
-						return false;
-					}
-					
-					loading();
-					$.ajax({
-						url:url,
-						data:rowData,
-						success:function(r){
-							loaded();
-							if(r&&r.flag){
-								showmsg(r.msg)
-								dg.datagrid('acceptChanges');
-								dg.datagrid('load');
-							}else{
-								dg.datagrid('rejectChanges');
-								alerterror(r.msg)
-							}
-							editRow=undefined;
-							dg.datagrid('unselectAll');
-						}
-					})
-				   
-			  }
+				}
 			    
 			});
 			
 		});
 		
 		$("#commonquery").click(function(){
-			o=$.serializeObject($("#form-commonQuery"))
-			dg.datagrid('load',o)
+			queryParams=$.serializeObject($("#form-commonQuery"))
+			dg.datagrid({
+				url:'${ctx}/lucene/tianyaquery',
+				queryParams:queryParams
+			})
 		})
 		
 		$("#reset").click(function(){
 			$("#form-commonQuery input").val("")
 			dg.datagrid('load',{});
 		})
+		
+		$("#indexquery").click(function(){
+			var url="${ctx}/lucene/tianyaIndexQuery";
+			queryParams=$.serializeObject($("#form-commonQuery"))
+			dg.datagrid({
+				url:url,
+				queryParams:queryParams
+			});
+		})	
+			
+		
 	
 	</script>	
 </body>

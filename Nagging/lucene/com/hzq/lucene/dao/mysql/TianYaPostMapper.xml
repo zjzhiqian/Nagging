@@ -7,13 +7,13 @@
                  and id = #{condition.id,jdbcType=BIGINT}
             </if>
             <if test="condition.content != null" >
-                 and content = #{condition.content,jdbcType=VARCHAR}
+                 and content like concat('%',#{condition.content},'%')
             </if>
             <if test="condition.url != null" >
                  and url = #{condition.url,jdbcType=VARCHAR}
             </if>
             <if test="condition.title != null" >
-                  and title like concat(#{condition.title},'%')
+                  and title like concat('%',#{condition.title},'%')
             </if>
             <if test="condition.adduserId != null" >
                  and adduser_id = #{condition.adduserId,jdbcType=VARCHAR}
@@ -188,6 +188,9 @@
 
     <select id="conditionQuery" parameterType="com.hzq.common.entity.QueryCondition" resultMap="BaseResultMap" >
         select <include refid="Base_Column_List" /> from lucene_tianyapost <include refid="conditionQuerySql" />
+        <if test="condition.orderSql != null" >
+        	${condition.orderSql}
+        </if>
         <if test="condition.beginIndex != null" >
              <![CDATA[ limit #{condition.beginIndex} , #{condition.rows} ]]>
         </if>
