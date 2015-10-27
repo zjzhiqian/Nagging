@@ -92,7 +92,6 @@
 					if(data.o&&data.o.flag){
 						showmsg($.formatString("加载数据一共用了{0}秒",Number(data.o.msg)/1000))
 					}else{
-						console.log(2321)
 						alerterror(data.o.msg)
 					}
 				}
@@ -110,6 +109,9 @@
 		})
 		
 		$("#reset").click(function(){
+			dg.datagrid({
+				url:'${ctx}/lucene/tianyaquery'
+			})
 			$("#form-commonQuery input").val("")
 			dg.datagrid('load',{});
 		})
