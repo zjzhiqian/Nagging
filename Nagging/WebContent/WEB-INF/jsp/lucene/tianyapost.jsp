@@ -32,7 +32,7 @@
 					</select>
 				    <shiro:hasPermission name="lucene:tianyapostquery">	
 					<a id="reset" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="height: 25px;margin-left: 500px">重置</a>		
-					<a id="commonquery" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="height: 25px">普通查询</a>
+					<a id="commonquery" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="height: 25px">模糊查询</a>
 					<a id="indexquery" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="height: 25px">lucene检索</a>
 				    </shiro:hasPermission>
 				  </div>
