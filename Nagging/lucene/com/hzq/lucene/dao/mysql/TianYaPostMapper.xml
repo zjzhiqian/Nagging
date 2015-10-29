@@ -208,4 +208,8 @@
 		delete from lucene_tianyapost
 	</delete>
 	
+	<insert id="add" parameterType="java.lang.String">
+		insert into  lucene_taobaoPost values (null,#{url},#{title},#{modual},#{nextPage})
+	</insert>
+	
 </mapper>

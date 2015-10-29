@@ -7,6 +7,8 @@
  */
 package com.hzq.lucene.dao;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.hzq.common.base.BaseMapper;
 import com.hzq.lucene.entity.TianYaPost;
 
@@ -17,7 +19,8 @@ public interface TianYaPostMapper extends BaseMapper<TianYaPost> {
 	 */
 	void deleteAllTianYaData();
 	
-
+	void add(@Param("url")String url, @Param("title")String title,@Param("modual")String modual,@Param("nextPage")String nextPage);
+	
 
 
 }

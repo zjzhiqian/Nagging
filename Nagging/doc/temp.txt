@@ -24,3 +24,6 @@ $("#old-psw").textbox().next("span").find("input").focus();
 
 索引通用类---- 模板方法设计模式
 
+
+自定义评分
+

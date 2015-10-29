@@ -21,10 +21,23 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author huangzhiqian
  */
 public class TaoBaoPost implements Serializable{
-	
-	 private static final long serialVersionUID = 1L;
-
-	    /**
+		private String nextPage;
+	 public String getNextPage() {
+			return nextPage;
+		}
+		public void setNextPage(String nextPage) {
+			this.nextPage = nextPage;
+		}
+	private static final long serialVersionUID = 1L;
+	 	private String modual;
+	 	
+	    public String getModual() {
+			return modual;
+		}
+		public void setModual(String modual) {
+			this.modual = modual;
+		}
+		/**
 	     * 帖子编号
 	     */
 	    private Long id;

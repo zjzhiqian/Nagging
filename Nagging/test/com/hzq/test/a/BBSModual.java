@@ -20,6 +20,7 @@ package com.hzq.test.a;
 public class BBSModual {
 	private String name;
 	private String url;
+	private String spmId;
 
 	public String getName() {
 		return name;
@@ -37,10 +38,20 @@ public class BBSModual {
 		this.url = url;
 	}
 
+	
+	public String getSpmId() {
+		return spmId;
+	}
+
+	public void setSpmId(String spmId) {
+		this.spmId = spmId;
+	}
+
 	@Override
 	public String toString() {
-		return "BBSModual [name=" + name + ", url=" + url + "]";
+		return "BBSModual [name=" + name + ", url=" + url + ", spmId=" + spmId + "]";
 	}
+
 	
 
 }

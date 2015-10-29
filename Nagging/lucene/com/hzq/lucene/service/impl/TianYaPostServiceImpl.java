@@ -11,6 +11,7 @@ import com.hzq.common.entity.QueryCondition;
 import com.hzq.lucene.dao.TianYaPostMapper;
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.service.TianYaPostService;
+import com.hzq.test.a.TaoBaoPost;
 
 @Service
 public class TianYaPostServiceImpl extends BaseService<TianYaPost> implements TianYaPostService {
@@ -47,6 +48,12 @@ public class TianYaPostServiceImpl extends BaseService<TianYaPost> implements Ti
 		List<TianYaPost> gridResult=tianYaPostMapper.conditionQuery(condition);
 		int count=tianYaPostMapper.conditionCountQuery(condition);
 		return new Grid<TianYaPost>(gridResult,count);
+	}
+
+	@Override
+	public void add(TaoBaoPost post) {
+		tianYaPostMapper.add(post.getUrl(),post.getTitle(),post.getModual(),post.getNextPage());
+		
 	}
 	
 }
