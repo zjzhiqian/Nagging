@@ -73,14 +73,6 @@ public class ShiroTest {
 		
 	}
 	
-	@Test
-	public void dp() throws ClassNotFoundException{
-		Class<? extends Pet> clazz=Dog.class;
-		System.out.println(clazz.isInstance(new Pet()));
-		if(new Dog() instanceof Pet){
-			System.out.println(1);
-		}
-	}
 	
 	
 	

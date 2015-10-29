@@ -96,11 +96,6 @@ public class GrabController {
 		
 	}
 	
-
-	
-	
-	
-	
 	/**
 	 * 天涯论坛数据抓取Task
 	 */
