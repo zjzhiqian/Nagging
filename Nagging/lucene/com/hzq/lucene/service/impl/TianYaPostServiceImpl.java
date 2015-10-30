@@ -9,9 +9,9 @@ import com.hzq.common.base.BaseService;
 import com.hzq.common.entity.Grid;
 import com.hzq.common.entity.QueryCondition;
 import com.hzq.lucene.dao.TianYaPostMapper;
+import com.hzq.lucene.entity.TaoBaoPost;
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.service.TianYaPostService;
-import com.hzq.test.a.TaoBaoPost;
 
 @Service
 public class TianYaPostServiceImpl extends BaseService<TianYaPost> implements TianYaPostService {

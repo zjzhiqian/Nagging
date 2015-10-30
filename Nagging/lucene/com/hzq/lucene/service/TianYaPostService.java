@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.hzq.common.entity.Grid;
 import com.hzq.common.entity.QueryCondition;
+import com.hzq.lucene.entity.TaoBaoPost;
 import com.hzq.lucene.entity.TianYaPost;
-import com.hzq.test.a.TaoBaoPost;
 
 public interface TianYaPostService {
 	/**

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hzq.common.entity.Json;
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.service.TianYaPostService;
-import com.hzq.lucene.util.LuceneIndexUtil;
+import com.hzq.lucene.util.LuceneUtil;
 import com.hzq.system.constant.Constant;
 
 /**
@@ -29,7 +29,7 @@ import com.hzq.system.constant.Constant;
  */
 @Controller
 @RequestMapping("lucene")
-public class generateIndexController {
+public class TianYaToIndexController {
 	@Autowired
 	TianYaPostService tianYaPostService;
 
@@ -42,7 +42,7 @@ public class generateIndexController {
 	@ResponseBody
 	public Json tianyaPostIndex() {
 		Long time1=System.currentTimeMillis();
-		IndexWriter writer = LuceneIndexUtil.getIndexWriter(Constant.Index_TianYaPost_Path);
+		IndexWriter writer = LuceneUtil.getIndexWriter(Constant.Index_TianYaPost_Path);
 		List<TianYaPost> posts = tianYaPostService.findAllPosts();
 		Document doc = null;
 		try {
@@ -51,34 +51,26 @@ public class generateIndexController {
 			for (TianYaPost post : posts) {
 				doc = new Document();
 				//ID
-				doc.add(new Field("id", post.getId() + "", LuceneIndexUtil.IdFielType));
-				
-				doc.add(new Field("title", post.getTitle() + "", LuceneIndexUtil.TitleFielType));
-				
-				//content TODO content为空
-				doc.add(new Field("content", post.getContent() == null ? "" : post.getContent().toLowerCase(), LuceneIndexUtil.ContentFielType));
+				doc.add(new Field("id", post.getId() + "", LuceneUtil.IdFielType));
+				doc.add(new Field("title", post.getTitle() + "", LuceneUtil.TitleFielType));
+				doc.add(new Field("content", post.getContent() == null ? "" : post.getContent().toLowerCase(), LuceneUtil.ContentFielType));
 				//url
 				doc.add(new StringField("url", post.getUrl(), Store.YES));
 				//addUserId
 				doc.add(new StringField("adduser", post.getAdduserId(), Store.YES));
 				//addUsername
 				doc.add(new TextField("addusername", post.getAdduserName(), Store.YES));
-				
-				//addTime TODO getAddTime为空
 				if(post.getAddTime()!=null){
 					doc.add(new LongField("addtime",post.getAddTime().getTime(), Store.YES));
 					//排序处理
 					doc.add(new NumericDocValuesField("addtime",post.getAddTime().getTime()));  
 				}
-				
 				//lastReplyTime
 				doc.add(new LongField("lastreplytime", post.getLastReplyTime().getTime(), Store.YES));
-				
 				//click
 				doc.add(new LongField("click",post.getClick(), Store.YES));
 				//排序处理
 				doc.add(new NumericDocValuesField("click",post.getClick()));  
-				
 				//reply
 				doc.add(new LongField("reply",post.getReply(), Store.YES));
 				//排序处理
@@ -92,7 +84,7 @@ public class generateIndexController {
 			e.printStackTrace();
 			return new Json(false);
 		}finally{
-			LuceneIndexUtil.closeWriter(writer);
+			LuceneUtil.closeWriter(writer);
 		}
 		Json json=new Json(true,String.format("生成成功,用了%s毫秒",System.currentTimeMillis()-time1+""));
 		return json;

@@ -19,7 +19,12 @@ import com.hzq.lucene.util.TianYaDataAnalyserUtil;
 
 @Controller
 @RequestMapping("lucene")
-public class GrabController {
+/**
+ * 抓取Controller
+ * @author huangzhiqian
+ *
+ */
+public class TianYaGrabController {
 	
 	private static volatile long getCount=0;
 	
@@ -37,7 +42,7 @@ public class GrabController {
 
 
 	public static void setDataList(List<TianYaPost> dataList) {
-		GrabController.dataList = dataList;
+		TianYaGrabController.dataList = dataList;
 	}
 
 	static {

@@ -1,6 +1,7 @@
 package com.hzq.lucene.util;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -9,6 +10,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.document.Document;
+import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.BooleanClause;
@@ -18,14 +20,45 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
 import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.FSDirectory;
 
 import com.hzq.common.entity.Grid;
 import com.hzq.common.entity.Json;
 import com.hzq.common.entity.QueryCondition;
 import com.hzq.lucene.entity.TianYaPost;
+import com.hzq.system.constant.Constant;
 
 
-public class LuceneQueryUtil {
+public class TianYaQueryUtil {
+	private static Directory TianYaderectory = null;
+	private static DirectoryReader TianYareader = null;
+	
+	static{
+		try {
+			TianYaderectory = FSDirectory.open(Paths.get(Constant.Index_TianYaPost_Path));
+			TianYareader=DirectoryReader.open(TianYaderectory);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 获取天涯论坛Searcher
+	 * @return
+	 */
+	private static IndexSearcher getTianYaSearcher(){
+		try{
+			if(TianYareader==null){
+				TianYareader=DirectoryReader.open(TianYaderectory);
+			}
+			return new IndexSearcher(TianYareader);
+		}catch(Exception e ){
+			e.printStackTrace();
+			throw new RuntimeException();
+		}	
+	}
+	
 	/**
 	 * 天涯论坛的查询
 	 * @param condition
@@ -35,8 +68,7 @@ public class LuceneQueryUtil {
 		Grid<TianYaPost> rs=new Grid<TianYaPost>();
 		
 		List<TianYaPost> rsList=new LinkedList<TianYaPost>();
-		
-		IndexSearcher searcher=LuceneUtil.getTianYaSearcher();
+		IndexSearcher searcher=getTianYaSearcher();
 		Map<Object,Object> map=condition.getCondition();
 		List<String> fieldList=new ArrayList<String>();
 		List<String> queryList=new ArrayList<String>();
@@ -70,7 +102,7 @@ public class LuceneQueryUtil {
 		
 		try {
 			Long time1=System.currentTimeMillis();
-			Query query=MultiFieldQueryParser.parse(queryList.toArray(new String[queryList.size()]), fieldList.toArray(new String[fieldList.size()]), clauses, LuceneUtil.getAnalyzer());
+			Query query=MultiFieldQueryParser.parse(queryList.toArray(new String[queryList.size()]), fieldList.toArray(new String[fieldList.size()]), clauses,LuceneUtil.getAnalyzer());
 			//排序
 			Sort sort=null;
 			if(map.containsKey("orderSql")){
@@ -113,10 +145,6 @@ public class LuceneQueryUtil {
 		return rs;
 	}
 	
-	
-	
-	
-	
 	/**
 	 * 获取SearchAfter的分页之前的一条数据(lucene分页查询)
 	 * @param page 第几页
@@ -142,7 +170,6 @@ public class LuceneQueryUtil {
 		}else{
 			tds=searcher.search(query, num);
 		}
-		
 		ScoreDoc[] sds=tds.scoreDocs;
 		rs.setTotal(tds.totalHits);
 		if(sds.length>0){

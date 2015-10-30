@@ -9,7 +9,7 @@
  * -------------------------------------------------------------------------
  * 2015年10月29日 huangzhiqian 创建版本
  */
-package com.hzq.test.a;
+package com.hzq.lucene.entity;
 
 /**
  * 

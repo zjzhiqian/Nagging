@@ -21,7 +21,7 @@ import org.jsoup.select.Elements;
 
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.threadService.ThreadService;
-import com.hzq.lucene.web.GrabController;
+import com.hzq.lucene.web.TianYaGrabController;
 
 
 /**
@@ -111,7 +111,7 @@ public class TianYaDataAnalyserUtil {
 				}
 				//解析List异步线程
 				ThreadService.getThreadService().execute(new TianYaListTask(post,tdEle));
-				GrabController.getDataList().add(post);
+				TianYaGrabController.getDataList().add(post);
 			}
 				
 				
@@ -125,7 +125,7 @@ public class TianYaDataAnalyserUtil {
 				}catch(InterruptedException e){
 					//doNothing
 				}
-				GrabController.FinishFlag=true;
+				TianYaGrabController.FinishFlag=true;
 			}
 			for(Element next:nexts){
 				if(next.text().indexOf("下一页")!=-1){
