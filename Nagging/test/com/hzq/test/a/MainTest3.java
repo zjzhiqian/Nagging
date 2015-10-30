@@ -285,7 +285,6 @@ public class MainTest3 {
 				if (StringUtils.isNotEmpty(postContent)) {
 					System.out.println(postContent);
 					Document doc = Jsoup.parse(postContent);
-					//TODO 详情页数据获取
 					
 					
 					

@@ -1,4 +1,3 @@
-
 <ehcache  updateCheck="false" name="shiroCache"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
 	<!--
@@ -34,8 +33,8 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocat
            overflowToDisk="false"
            statistics="true">
     </cache>        
-            
-            
+    
+    <!-- 记录被踢出的session缓存 -->        
     <cache name="shiro-kickout-session"
            maxEntriesLocalHeap="2000"
            eternal="false"
@@ -44,8 +43,8 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocat
            overflowToDisk="false"
            statistics="true">
     </cache>
-            
     
+    <!-- 记录活跃用户的缓存 -->
     <cache name="shiro-activeSessionCache"  
        maxEntriesLocalHeap="10000"  
        overflowToDisk="false"  
@@ -54,7 +53,6 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocat
        timeToLiveSeconds="0"  
        timeToIdleSeconds="0"  
        statistics="true"/>   
-    
             
 </ehcache>
 

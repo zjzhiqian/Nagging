@@ -16,8 +16,6 @@
 		<property name="cacheManager" ref="cacheManager"/>
 		<!-- session管理器 -->
 		<property name="sessionManager" ref="sessionManager" />
-		<!-- 记住我 -->
-		<!-- <property name="rememberMeManager" ref="rememberMeManager"/> -->
 		
 	</bean>
 
@@ -38,7 +36,6 @@
     	<property name="cacheManagerConfigFile" value="classpath:ehcache-shiro.xml"/>
     </bean>
     
-	
 	 <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
         <!-- session的失效时长，单位毫秒 -->
         <property name="globalSessionTimeout" value="1000000"/>
@@ -47,7 +44,6 @@
         <property name="sessionListeners">
         	<ref bean="shiroSessionListener"/>
         </property>
-        
  		<property name="sessionDAO" ref="sessionDAO"/>
         <property name="sessionIdCookieEnabled" value="true"/>
         <property name="sessionIdCookie" ref="sessionIdCookie"/>
@@ -66,15 +62,6 @@
     </bean> 
     <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
 	<bean id="shiroSessionListener" class="com.hzq.system.listener.ShiroSessionListener"></bean>
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<!-- 未认证跳转页面 -->
@@ -88,7 +75,6 @@
 			<map>
 				<!-- 将自定义 的FormAuthenticationFilter注入shiroFilter中-->
 				<entry key="authc" value-ref="formAuthenticationFilter" />
-				<!-- <entry key="sessionControl" value-ref="onLinePerAccountControlFilter"></entry> -->
 			</map>
 		</property>
 		
@@ -104,10 +90,6 @@
 				/kicked =anon
 				<!-- 退出url,shiro会自动清除session -->
 				/logout = logout
-				<!-- 记住我(user)或认证通过可以访问的地址 -->
-				<!-- /=user
-				/index=user -->
-				
 				
 				/**=authc
 			</value>
@@ -122,9 +104,6 @@
 		<property name="passwordParam" value="password" />
 		<!-- 记住我input的名称 -->
 		<property name="rememberMeParam" value="rememberMe"/>
-		
-		
-		
 		<property name="cacheKey" value="shiro-kickout-session"></property>
 	 	<property name="cacheManager" ref="cacheManager"></property>
 	 	<property name="sessionManager" ref="sessionManager"></property>
@@ -133,16 +112,4 @@
         <property name="maxSession" value="1"/>
         <property name="kickoutUrl" value="/kicked"/>
  	</bean>
- 	
-	<!-- rememberMeManager管理器，写cookie，取出cookie生成用户信息 -->
-	<!-- <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
-		<property name="cookie" ref="rememberMeCookie" />
-	</bean> -->
-	<!-- 记住我cookie -->
-	<!-- <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-		Cookie名称
-		<constructor-arg value="rememberMe" />
-		cookie有效时间1天
-		<property name="maxAge" value="86400" />
-	</bean> -->
 </beans>
