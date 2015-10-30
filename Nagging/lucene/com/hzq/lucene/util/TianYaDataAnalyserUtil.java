@@ -25,7 +25,7 @@ import com.hzq.lucene.web.TianYaGrabController;
 
 
 /**
- * 用来分析数据的工具类
+ * 用来分析天涯数据的类
  * @author huangzhiqian
  * @date 2015年10月18日 下午10:24:42
  */
@@ -113,11 +113,10 @@ public class TianYaDataAnalyserUtil {
 				ThreadService.getThreadService().execute(new TianYaListTask(post,tdEle));
 				TianYaGrabController.getDataList().add(post);
 			}
-				
-				
 			//下一页按钮的url(开启异步线程根据下一页url继续解析)
 			Elements nexts=doc.select("div.links");
 			nexts=nexts.get(0).select("a");
+			//如果不包含下一页表示解析结束
 			if(!nexts.text().contains("下一页")){
 				//睡眠60秒,保证其他线程的解析出来的数据set到Post中
 				try{
@@ -136,14 +135,13 @@ public class TianYaDataAnalyserUtil {
 				}
 			}
 		}catch(Exception e){
+			//捕获异常继续执行
 			AddTianYaPostByUrl(tianyaUrl);
 		}
 		
 		
 	}
 
-	
-	
 	
 	/**
 	 * 处理从详情页面获取的数据异步Task(包含抓取和解析)
@@ -286,10 +284,5 @@ public class TianYaDataAnalyserUtil {
 			}
 		}
 	}
-
-	
-		
-		
-	
 	
 }
