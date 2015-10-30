@@ -13,6 +13,7 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.ParseException;
+import org.apache.lucene.queryparser.flexible.standard.QueryParserUtil;
 import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
@@ -75,13 +76,16 @@ public class TianYaQueryUtil {
 		int FieldCount=0;
 		if(map.containsKey("content")){
 			fieldList.add("content");
-			String content=(String)map.get("content");
+//			String content=(String)map.get("content");
+			String content=QueryParserUtil.escape((String)map.get("content"));
 			queryList.add(content.toLowerCase());
+			
 			FieldCount++;
 		}
 		if(map.containsKey("title")){
 			fieldList.add("title");
-			String title=(String)map.get("title");
+//			String title=(String)map.get("title");
+			String title=QueryParserUtil.escape((String)map.get("title"));
 			queryList.add(title.toLowerCase());
 			FieldCount++;
 		}
