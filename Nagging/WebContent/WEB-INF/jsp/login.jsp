@@ -67,8 +67,8 @@
 			</div>
 
 			<div class="tab_con">
+				<span style="color: red">${loginErrorMsg }</span>
 				<table class="tab" border="0" cellSpacing="6" cellPadding="8">
-					<font color="red">${loginErrorMsg }</font>
 					<tbody>
 						<tr>
 							<td>用户名：</td>
@@ -82,10 +82,6 @@
 							<td>验证码：</td>
 							<td><input id="randomcode" name="randomcode" size="4" /> <img id="randomcode_img" onclick="randomcode_refresh()" src="${ctx}/validatecode.jsp" alt="" width="56" height="20" align='absMiddle' /> <a href=javascript:randomcode_refresh()>刷新</a></td>
 						</tr>
-<!-- 						<tr> -->
-<!-- 							<td></td> -->
-<!-- 							<td><input type="checkbox" name="rememberMe" class="mcheckbox" />&nbsp;&nbsp;一天内自动登陆</td> -->
-<!-- 						</tr> -->
 						<tr>
 							<td colSpan="2" align="center"><input type="button" class="indexbtnlink" onclick="loginsubmit()" value="登&nbsp;&nbsp;录" /> <input id="btn-reset" type="reset" onclick="btnReset()" class="indexbtnlink" value="重&nbsp;&nbsp;置" /></td>
 						</tr>
@@ -154,7 +150,7 @@
 		$("#randomcode").val("1111");
 		$("#username").val("123");
 		$("#password").val("123456");
-		loginsubmit();
+// 		loginsubmit();
 
 	})
 </script>

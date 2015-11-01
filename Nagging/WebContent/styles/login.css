@@ -54,12 +54,6 @@ input,select {
 	text-align: center;
 }
 
-.title {
-	width: 322px;
-	height: 40px;
-	margin: 0 auto;
-	margin-bottom: 40px;
-}
 
 .cen_con {
 	width: 1033px;
@@ -75,9 +69,6 @@ input,select {
 	margin-left: -115px;
 }
 
-.tab {
-	
-}
 
 .tab tr {
 	line-height: 30px;
