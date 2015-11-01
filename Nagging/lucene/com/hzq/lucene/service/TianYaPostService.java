@@ -34,6 +34,15 @@ public interface TianYaPostService {
 	 * @return
 	 */
 	Grid<TianYaPost> getDataGridResult(QueryCondition condition);
+	/**
+	 * 添加淘宝数据
+	 * @param post
+	 */
 	void add(TaoBaoPost post);
+	/**
+	 * 获取所有淘宝帖子
+	 * @return
+	 */
+	List<TaoBaoPost> findAllTbPosts();
 
 }

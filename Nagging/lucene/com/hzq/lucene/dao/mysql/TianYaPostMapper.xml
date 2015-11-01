@@ -212,4 +212,9 @@
 		insert into  lucene_taobaoPost values (null,#{url},#{title},#{modual},#{nextPage})
 	</insert>
 	
+	
+	<select id="findAllTbPosts" resultType="com.hzq.lucene.entity.TaoBaoPost">
+		select id,title,modual from lucene_taobaopost
+	</select>
+	
 </mapper>

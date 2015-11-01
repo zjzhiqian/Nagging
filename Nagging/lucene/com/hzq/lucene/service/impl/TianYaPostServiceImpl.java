@@ -55,5 +55,10 @@ public class TianYaPostServiceImpl extends BaseService<TianYaPost> implements Ti
 		tianYaPostMapper.add(post.getUrl(),post.getTitle(),post.getModual(),post.getNextPage());
 		
 	}
+
+	@Override
+	public List<TaoBaoPost> findAllTbPosts() {
+		return tianYaPostMapper.findAllTbPosts();
+	}
 	
 }
