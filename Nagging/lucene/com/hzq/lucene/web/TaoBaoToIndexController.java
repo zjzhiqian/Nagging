@@ -36,7 +36,7 @@ public class TaoBaoToIndexController {
 	public Json tianyaPostIndex() {
 		
 		Long time1=System.currentTimeMillis();
-		IndexWriter writer = LuceneUtil.getIndexWriter(Constant.Index_TianYaPost_Path);
+		IndexWriter writer = LuceneUtil.getIndexWriter(Constant.Index_TaoBaoPost_Path);
 		List<TaoBaoPost> posts = tianYaPostService.findAllTbPosts();
 		System.err.println("查询花费时间"+(System.currentTimeMillis()-time1));
 		Document doc = null;
