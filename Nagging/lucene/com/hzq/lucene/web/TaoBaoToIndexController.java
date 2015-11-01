@@ -38,7 +38,6 @@ public class TaoBaoToIndexController {
 		Long time1=System.currentTimeMillis();
 		IndexWriter writer = LuceneUtil.getIndexWriter(Constant.Index_TaoBaoPost_Path);
 		List<TaoBaoPost> posts = tianYaPostService.findAllTbPosts();
-		System.err.println("查询花费时间"+(System.currentTimeMillis()-time1));
 		Document doc = null;
 		try {
 			//生成索引之前 先删除所有此目录下的索引
@@ -52,7 +51,6 @@ public class TaoBaoToIndexController {
 				
 				writer.addDocument(doc);
 			}
-		    System.err.println("索引查询一共花费时间"+(System.currentTimeMillis()-time1));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Json(false);
