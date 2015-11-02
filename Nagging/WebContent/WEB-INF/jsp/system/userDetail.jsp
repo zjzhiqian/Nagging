@@ -44,12 +44,6 @@ $(function(){
 })
 
 
-
-
-
-
-
-
 </script>
 
 
@@ -72,9 +66,6 @@ $(function(){
 		</form>
 	</div>
 </div>
-
-
-
 
 
 

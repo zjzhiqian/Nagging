@@ -10,7 +10,8 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import org.wltea.analyzer.lucene.IKAnalyzer;
+import com.hzq.lucene.analyzer.BaseSynonymEngine;
+import com.hzq.lucene.analyzer.IKSynonymAnalyzer;
 /**
  * Lucene工具类,默认分词器为IKAnalyser
  * @author huangzhiqian
@@ -96,7 +97,7 @@ public class LuceneUtil {
 	
 	
 	public static Analyzer getAnalyzer(){
-		return new IKAnalyzer();
+		return new IKSynonymAnalyzer(new BaseSynonymEngine());
 		
 	}
 	
