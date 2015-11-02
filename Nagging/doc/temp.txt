@@ -27,4 +27,4 @@ $("#old-psw").textbox().next("span").find("input").focus();
 org.apache.shiro.session.ExpiredSessionException
 自定义评分
 
-TODO 生成索引时的 LockObtainTimeOutException
+TODO Controller切面不生效

@@ -9,7 +9,6 @@
 <script type="text/javascript" src="${ctx}/js/easyui/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
 <script type="text/javascript" src="${ctx}/js/jquery.cookie.js"></script>
 <script type="text/javascript" src="${ctx}/js/extBrowser.js"></script>
-<%-- <script type="text/javascript" src="${ctx}/js/menuload.js"></script> --%>
 <script type="text/javascript" src="${ctx}/js/extEasyUI.js"></script>
 <script type="text/javascript" src="${ctx}/js/extJquery.js"></script>
 
@@ -44,9 +43,6 @@
   				404: function(){
   					$.messager.alert("错误","页面找不到！","error");
   				},
-  				/* 405 : function(){
-  					alert("无权限操作！")
-  				}, */
   				700 : function(){
   					alert("账号异地登陆")
   					top.location.href="${ctx}/login";
@@ -54,9 +50,6 @@
   			},
   			beforeSend: function (xhr) {
   				
-            },
-  			complete: function (xhr) {
-  				loaded();
             },
   			error: function(jqXHR, textStatus, errorMsg){ // 出错时默认的处理函数
 	  			try {

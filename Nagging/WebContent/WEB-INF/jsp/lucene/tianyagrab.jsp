@@ -96,21 +96,6 @@
 		})
 	})
 	
-	//索引(TaoBao)
-	$("#data-index-tianya").click(function(){
-		loading("索引生成中,请稍等")
-		$.ajax({
-			url:"${ctx}/lucene/tianyaPostIndex",
-			success:function(r){
-				loaded()
-				if(r&&r.flag){
-					showmsg(r.msg)
-				}else{
-					alerterror(r.msg)
-				}
-			}
-		})
-	})
 	
 
 </script>

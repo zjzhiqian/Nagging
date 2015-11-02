@@ -56,7 +56,8 @@
 	
 	
 	<aop:config proxy-target-class="true"></aop:config>
-	<!-- cglib代理 为Shiro注解提供支持 -->
+	<!-- Shiro注解提供支持 -->
 	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"></bean>
+	<bean class="com.hzq.system.aspect.SysLogAspect"></bean>
 
 </beans>

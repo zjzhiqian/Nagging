@@ -35,6 +35,7 @@ import com.hzq.common.entity.Json;
 import com.hzq.common.entity.QueryCondition;
 import com.hzq.common.util.CommonUtils;
 import com.hzq.common.util.SaltGenerator;
+import com.hzq.system.annotation.Log;
 import com.hzq.system.constant.Constant;
 import com.hzq.system.entity.ShiroUser;
 import com.hzq.system.entity.SysUser;
@@ -265,4 +266,12 @@ public class SysUserController extends BaseController {
 		}
 		return false;
 	}
+	
+	
+	@Log(remark="注解")
+	@RequestMapping(value = "test", method = RequestMethod.GET)
+	public void dotest(){
+			System.out.println("111");
+	}
+	
 }

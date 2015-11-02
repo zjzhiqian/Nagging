@@ -36,6 +36,7 @@ public class CustomExceptionHandler {
 	@ExceptionHandler({ AuthorizationException.class })
 	@ResponseStatus(value = HttpStatus.METHOD_NOT_ALLOWED)
 	public ModelAndView handleAuthorizationException(HttpServletRequest req,HttpServletResponse res,Exception ex) {
+		ex.printStackTrace();
 		if(AjaxUtil.isAjaxRequest(req)){
 			doForAjax("无权限操作",res,200);
 			return null;
@@ -60,6 +61,7 @@ public class CustomExceptionHandler {
 	@ResponseStatus(value = HttpStatus.METHOD_NOT_ALLOWED)
 	public ModelAndView handleBindException(Exception ex) {
 		// TODO 数据绑定异常的跳转
+		ex.printStackTrace();
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("exception", ex);
 		mv.setViewName("unauthorized");
