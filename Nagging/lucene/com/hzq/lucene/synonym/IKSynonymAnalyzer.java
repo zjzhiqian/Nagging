@@ -9,7 +9,7 @@
  * -------------------------------------------------------------------------
  * 2015年11月2日 huangzhiqian 创建版本
  */
-package com.hzq.lucene.analyzer;
+package com.hzq.lucene.synonym;
 
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.Tokenizer;

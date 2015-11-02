@@ -10,8 +10,9 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import com.hzq.lucene.analyzer.BaseSynonymEngine;
-import com.hzq.lucene.analyzer.IKSynonymAnalyzer;
+
+import com.hzq.lucene.synonym.BaseSynonymEngine;
+import com.hzq.lucene.synonym.IKSynonymAnalyzer;
 /**
  * Lucene工具类,默认分词器为IKAnalyser
  * @author huangzhiqian

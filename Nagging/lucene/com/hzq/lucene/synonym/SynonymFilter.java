@@ -1,4 +1,4 @@
-package com.hzq.lucene.analyzer;
+package com.hzq.lucene.synonym;
 
 import java.io.IOException;
 import java.util.Stack;

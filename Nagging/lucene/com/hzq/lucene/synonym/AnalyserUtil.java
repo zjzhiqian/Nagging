@@ -9,7 +9,7 @@
  * -------------------------------------------------------------------------
  * 2015年11月2日 huangzhiqian 创建版本
  */
-package com.hzq.lucene.analyzer;
+package com.hzq.lucene.synonym;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -68,7 +68,7 @@ public class AnalyserUtil {
 	
 	public static void main(String[] args) {
 		Analyzer analyzer=new IKSynonymAnalyzer(new BaseSynonymEngine());
-		AnalyserUtil.displayAllTokenInfo("你的故事是什么", analyzer);
+		AnalyserUtil.displayAllTokenInfo("可以什么呢", analyzer);
 		
 	}
 	

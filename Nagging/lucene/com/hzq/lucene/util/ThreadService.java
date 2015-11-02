@@ -9,7 +9,7 @@
  * -------------------------------------------------------------------------
  * 2015年10月22日 huangzhiqian 创建版本
  */
-package com.hzq.lucene.threadService;
+package com.hzq.lucene.util;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -31,7 +31,6 @@ public class ThreadService {
 	public static void setThreadService(ExecutorService threadService) {
 		ThreadService.threadService = threadService;
 	}
-	
 	
 }
 

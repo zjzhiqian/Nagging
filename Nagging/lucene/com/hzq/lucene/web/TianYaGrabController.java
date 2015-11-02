@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hzq.common.entity.Json;
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.service.TianYaPostService;
-import com.hzq.lucene.threadService.ThreadService;
+import com.hzq.lucene.util.ThreadService;
 import com.hzq.lucene.util.TianYaDataAnalyserUtil;
 
 

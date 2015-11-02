@@ -1,4 +1,4 @@
-package com.hzq.lucene.analyzer;
+package com.hzq.lucene.synonym;
 
 import java.util.HashMap;
 /**
@@ -9,9 +9,10 @@ import java.util.HashMap;
 public class BaseSynonymEngine implements SynonymEngine {
 	//TODO  硬编码,同义词应该从数据库 或者从文件读取
 	private static HashMap<String, String[]> map = new HashMap<String, String[]>();
-	{
-		map.put("故事",new String[]{"梦想"});
-		map.put("梦想",new String[]{"故事"});
+	{	
+		//这意味这 查询享受这个词,可以查询到 带可以的
+		map.put("享受",new String[]{"可以"});
+//		map.put("可以",new String[]{"享受"});
 	}
 
 	public String[] getSynonyms(String s) {

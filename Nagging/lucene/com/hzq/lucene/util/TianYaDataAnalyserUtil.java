@@ -20,7 +20,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.hzq.lucene.entity.TianYaPost;
-import com.hzq.lucene.threadService.ThreadService;
 import com.hzq.lucene.web.TianYaGrabController;
 
 

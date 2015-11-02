@@ -124,7 +124,6 @@ public class TianYaQueryUtil {
 			
 			int page=Integer.parseInt((String)map.get("page"));
 			int rows=(int) map.get("rows");
-			System.err.println(System.currentTimeMillis()-time1);
 			ScoreDoc lastScore=getLastScoreDocs(page,rows,query,searcher,sort,rs);
 			TopDocs tds;
 			if(sort==null){
