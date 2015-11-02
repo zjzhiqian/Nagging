@@ -22,7 +22,7 @@ import java.lang.annotation.Target;
  * 
  * @author huangzhiqian
  */
-@Target({ ElementType.METHOD, ElementType.TYPE })  
+@Target({ ElementType.METHOD})  
 @Retention(RetentionPolicy.RUNTIME)  
 @Documented 
 public @interface Log {

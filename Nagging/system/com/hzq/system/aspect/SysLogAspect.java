@@ -22,7 +22,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.stereotype.Component;
 
 import com.hzq.system.annotation.Log;
 
@@ -68,6 +67,8 @@ public class SysLogAspect {
 		System.out.println("标记为" + tag.get() + "的方法" + method.getName() + "运行消耗" + (System.currentTimeMillis() - time.get()) + "ms");
 	}
 
+	
+	
 	@Around("log()")
 	public void aroundExec(ProceedingJoinPoint pjp) throws Throwable {
 		System.out.println("我是Around，来打酱油的");
