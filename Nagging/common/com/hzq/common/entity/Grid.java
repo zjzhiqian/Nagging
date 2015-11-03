@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * @author hzq
- *
+ *easyui datagrid的通用返回类
  * 2015年9月5日 上午8:24:56 
  */
 public class Grid<T> implements Serializable {
