@@ -67,8 +67,8 @@ public class AnalyserUtil {
 	}
 	
 	public static void main(String[] args) {
-		Analyzer analyzer=new IKSynonymAnalyzer(new BaseSynonymEngine());
-		AnalyserUtil.displayAllTokenInfo("可以什么呢", analyzer);
+		Analyzer analyzer=new IKSynonymAnalyzer(new TxtSynonymEngine());
+		AnalyserUtil.displayAllTokenInfo("搜索引擎优化", analyzer);
 		
 	}
 	

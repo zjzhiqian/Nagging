@@ -11,7 +11,7 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
-import com.hzq.lucene.synonym.BaseSynonymEngine;
+import com.hzq.lucene.synonym.TxtSynonymEngine;
 import com.hzq.lucene.synonym.IKSynonymAnalyzer;
 /**
  * Lucene工具类,默认分词器为IKAnalyser
@@ -98,7 +98,7 @@ public class LuceneUtil {
 	
 	
 	public static Analyzer getAnalyzer(){
-		return new IKSynonymAnalyzer(new BaseSynonymEngine());
+		return new IKSynonymAnalyzer(new TxtSynonymEngine());
 		
 	}
 	
