@@ -23,17 +23,19 @@ public class SynonymFilter extends TokenFilter {
 	private final CharTermAttribute termAtt;
 	private final PositionIncrementAttribute posIncrAtt;
 
-	public SynonymFilter(TokenStream in, SynonymEngine engine) {
-		super(in);
+	public SynonymFilter(TokenStream input, SynonymEngine engine) {
+		super(input);
 		synonymStack = new Stack<String>(); //定义同义词的Buffer
 		this.engine = engine;
 
 		this.termAtt = addAttribute(CharTermAttribute.class);
 		this.posIncrAtt = addAttribute(PositionIncrementAttribute.class);
 	}
-
+	
+	@Override
 	public boolean incrementToken() throws IOException {
-		if (synonymStack.size() > 0) { 
+		if (synonymStack.size() > 0) {
+			//如果找到了之前已经保存的同义词,还原状态,在之前的位置保存元素
 			String syn = synonymStack.pop();
 			restoreState(current);
 			termAtt.copyBuffer(syn.toCharArray(), 0, syn.length());
@@ -45,7 +47,7 @@ public class SynonymFilter extends TokenFilter {
 			return false;
 
 		if (addAliasesToStack()) {
-			//如果找到了同义词,偏移量不变
+			//如果找到了同义词,捕获当前状态
 			current = captureState(); 
 		}
 
