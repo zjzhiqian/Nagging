@@ -16,7 +16,7 @@
 
 <body>
 	<%
-		String easyuiTheme="default";
+		String easyuiTheme="gray";
 	 %>
 </body>
 

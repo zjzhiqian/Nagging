@@ -47,7 +47,7 @@ public class SynonymFilter extends TokenFilter {
 			return false;
 
 		if (addAliasesToStack()) {
-			//如果找到了同义词,捕获当前状态
+			//如果找到了同义词,保存当前状态
 			current = captureState(); 
 		}
 
