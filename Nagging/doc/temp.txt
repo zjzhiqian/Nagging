@@ -22,9 +22,25 @@ if (window != top)
 $("#old-psw").textbox().next("span").find("input").focus();
 
 
-索引通用类---- 模板方法设计模式
 
 org.apache.shiro.session.ExpiredSessionException
 自定义评分
 
-TODO Controller切面不生效
+Analyzer的StopFilter和LowerCaseFilter
+
+//			config.setInfoStream(System.out);
+
+IndexReader reader=null;
+		try {
+			reader=DirectoryReader.open(derectory);
+			IndexSearcher searcher=new IndexSearcher(reader);
+			Query query=new TermQuery(new Term("content","come"));
+			TopDocs tds=searcher.search(query, 100);
+			ScoreDoc[] docs=tds.scoreDocs;
+			for(ScoreDoc sd:docs){
+				Explanation explain=searcher.explain(query, sd.doc);
+				System.err.println(explain.toString());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}

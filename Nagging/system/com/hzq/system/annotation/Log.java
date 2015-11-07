@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
 public @interface Log {
 	
 	String remark() default "";  
-    String operType() default "0";    
+    String operaType() default "0";    
     
 }
 

@@ -124,6 +124,8 @@ public class TianYaDataAnalyserUtil {
 					//doNothing
 				}
 				TianYaGrabController.FinishFlag=true;
+				System.err.println(tianyaUrl);
+				System.exit(0);
 			}
 			for(Element next:nexts){
 				if(next.text().indexOf("下一页")!=-1){
