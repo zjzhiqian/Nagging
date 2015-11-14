@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
@@ -21,6 +22,11 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
 import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.search.highlight.Highlighter;
+import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
+import org.apache.lucene.search.highlight.QueryScorer;
+import org.apache.lucene.search.highlight.SimpleFragmenter;
+import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
@@ -34,11 +40,11 @@ import com.hzq.system.constant.Constant;
 public class TianYaQueryUtil {
 	private static Directory TianYaderectory = null;
 	private static DirectoryReader TianYareader = null;
-	
 	static{
 		try {
 			TianYaderectory = FSDirectory.open(Paths.get(Constant.Index_TianYaPost_Path));
 			TianYareader=DirectoryReader.open(TianYaderectory);
+            //的长度，你可以自己设定，因为不可能返回整篇正文内容
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -73,6 +79,7 @@ public class TianYaQueryUtil {
 		Map<Object,Object> map=condition.getCondition();
 		List<String> fieldList=new ArrayList<String>();
 		List<String> queryList=new ArrayList<String>();
+		String title="";
 		int FieldCount=0;
 		if(map.containsKey("content")){
 			fieldList.add("content");
@@ -85,8 +92,8 @@ public class TianYaQueryUtil {
 		if(map.containsKey("title")){
 			fieldList.add("title");
 //			String title=(String)map.get("title");
-			String title=QueryParserUtil.escape((String)map.get("title"));
-			queryList.add(title.toLowerCase());
+			title=QueryParserUtil.escape((String)map.get("title")).toLowerCase();
+			queryList.add(title);
 			FieldCount++;
 		}
 		if(FieldCount==0){
@@ -107,6 +114,13 @@ public class TianYaQueryUtil {
 		try {
 			Long time1=System.currentTimeMillis();
 			Query query=MultiFieldQueryParser.parse(queryList.toArray(new String[queryList.size()]), fieldList.toArray(new String[fieldList.size()]), clauses,LuceneUtil.getAnalyzer());
+			
+			//高亮
+			SimpleHTMLFormatter simpleHTMLFormatter=new SimpleHTMLFormatter("<font color='blue'>","</font>");  
+			Highlighter highlighter = new Highlighter(simpleHTMLFormatter,new QueryScorer(query)); 
+			highlighter.setTextFragmenter(new SimpleFragmenter(200));//这个200是指定关键字字符串的context
+			
+			System.err.println(query.toString());
 			//排序
 			Sort sort=null;
 			if(map.containsKey("orderSql")){
@@ -134,10 +148,13 @@ public class TianYaQueryUtil {
 			rs.setO(new Json(true,System.currentTimeMillis()-time1+""));
 			
 			ScoreDoc[] docs=tds.scoreDocs;
+			
 			for(ScoreDoc sd:docs){
 				Document doc=searcher.doc(sd.doc);
-				TianYaPost post=parseDocToTianyaPost(doc);
-				rsList.add(post);
+				TianYaPost post=parseDocToTianyaPost(doc,title,highlighter);
+				if(post!=null){
+					rsList.add(post);
+				}
 			}
 		} catch (ParseException | IOException e) {
 			e.printStackTrace();
@@ -164,7 +181,6 @@ public class TianYaQueryUtil {
 			int totalCount=searcher.search(query, 1).totalHits;
 			rs.setTotal(totalCount);
 			return null;
-			
 		}
 		int num=(page-1)*rows;
 		TopDocs tds;
@@ -184,43 +200,48 @@ public class TianYaQueryUtil {
 	
 	
 	
-	
-	
-	
-	
 	/**
 	 * 把doc转换成post对象
 	 * @param doc
-	 * @param sdf
+	 * @param title 用户查询时输入的title 用于高亮显示结果
 	 * @return
 	 */
-	private static TianYaPost parseDocToTianyaPost(Document doc) {
-		TianYaPost post=new TianYaPost();
-		post.setId(Long.parseLong(doc.get("id")));
-		if(StringUtils.isNotEmpty(doc.get("title"))){
-			post.setTitle(doc.get("title"));
-		}	
-		if(StringUtils.isNotEmpty(doc.get("url"))){
-			post.setUrl(doc.get("url"));
-		}
-		if(StringUtils.isNotEmpty(doc.get("adduser"))){
-			post.setAdduserId(doc.get("adduser"));
-		}
-		if(StringUtils.isNotEmpty(doc.get("addusername"))){
-			post.setAdduserName(doc.get("addusername"));
-		}
-		if(StringUtils.isNotEmpty(doc.get("addtime"))){
-			Date addTime = new Date(Long.parseLong(doc.get("addtime")));
-			post.setAddTime(addTime);
-		}
-		if(StringUtils.isNotEmpty(doc.get("lastreplytime"))){
-			Date lastReplyTime = new Date(Long.parseLong(doc.get("lastreplytime")));
-			post.setLastReplyTime(lastReplyTime);
-		}	
-		post.setClick(Long.parseLong(doc.get("click")));
-		post.setReply(Long.parseLong(doc.get("reply")));
-		if(StringUtils.isNotEmpty(doc.get("isBest"))){
-			post.setIsBest(doc.get("isBest"));
+	private static TianYaPost parseDocToTianyaPost(Document doc,String title,Highlighter highlighter){
+		TianYaPost post = null;
+		try {
+			post = new TianYaPost();
+			post.setId(Long.parseLong(doc.get("id")));
+			
+			if(StringUtils.isNotEmpty(doc.get("title"))){
+				//title的高亮处理
+				TokenStream tokenStream =LuceneUtil.getAnalyzer().tokenStream("title", doc.get("title"));
+				post.setTitle(highlighter.getBestFragment(tokenStream,doc.get("title")));
+			}	
+			if(StringUtils.isNotEmpty(doc.get("url"))){
+				post.setUrl(doc.get("url"));
+			}
+			if(StringUtils.isNotEmpty(doc.get("adduser"))){
+				post.setAdduserId(doc.get("adduser"));
+			}
+			if(StringUtils.isNotEmpty(doc.get("addusername"))){
+				post.setAdduserName(doc.get("addusername"));
+			}
+			if(StringUtils.isNotEmpty(doc.get("addtime"))){
+				Date addTime = new Date(Long.parseLong(doc.get("addtime")));
+				post.setAddTime(addTime);
+			}
+			if(StringUtils.isNotEmpty(doc.get("lastreplytime"))){
+				Date lastReplyTime = new Date(Long.parseLong(doc.get("lastreplytime")));
+				post.setLastReplyTime(lastReplyTime);
+			}	
+			post.setClick(Long.parseLong(doc.get("click")));
+			post.setReply(Long.parseLong(doc.get("reply")));
+			if(StringUtils.isNotEmpty(doc.get("isBest"))){
+				post.setIsBest(doc.get("isBest"));
+			}
+		} catch (NumberFormatException | IOException | InvalidTokenOffsetsException e) {
+			e.printStackTrace();
+			return null;
 		}
 		return post;
 	}

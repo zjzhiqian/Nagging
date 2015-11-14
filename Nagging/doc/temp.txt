@@ -30,17 +30,7 @@ Analyzer的StopFilter和LowerCaseFilter
 
 //			config.setInfoStream(System.out);
 
-IndexReader reader=null;
-		try {
-			reader=DirectoryReader.open(derectory);
-			IndexSearcher searcher=new IndexSearcher(reader);
-			Query query=new TermQuery(new Term("content","come"));
-			TopDocs tds=searcher.search(query, 100);
-			ScoreDoc[] docs=tds.scoreDocs;
-			for(ScoreDoc sd:docs){
-				Explanation explain=searcher.explain(query, sd.doc);
-				System.err.println(explain.toString());
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
+SynonymFilter		
+同义词只需要在索引或者查询的时候扩展一次就行?
+	

@@ -11,13 +11,11 @@
  */
 package com.hzq.lucene.web;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,8 +25,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hzq.common.entity.DataList;
 import com.hzq.common.entity.Grid;
-import com.hzq.common.entity.QueryCondition;
-import com.hzq.common.util.CommonUtils;
 import com.hzq.lucene.synonym.TxtSynonymEngine;
 
 /**

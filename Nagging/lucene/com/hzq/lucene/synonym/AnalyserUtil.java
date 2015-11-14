@@ -68,7 +68,7 @@ public class AnalyserUtil {
 	
 	public static void main(String[] args) {
 		Analyzer analyzer=new IKSynonymAnalyzer(new TxtSynonymEngine());
-		AnalyserUtil.displayAllTokenInfo("搜索引擎优化", analyzer);
+		AnalyserUtil.displayAllTokenInfo("we are win", analyzer);
 		
 	}
 	

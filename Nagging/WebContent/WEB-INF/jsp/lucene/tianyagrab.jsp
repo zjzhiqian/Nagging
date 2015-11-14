@@ -15,9 +15,9 @@
 		   <shiro:hasPermission name="lucene:tianyaindex">			
 			<a id="data-index-tianya" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" style="height: 25px">生成天涯索引</a>
 		   </shiro:hasPermission>
-		   <shiro:hasPermission name="lucene:tianyaindex">			
+		   <%-- <shiro:hasPermission name="lucene:tianyaindex">			
 			<a id="data-index-taobao" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" style="height: 25px">生成淘宝索引</a>
-		   </shiro:hasPermission>
+		   </shiro:hasPermission> --%>
 		</div>
 		<div data-options="region:'center'" style="overflow: hidden;">
 			<div style="margin-left: 50px;margin-top: 50px">数据已抓取数量 : <span id="data-num">0</span> </div>
