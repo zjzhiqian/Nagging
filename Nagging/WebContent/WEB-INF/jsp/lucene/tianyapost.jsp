@@ -52,6 +52,7 @@
 // 			        {field:'id',title:'编号',width:100,checkbox:true},
 					{field:'id',title:'编号',width:100},
 			        {field:'title',title:'标题',width:300},
+			        {field:'content',title:'内容',width:400},
 			        {field:'adduserId',title:'发帖人编号',width:60,align:'right'},
 			        {field:'adduserName',title:'发帖人',width:100},
 			        {field:'addTime',title:'发帖时间',width:100},

@@ -53,7 +53,13 @@ public class TianYaToIndexController {
 				//ID
 				doc.add(new Field("id", post.getId() + "", LuceneUtil.IdFielType));
 				doc.add(new Field("title", post.getTitle() + "", LuceneUtil.TitleFielType));
-				doc.add(new Field("content", post.getContent() == null ? "" : post.getContent().toLowerCase(), LuceneUtil.ContentFielType));
+				String content=post.getContent().toLowerCase();
+				doc.add(new Field("content", content, LuceneUtil.ContentFielType));
+				if(content.length()>20){
+					content=content.substring(0,20);
+				}
+				//content结果显示
+				doc.add(new Field("storedcontent",content,LuceneUtil.OnLyStoreFieldType));
 				//url
 				doc.add(new StringField("url", post.getUrl(), Store.YES));
 				//addUserId

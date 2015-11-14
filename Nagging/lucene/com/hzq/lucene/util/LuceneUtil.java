@@ -27,6 +27,8 @@ public class LuceneUtil {
 	public static FieldType ContentFielType =null;
 	/**Title Field(保存内容,分词,保留权重,偏移量等)**/
 	public static FieldType TitleFielType =null;
+	/**只用于存储一些信息**/
+	public static FieldType OnLyStoreFieldType = null;
 	
 	private static Analyzer defaultAnalyzer = null;
 	static {
@@ -55,6 +57,13 @@ public class LuceneUtil {
 		TitleFielType.setIndexOptions(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS);
 		TitleFielType.freeze();
 		
+		//onlyForStore
+		OnLyStoreFieldType= new FieldType();
+		OnLyStoreFieldType.setStored(true);
+		OnLyStoreFieldType.setTokenized(false);
+		OnLyStoreFieldType.setOmitNorms(false);
+		OnLyStoreFieldType.setIndexOptions(IndexOptions.NONE);
+		OnLyStoreFieldType.freeze();
 	}
 	/**
 	 * 指定目录,使用默认分词器获取写索引Writer

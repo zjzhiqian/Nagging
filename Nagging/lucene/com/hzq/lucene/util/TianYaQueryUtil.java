@@ -44,7 +44,6 @@ public class TianYaQueryUtil {
 		try {
 			TianYaderectory = FSDirectory.open(Paths.get(Constant.Index_TianYaPost_Path));
 			TianYareader=DirectoryReader.open(TianYaderectory);
-            //的长度，你可以自己设定，因为不可能返回整篇正文内容
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -151,7 +150,7 @@ public class TianYaQueryUtil {
 			
 			for(ScoreDoc sd:docs){
 				Document doc=searcher.doc(sd.doc);
-				TianYaPost post=parseDocToTianyaPost(doc,title,highlighter);
+				TianYaPost post=parseDocToTianyaPost(doc,highlighter);
 				if(post!=null){
 					rsList.add(post);
 				}
@@ -199,14 +198,13 @@ public class TianYaQueryUtil {
 	}
 	
 	
-	
 	/**
 	 * 把doc转换成post对象
 	 * @param doc
-	 * @param title 用户查询时输入的title 用于高亮显示结果
+	 * @param highlighter 用于高亮显示部分结果
 	 * @return
 	 */
-	private static TianYaPost parseDocToTianyaPost(Document doc,String title,Highlighter highlighter){
+	private static TianYaPost parseDocToTianyaPost(Document doc,Highlighter highlighter){
 		TianYaPost post = null;
 		try {
 			post = new TianYaPost();
@@ -217,6 +215,15 @@ public class TianYaQueryUtil {
 				TokenStream tokenStream =LuceneUtil.getAnalyzer().tokenStream("title", doc.get("title"));
 				post.setTitle(highlighter.getBestFragment(tokenStream,doc.get("title")));
 			}	
+			if(StringUtils.isNotEmpty(doc.get("storedcontent"))){
+				TokenStream tokenStream =LuceneUtil.getAnalyzer().tokenStream("storedcontent", doc.get("storedcontent"));
+				String result=highlighter.getBestFragment(tokenStream,doc.get("storedcontent"));
+				if(StringUtils.isEmpty(result)){
+					result=doc.get("storedcontent");
+				}
+				post.setContent(result);
+			
+			}
 			if(StringUtils.isNotEmpty(doc.get("url"))){
 				post.setUrl(doc.get("url"));
 			}
