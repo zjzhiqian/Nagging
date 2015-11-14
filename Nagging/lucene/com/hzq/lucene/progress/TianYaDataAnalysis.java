@@ -1,4 +1,4 @@
-package com.hzq.lucene.util;
+package com.hzq.lucene.progress;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -20,6 +20,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.hzq.lucene.entity.TianYaPost;
+import com.hzq.lucene.util.ThreadService;
 import com.hzq.lucene.web.TianYaGrabController;
 
 
@@ -28,7 +29,7 @@ import com.hzq.lucene.web.TianYaGrabController;
  * @author huangzhiqian
  * @date 2015年10月18日 下午10:24:42
  */
-public class TianYaDataAnalyserUtil {
+public class TianYaDataAnalysis {
 	private static final String TIANYA_URL="http://bbs.tianya.cn/list-lookout-1.shtml";
 	private static CloseableHttpClient httpclient = null;
 	static{

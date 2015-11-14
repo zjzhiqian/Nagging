@@ -1,4 +1,4 @@
-package com.hzq.lucene.util;
+package com.hzq.lucene.progress;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -34,10 +34,11 @@ import com.hzq.common.entity.Grid;
 import com.hzq.common.entity.Json;
 import com.hzq.common.entity.QueryCondition;
 import com.hzq.lucene.entity.TianYaPost;
+import com.hzq.lucene.util.LuceneUtil;
 import com.hzq.system.constant.Constant;
 
 
-public class TianYaQueryUtil {
+public class TianYaDataQueries {
 	private static Directory TianYaderectory = null;
 	private static DirectoryReader TianYareader = null;
 	static{

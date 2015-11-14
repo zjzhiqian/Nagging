@@ -15,8 +15,8 @@ import com.hzq.common.entity.Json;
 import com.hzq.common.entity.QueryCondition;
 import com.hzq.common.util.CommonUtils;
 import com.hzq.lucene.entity.TianYaPost;
+import com.hzq.lucene.progress.TianYaDataQueries;
 import com.hzq.lucene.service.TianYaPostService;
-import com.hzq.lucene.util.TianYaQueryUtil;
 
 @Controller
 @RequestMapping("lucene")
@@ -51,7 +51,7 @@ public class TianYaPostController {
 	public Grid<TianYaPost> getPostDaTaByLucene(HttpServletRequest request){
 		QueryCondition condition = CommonUtils.parseRequestToCondition(request);
 		setSortForcondition(request, condition);
-		Grid<TianYaPost> rs = TianYaQueryUtil.getDataGridResult(condition);
+		Grid<TianYaPost> rs = TianYaDataQueries.getDataGridResult(condition);
 		return rs;
 	}
 	

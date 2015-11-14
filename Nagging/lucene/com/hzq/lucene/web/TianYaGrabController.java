@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hzq.common.entity.Json;
 import com.hzq.lucene.entity.TianYaPost;
+import com.hzq.lucene.progress.TianYaDataAnalysis;
 import com.hzq.lucene.service.TianYaPostService;
 import com.hzq.lucene.util.ThreadService;
-import com.hzq.lucene.util.TianYaDataAnalyserUtil;
 
 
 @Controller
@@ -108,7 +108,7 @@ public class TianYaGrabController {
 
 		@Override
 		public void run() {
-			TianYaDataAnalyserUtil.grabTianYaData();
+			TianYaDataAnalysis.grabTianYaData();
 		}
 		
 	}
