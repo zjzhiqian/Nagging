@@ -15,7 +15,6 @@ import com.hzq.common.base.BaseMapper;
 import com.hzq.lucene.entity.TaoBaoPost;
 import com.hzq.lucene.entity.TianYaPost;
 
-
 public interface TianYaPostMapper extends BaseMapper<TianYaPost> {
 	/**
 	 * 删除天涯帖子表格所有数据
@@ -35,6 +34,5 @@ public interface TianYaPostMapper extends BaseMapper<TianYaPost> {
 	 */
 	List<TaoBaoPost> findAllTbPosts();
 	
-
 
 }
