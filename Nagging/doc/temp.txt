@@ -4,15 +4,10 @@ String salt=SaltGenerator.getSalt(16);
 SimpleHash hash = new SimpleHash("SHA-1", "123456", salt, 1024);
 String psw=hash.toHex();
 
-
-
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 
-@JsonSerialize(typing=JsonSerialize.Typing.DYNAMIC)
 datagrid后台的代码,reload--不建议,查询时会把页码加进去,load建议
 beanUtils.copyproperties
-
-
 
 iframe嵌入时,未登录跳转页面 如何从iframe跳出来?(已解决)
 if (window != top) 
@@ -21,16 +16,15 @@ if (window != top)
 修改密码界面 能否让第一个先选中?(已解决)
 $("#old-psw").textbox().next("span").find("input").focus();
 
-
-
 org.apache.shiro.session.ExpiredSessionException
 自定义评分
 
 Analyzer的StopFilter和LowerCaseFilter
 
 //			config.setInfoStream(System.out);
-
 		
-SynonymFilter		
-同义词只需要在索引或者查询的时候扩展一次就行?
-	
+##同义词扩展 只需在查询或者索引的时候扩展一次就行
+		如果索引时扩展,则硬盘空间消耗大,查询速度比较慢   这时用高亮索引时的处理 要用同义词分词器
+		如果查询时扩展,则硬盘控件消耗小,查询速度比较快	
+
+public class PayloadAttributeImpl extends AttributeImpl implements PayloadAttribute, Cloneable

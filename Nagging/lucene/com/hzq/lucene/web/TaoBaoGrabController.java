@@ -191,9 +191,8 @@ public class TaoBaoGrabController {
 		
 	}
 	
-	
+	/**请求头**/
 	private static void setHeadersForGet(HttpGet httpget) {
-//		httpget.addHeader(new BasicHeader("cookie", "mt=ci%3D-1_0; thw=cn; cna=Qt22Du+QwkACAXthouKyEcCj; lzstat_uv=4570413951147359016|3600144; v=0; _tb_token_=e733716beebe3; showPopup=3; cookie2=1ea9ad5282e73e82b9f6b788236c26d6; t=7b161c0f951b5ad1f635de2020db11cc; mt=ci%3D-1_0; uc1=cookie14=UoWzX%2BKOpr6cIw%3D%3D; CNZZDATA30070035=cnzz_eid%3D1286133655-1446037247-https%253A%252F%252Fwww.baidu.com%252F%26ntime%3D1446118504; isg=7B5923C983E235BE7FE51763F192212A; l=AjU14c8JQx9z071IJwq37m4zxb/vsunE"));
 		httpget.addHeader(new BasicHeader("cookie", "mt=ci%3D-1_0; swfstore=5768; thw=cn; cna=Qt22Du+QwkACAXthouKyEcCj; lzstat_uv=4570413951147359016|3600144; v=0; _tb_token_=e733716beebe3; showPopup=3; uc3=nk2=AnDS93hBOWEYdpk%3D&id2=W8twrLUvJaM8&vt3=F8dASMdNBP60hmY1PwE%3D&lg2=WqG3DMC9VAQiUQ%3D%3D; existShop=MTQ0NjExOTQ2Nw%3D%3D; lgc=aa616095191; tracknick=aa616095191; skt=01483dcc3612a40e; _cc_=Vq8l%2BKCLiw%3D%3D; tg=0; whl=-1%260%260%261446119556768; mt=ci=-1_0; JSESSIONID=9E865A994486D3ED905D8690527D7A9D; cookie2=1ea9ad5282e73e82b9f6b788236c26d6; t=7b161c0f951b5ad1f635de2020db11cc; CNZZDATA30070035=cnzz_eid%3D1286133655-1446037247-https%253A%252F%252Fwww.baidu.com%252F%26ntime%3D1446118504; uc1=cookie14=UoWzX%2BKNdnltWw%3D%3D; l=At7eZEsVyOI0FgbtuNesI0ACrnogn6IZ; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0%26__ll%3D-1%26_ato%3D0; isg=45EF2A65AFE05FA6C528C3C7962E5B5A"));
 		httpget.addHeader(new BasicHeader(":host","bbs.taobao.com"));
 		httpget.addHeader(new BasicHeader(":method","GET"));
@@ -210,8 +209,8 @@ public class TaoBaoGrabController {
 		
 	}
 	
+	/**请求头**/
 	private static void setHeadersForGet2(HttpGet httpget,String modualUrl) {
-//		httpget.addHeader(new BasicHeader("cookie", "mt=ci%3D-1_0; thw=cn; cna=Qt22Du+QwkACAXthouKyEcCj; lzstat_uv=4570413951147359016|3600144; v=0; _tb_token_=e733716beebe3; showPopup=3; cookie2=1ea9ad5282e73e82b9f6b788236c26d6; t=7b161c0f951b5ad1f635de2020db11cc; mt=ci%3D-1_0; uc1=cookie14=UoWzX%2BKOpr6cIw%3D%3D; CNZZDATA30070035=cnzz_eid%3D1286133655-1446037247-https%253A%252F%252Fwww.baidu.com%252F%26ntime%3D1446118504; isg=7B5923C983E235BE7FE51763F192212A; l=AjU14c8JQx9z071IJwq37m4zxb/vsunE"));
 		httpget.addHeader(new BasicHeader("cookie", "mt=ci%3D-1_0; swfstore=5768; thw=cn; cna=Qt22Du+QwkACAXthouKyEcCj; lzstat_uv=4570413951147359016|3600144; v=0; _tb_token_=e733716beebe3; showPopup=3; uc3=nk2=AnDS93hBOWEYdpk%3D&id2=W8twrLUvJaM8&vt3=F8dASMdNBP60hmY1PwE%3D&lg2=WqG3DMC9VAQiUQ%3D%3D; existShop=MTQ0NjExOTQ2Nw%3D%3D; lgc=aa616095191; tracknick=aa616095191; skt=01483dcc3612a40e; _cc_=Vq8l%2BKCLiw%3D%3D; tg=0; whl=-1%260%260%261446119556768; mt=ci=-1_0; JSESSIONID=9E865A994486D3ED905D8690527D7A9D; cookie2=1ea9ad5282e73e82b9f6b788236c26d6; t=7b161c0f951b5ad1f635de2020db11cc; CNZZDATA30070035=cnzz_eid%3D1286133655-1446037247-https%253A%252F%252Fwww.baidu.com%252F%26ntime%3D1446118504; uc1=cookie14=UoWzX%2BKNdnltWw%3D%3D; l=At7eZEsVyOI0FgbtuNesI0ACrnogn6IZ; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0%26__ll%3D-1%26_ato%3D0; isg=45EF2A65AFE05FA6C528C3C7962E5B5A"));
 		httpget.addHeader(new BasicHeader(":host","bbs.taobao.com"));
 		httpget.addHeader(new BasicHeader(":method","GET"));

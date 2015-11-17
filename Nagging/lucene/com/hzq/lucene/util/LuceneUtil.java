@@ -10,6 +10,7 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.wltea.analyzer.lucene.IKAnalyzer;
 
 import com.hzq.lucene.synonym.IKSynonymAnalyzer;
 import com.hzq.lucene.synonym.TxtSynonymEngine;
@@ -105,8 +106,23 @@ public class LuceneUtil {
 		}
 	}
 	
-	
+	/**
+	 * 返回IK分词器
+	 * @return
+	 * @author huangzhiqian
+	 * @date 2015年11月17日
+	 */
 	public static Analyzer getAnalyzer(){
+		return new IKAnalyzer();
+	}
+	
+	/**
+	 * 返回IK同义词分词器
+	 * @return
+	 * @author huangzhiqian
+	 * @date 2015年11月17日
+	 */
+	public static Analyzer getSynonymAnalyzer(){
 		return new IKSynonymAnalyzer(new TxtSynonymEngine());
 		
 	}

@@ -213,11 +213,11 @@ public class TianYaDataQueries {
 			
 			if(StringUtils.isNotEmpty(doc.get("title"))){
 				//title的高亮处理
-				TokenStream tokenStream =LuceneUtil.getAnalyzer().tokenStream("title", doc.get("title"));
+				TokenStream tokenStream =LuceneUtil.getSynonymAnalyzer().tokenStream("title", doc.get("title"));
 				post.setTitle(highlighter.getBestFragment(tokenStream,doc.get("title")));
 			}	
 			if(StringUtils.isNotEmpty(doc.get("storedcontent"))){
-				TokenStream tokenStream =LuceneUtil.getAnalyzer().tokenStream("storedcontent", doc.get("storedcontent"));
+				TokenStream tokenStream =LuceneUtil.getSynonymAnalyzer().tokenStream("storedcontent", doc.get("storedcontent"));
 				String result=highlighter.getBestFragment(tokenStream,doc.get("storedcontent"));
 				if(StringUtils.isEmpty(result)){
 					result=doc.get("storedcontent");
