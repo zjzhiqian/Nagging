@@ -24,7 +24,7 @@ import com.hzq.lucene.util.ThreadService;
 import com.hzq.lucene.web.TianYaGrabController;
 
 /**
- * 用来分析天涯数据的类
+ * 抓取数据并解析数据
  * 
  * @author huangzhiqian
  * @date 2015年10月18日 下午10:24:42

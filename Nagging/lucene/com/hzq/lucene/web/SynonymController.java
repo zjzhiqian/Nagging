@@ -66,8 +66,6 @@ public class SynonymController {
 			}else{
 				synonyms=synonyms.subList(page*rows,(page+1)*rows-1);
 			}
-			
-			
 			List<DataList> rowdata = new LinkedList<DataList>();
 			DataList list=null;
 			for(String text:synonyms){

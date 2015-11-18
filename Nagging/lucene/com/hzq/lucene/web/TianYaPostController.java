@@ -26,7 +26,6 @@ public class TianYaPostController {
 	TianYaPostService tianYaPostService;
 	
 	
-	
 	@RequestMapping(value="tianyaquery",method=RequestMethod.GET)
 	@RequiresPermissions("lucene:tianyapostquery")
 	public String  showTianYaPostPage(){
