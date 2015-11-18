@@ -49,6 +49,12 @@ public class Constant {
 	 * TianYa帖子索引储存路径
 	 */
 	public static final String Index_TianYaPost_Path="C:\\luceneIndex\\TianYa";
+	
+	/**
+	 * TianYa帖子索引储存多目录路径
+	 */
+    public static final String Index_TianYaPost_MultiPath="C:\\luceneIndex\\TianYaMulti\\index";
+	
 	/**
 	 * 淘宝帖子索引储存路径
 	 */

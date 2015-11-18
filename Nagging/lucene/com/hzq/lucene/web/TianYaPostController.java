@@ -14,8 +14,8 @@ import com.hzq.common.entity.Grid;
 import com.hzq.common.entity.Json;
 import com.hzq.common.entity.QueryCondition;
 import com.hzq.common.util.CommonUtils;
+import com.hzq.lucene.core.TianYaDataQueries;
 import com.hzq.lucene.entity.TianYaPost;
-import com.hzq.lucene.progress.TianYaDataQueries;
 import com.hzq.lucene.service.TianYaPostService;
 
 @Controller

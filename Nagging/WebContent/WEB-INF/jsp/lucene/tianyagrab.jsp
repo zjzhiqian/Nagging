@@ -15,6 +15,10 @@
 		   <shiro:hasPermission name="lucene:tianyaindex">			
 			<a id="data-index-tianya" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" style="height: 25px">生成天涯索引</a>
 		   </shiro:hasPermission>
+		   <shiro:hasPermission name="lucene:tianyaindex">			
+			<a id="data-index-tianyamulty" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" style="height: 25px">生成多目录索引</a>
+		   </shiro:hasPermission>
+		   
 		   <%-- <shiro:hasPermission name="lucene:tianyaindex">			
 			<a id="data-index-taobao" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" style="height: 25px">生成淘宝索引</a>
 		   </shiro:hasPermission> --%>
@@ -64,11 +68,11 @@
 	}
 	
 	
-	//索引(TianYa)
-	$("#data-index-tianya").click(function(){
+	//单目录索引(TianYa)
+	$("#data-index-tianyamulty").click(function(){
 		loading("索引生成中,请稍等")
 		$.ajax({
-			url:"${ctx}/lucene/tianyaPostIndex",
+			url:"${ctx}/lucene/tianyaindexMultiPath",
 			success:function(r){
 				loaded()
 				if(r&&r.flag){
@@ -78,7 +82,27 @@
 				}
 			}
 		})
+		return false
 	})
+	
+	
+	//多目录索引(TianYa)
+	$("#data-index-tianya").click(function(){
+		loading("索引生成中,请稍等")
+		$.ajax({
+			url:"${ctx}/lucene/tianyaindexOnePath",
+			success:function(r){
+				loaded()
+				if(r&&r.flag){
+					showmsg(r.msg)
+				}else{
+					alerterror(r.msg)
+				}
+			}
+		})
+		return false
+	})
+	
 	
 	//索引(TaoBao)
 	$("#data-index-taobao").click(function(){
@@ -94,6 +118,7 @@
 				}
 			}
 		})
+		return false
 	})
 	
 	
