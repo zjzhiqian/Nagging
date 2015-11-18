@@ -42,7 +42,7 @@ public class LuceneIndexController {
 	}
 	
 	/**
-	 * 生成单目录索引
+	 * 生成多目录索引
 	 * @return
 	 */
 	@RequestMapping("tianyaindexMultiPath")
@@ -51,7 +51,7 @@ public class LuceneIndexController {
 		Long time1=System.currentTimeMillis();
 		List<TianYaPost> posts = tianYaPostService.findAllPosts();
 		try {
-			IndexCreator.ToMultiPath(posts, 5);
+			IndexCreator.ToMultiPath(posts);
 			return new Json(true,String.format("生成成功,用了%s毫秒",System.currentTimeMillis()-time1+""));
 		} catch (Exception e) {
 			return new Json(false,e.getMessage());

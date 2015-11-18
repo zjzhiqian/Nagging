@@ -73,7 +73,8 @@ public class IndexCreator {
 	 * @author huangzhiqian
 	 * @date 2015年11月18日
 	 */
-	public static boolean ToMultiPath(List<TianYaPost> posts, int pathNum) throws Exception {
+	public static boolean ToMultiPath(List<TianYaPost> posts) throws Exception {
+		int pathNum=Constant.Index_TianYaPost_MultiPathNum;
 		ExecutorService pool = Executors.newFixedThreadPool(pathNum);
 		posts.subList(0, posts.size());
 		CountDownLatch countDownLatch1 = new CountDownLatch(1);

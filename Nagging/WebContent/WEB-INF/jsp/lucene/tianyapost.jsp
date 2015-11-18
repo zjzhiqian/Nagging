@@ -33,7 +33,8 @@
 				    <shiro:hasPermission name="lucene:tianyapostquery">	
 					<a id="reset" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="height: 25px;margin-left: 500px">重置</a>		
 					<a id="commonquery" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="height: 25px">模糊查询</a>
-					<a id="indexquery" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="height: 25px">lucene检索</a>
+					<a id="indexquery" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="height: 25px">lucene检索(单目录)</a>
+					<a id="indexqueryMulti" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="height: 25px">lucene检索(多目录)</a>
 				    </shiro:hasPermission>
 				  </div>
 			</form>
@@ -117,15 +118,25 @@
 			dg.datagrid('load',{});
 		})
 		
+		//查询,单目录索引
 		$("#indexquery").click(function(){
-			var url="${ctx}/lucene/tianyaIndexQuery";
+			var url="${ctx}/lucene/tianyaIndexQuery/1";
 			queryParams=$.serializeObject($("#form-commonQuery"))
 			dg.datagrid({
 				url:url,
 				queryParams:queryParams
 			});
 		})	
-			
+		
+		//查询,多目录索引
+		$("#indexqueryMulti").click(function(){
+			var url="${ctx}/lucene/tianyaIndexQuery/2";
+			queryParams=$.serializeObject($("#form-commonQuery"))
+			dg.datagrid({
+				url:url,
+				queryParams:queryParams
+			});
+		})	
 		
 	
 	</script>	

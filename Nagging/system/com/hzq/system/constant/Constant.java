@@ -55,6 +55,11 @@ public class Constant {
 	 */
     public static final String Index_TianYaPost_MultiPath="C:\\luceneIndex\\TianYaMulti\\index";
 	
+    /**
+     * TianYa帖子索引多目录的数量
+     */
+    public static final int Index_TianYaPost_MultiPathNum=5;
+    
 	/**
 	 * 淘宝帖子索引储存路径
 	 */

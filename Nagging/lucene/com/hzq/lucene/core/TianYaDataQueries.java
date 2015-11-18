@@ -12,6 +12,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.MultiReader;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.flexible.standard.QueryParserUtil;
@@ -24,11 +26,9 @@ import org.apache.lucene.search.SortField;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.highlight.Highlighter;
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
-import org.apache.lucene.search.highlight.QueryScorer;
-import org.apache.lucene.search.highlight.SimpleFragmenter;
-import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.springframework.stereotype.Component;
 
 import com.hzq.common.entity.Grid;
 import com.hzq.common.entity.Json;
@@ -37,24 +37,48 @@ import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.util.LuceneUtil;
 import com.hzq.system.constant.Constant;
 
+@Component
 public class TianYaDataQueries {
 	private static Directory TianYaderectory = null;
 	private static DirectoryReader TianYareader = null;
+	private static MultiReader TianYaMultireader = null;
 	static {
 		try {
 			TianYaderectory = FSDirectory.open(Paths.get(Constant.Index_TianYaPost_Path));
 			TianYareader = DirectoryReader.open(TianYaderectory);
+			setMultiReader();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 初始化多目录索引 
+	 * @author huangzhiqian
+	 * @date 2015年11月18日
+	 */
+	private static void setMultiReader(){
+		try {
+			
+			IndexReader[] readers=new IndexReader[Constant.Index_TianYaPost_MultiPathNum];
+			IndexReader reader=null;
+			for(int i=0;i<Constant.Index_TianYaPost_MultiPathNum;i++){
+				Directory dic=FSDirectory.open(Paths.get(Constant.Index_TianYaPost_MultiPath+(i+1)));
+				reader=DirectoryReader.open(dic);
+				readers[i]=reader;
+			}
+			TianYaMultireader=new MultiReader(readers);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * 获取天涯论坛Searcher
+	 * 获取天涯论坛Searcher(单目录)
 	 * 
 	 * @return
 	 */
-	private static IndexSearcher getTianYaSearcher() {
+	private static IndexSearcher getTianYaSearcherOnePath() {
 		try {
 			if (TianYareader == null) {
 				TianYareader = DirectoryReader.open(TianYaderectory);
@@ -62,7 +86,24 @@ public class TianYaDataQueries {
 			return new IndexSearcher(TianYareader);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new RuntimeException();
+			throw new RuntimeException("获取IndexSearcher出错");
+		}
+	}
+	
+	/**
+	 * 获取天涯论坛Searcher(多目录)
+	 * 
+	 * @return
+	 */
+	private static IndexSearcher getTianYaSearcherMultiPath() {
+		try {
+			if (TianYaMultireader == null) {
+				setMultiReader();
+			}
+			return new IndexSearcher(TianYaMultireader);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("获取IndexSearcher出错");
 		}
 	}
 
@@ -72,11 +113,19 @@ public class TianYaDataQueries {
 	 * @param condition
 	 * @return
 	 */
-	public static Grid<TianYaPost> getDataGridResult(QueryCondition condition) {
+	public static Grid<TianYaPost> getDataGridResult(QueryCondition condition,String type) {
 		Grid<TianYaPost> rs = new Grid<TianYaPost>();
 
 		List<TianYaPost> rsList = new LinkedList<TianYaPost>();
-		IndexSearcher searcher = getTianYaSearcher();
+		
+		IndexSearcher searcher = null;
+		if("1".equals(type)){
+			searcher=getTianYaSearcherOnePath();
+		}else if("2".equals(type)){
+			searcher=getTianYaSearcherMultiPath();
+		}else{
+			return null;
+		}
 		Map<Object, Object> map = condition.getCondition();
 		List<String> fieldList = new ArrayList<String>();
 		List<String> queryList = new ArrayList<String>();
@@ -114,11 +163,6 @@ public class TianYaDataQueries {
 			Long time1 = System.currentTimeMillis();
 			Query query = MultiFieldQueryParser.parse(queryList.toArray(new String[queryList.size()]), fieldList.toArray(new String[fieldList.size()]), clauses, LuceneUtil.getAnalyzer());
 
-			// 高亮
-			SimpleHTMLFormatter simpleHTMLFormatter = new SimpleHTMLFormatter("<font color='blue'>", "</font>");
-			Highlighter highlighter = new Highlighter(simpleHTMLFormatter, new QueryScorer(query));
-			highlighter.setTextFragmenter(new SimpleFragmenter(200));// 这个200是指定关键字字符串的context
-
 			System.err.println(query.toString());
 			// 排序
 			Sort sort = null;
@@ -146,8 +190,11 @@ public class TianYaDataQueries {
 			}
 			rs.setO(new Json(true, System.currentTimeMillis() - time1 + ""));
 
+			
+			// 高亮
+			Highlighter highlighter = LuceneUtil.createHighlighter(query, null, null, 50);
 			ScoreDoc[] docs = tds.scoreDocs;
-
+			
 			for (ScoreDoc sd : docs) {
 				Document doc = searcher.doc(sd.doc);
 				TianYaPost post = parseDocToTianyaPost(doc, highlighter);

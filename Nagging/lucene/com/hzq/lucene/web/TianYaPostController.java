@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -45,13 +46,13 @@ public class TianYaPostController {
 	}
 	
 
-	@RequestMapping(value="tianyaIndexQuery",method=RequestMethod.POST)
+	@RequestMapping(value="tianyaIndexQuery/{id}",method=RequestMethod.POST)
 	@RequiresPermissions("lucene:tianyapostquery")
 	@ResponseBody
-	public Grid<TianYaPost> getPostDaTaByLucene(HttpServletRequest request){
+	public Grid<TianYaPost> getPostDaTaByLucene(HttpServletRequest request,@PathVariable("id") String type){
 		QueryCondition condition = CommonUtils.parseRequestToCondition(request);
 		setSortForcondition(request, condition);
-		Grid<TianYaPost> rs = TianYaDataQueries.getDataGridResult(condition);
+		Grid<TianYaPost> rs = TianYaDataQueries.getDataGridResult(condition,type);
 		return rs;
 	}
 	

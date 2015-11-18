@@ -8,6 +8,14 @@ import org.apache.lucene.document.FieldType;
 import org.apache.lucene.index.IndexOptions;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.highlight.Formatter;
+import org.apache.lucene.search.highlight.Fragmenter;
+import org.apache.lucene.search.highlight.Highlighter;
+import org.apache.lucene.search.highlight.QueryScorer;
+import org.apache.lucene.search.highlight.Scorer;
+import org.apache.lucene.search.highlight.SimpleFragmenter;
+import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.wltea.analyzer.lucene.IKAnalyzer;
@@ -126,5 +134,26 @@ public class LuceneUtil {
 		return new IKSynonymAnalyzer(new TxtSynonymEngine());
 		
 	}
+	
+	/**
+	 * 
+	 * @param query 索引查询对象
+	 * @param prefix 高亮前缀字符串
+	 * @param suffix 高亮后缀字符串
+	 * @param fragmenterLength 摘要最大长度
+	 * @return
+	 * @author huangzhiqian
+	 * @date 2015年11月18日
+	 */
+	public static Highlighter createHighlighter(Query query, String prefix, String suffix, int fragmenterLength) {
+		Formatter formatter = new SimpleHTMLFormatter((prefix == null || prefix.trim().length() == 0) ? 
+			"<font color=\"blue\">" : prefix, (suffix == null || suffix.trim().length() == 0)?"</font>" : suffix);
+		Scorer fragmentScorer = new QueryScorer(query);
+		Highlighter highlighter = new Highlighter(formatter, fragmentScorer);
+		Fragmenter fragmenter = new SimpleFragmenter(fragmenterLength <= 0 ? 50 : fragmenterLength);
+		highlighter.setTextFragmenter(fragmenter);
+		return highlighter;
+	}
+
 	
 }
