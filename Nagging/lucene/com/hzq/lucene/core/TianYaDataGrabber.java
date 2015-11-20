@@ -29,7 +29,7 @@ import com.hzq.lucene.web.TianYaGrabController;
  * @author huangzhiqian
  * @date 2015年10月18日 下午10:24:42
  */
-public class TianYaDataAnalysis {
+public class TianYaDataGrabber {
 	private static final String TIANYA_URL = "http://bbs.tianya.cn/list-lookout-1.shtml";
 	private static CloseableHttpClient httpclient = null;
 	static {
