@@ -16,6 +16,8 @@ import org.apache.lucene.search.highlight.QueryScorer;
 import org.apache.lucene.search.highlight.Scorer;
 import org.apache.lucene.search.highlight.SimpleFragmenter;
 import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
+import org.apache.lucene.search.suggest.Lookup;
+import org.apache.lucene.search.suggest.analyzing.AnalyzingInfixSuggester;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.wltea.analyzer.lucene.IKAnalyzer;
@@ -37,7 +39,7 @@ public class LuceneUtil {
 	public static FieldType TitleFielType =null;
 	/**只用于存储一些信息**/
 	public static FieldType OnLyStoreFieldType = null;
-	
+	/**默认分词器**/
 	private static Analyzer defaultAnalyzer = null;
 	static {
 		defaultAnalyzer=getAnalyzer();
@@ -101,6 +103,10 @@ public class LuceneUtil {
 		return writer;
 	}
 	
+	
+	
+	
+	
 	/**
 	 * 关闭Writer
 	 * @param writer
@@ -113,6 +119,18 @@ public class LuceneUtil {
 			ex.printStackTrace();
 		}
 	}
+	
+	
+	public static AnalyzingInfixSuggester getSuggester(String path){
+		try {
+			Directory indexDir = FSDirectory.open(Paths.get(path));
+			return new AnalyzingInfixSuggester(indexDir, getAnalyzer());
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException("failure accured in create suggester");
+		}
+	}
+	
 	
 	/**
 	 * 返回IK分词器

@@ -64,5 +64,10 @@ public class Constant {
 	 * 淘宝帖子索引储存路径
 	 */
 	public static final String Index_TaoBaoPost_Path="C:\\luceneIndex\\TaoBao";
+	
+	/**
+	 * TianYa检索 提示内容索引存储路径
+	 */
+	public static final String Index_TianYaSuggest_Path="C:\\luceneIndex\\TianYaSuggest";
 }
 

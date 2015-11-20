@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hzq.common.entity.Json;
 import com.hzq.lucene.core.IndexCreator;
+import com.hzq.lucene.core.Suggesters;
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.service.TianYaPostService;
 
@@ -57,5 +58,19 @@ public class LuceneIndexController {
 			return new Json(false,e.getMessage());
 		}
 	}
+	
+	@RequestMapping("tianyaSuggest")
+	@ResponseBody
+	public Json  tianyaPostSuggester(){
+		
+		List<TianYaPost> posts = tianYaPostService.findAllPosts();
+		boolean rs=Suggesters.createSuggest(posts);
+		if(rs){
+			return new Json(true,"生成成功");
+		}
+		return new Json(false);
+		
+	}
+	
 
 }

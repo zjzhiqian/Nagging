@@ -1,9 +1,8 @@
 package com.hzq.common.util;
 
-import java.lang.reflect.Field;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,93 +44,6 @@ public class CommonUtils {
 
 
 
-
-
-	/**
-	 * map对象转换为Object对象
-	 * 
-	 * @param map
-	 * @param class1
-	 * @return
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 * @throws ParseException
-	 */
-	public static <T> T mapToObject(HashMap<String, Object> map, Class<T> class1)
-			throws InstantiationException, IllegalAccessException,
-			IllegalArgumentException, ParseException {
-
-		Field[] fields = class1.getDeclaredFields();
-		T t = null;
-		if (fields.length > 0) {
-			t = class1.newInstance();
-		}
-		boolean flag; // 该字段是否可访问，private/protected/public
-		for (Field field : fields) {
-			if (map.containsKey(field.getName())
-					&& map.get(field.getName()) != null) {
-				flag = false;
-				// 不可访问
-				if (!field.isAccessible()) {
-					field.setAccessible(true);
-					flag = true;
-				}
-				// 时间类型的转换
-				if ((field.getType() == java.util.Date.class || field.getType() == java.sql.Date.class)
-						&& map.get(field.getName()).getClass() != field
-								.getType()) {
-					SimpleDateFormat format = new SimpleDateFormat(
-							"yyyy-MM-dd HH:mm:ss");
-					field.set(t,
-							format.parse((String) map.get(field.getName())));
-					// Timestamp转换
-				} else if (field.getType() == java.sql.Timestamp.class
-						&& map.get(field.getName()).getClass() != field
-								.getType()) {
-					field.set(t, Timestamp.valueOf((String) map.get(field
-							.getName())));
-
-					// Long
-				} else if (field.getType() == java.lang.Long.class
-						&& map.get(field.getName()).getClass() != field
-								.getType()) {
-
-					field.set(t,
-							Long.valueOf((String) map.get(field.getName())));
-
-					// Integer
-				} else if (field.getType() == java.lang.Integer.class
-						&& map.get(field.getName()).getClass() != field
-								.getType()) {
-
-					field.set(t,
-							Integer.parseInt((String) map.get(field.getName())));
-
-					// int
-				} else if ((field.getType() == int.class || field.getType() == java.lang.Integer.class)
-						&& map.get(field.getName()).getClass() != field
-								.getType()) {
-
-					field.set(t,
-							Integer.parseInt((String) map.get(field.getName())));
-
-					// String
-				} else {
-
-					field.set(t, map.get((String) field.getName()));
-				}
-
-				// 还原访问属性
-				if (flag) {
-					field.setAccessible(false);
-				}
-			}
-		}
-
-		return t;
-	}
-	
 	/**
 	 * 将request请求封装成查询条件
 	 * @param request
@@ -171,5 +83,29 @@ public class CommonUtils {
 		con.setCondition(map);
 		return con;
 	}
+	
+	
+	/**
+	 * 反序列化
+	 * @param in
+	 * @return
+	 * @author huangzhiqian
+	 * @date 2015年11月20日
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T deSerialize(InputStream in,Class<T> clazz) {
+
+		try {
+			ObjectInputStream oin = new ObjectInputStream(in);
+			return (T)oin.readObject();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 }
 	
