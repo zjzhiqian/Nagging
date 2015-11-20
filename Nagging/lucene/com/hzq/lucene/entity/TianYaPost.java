@@ -133,4 +133,5 @@ public class TianYaPost implements Serializable {
     public void setIsBest(String isBest) {
         this.isBest = isBest == null ? null : isBest.trim();
     }
+    
 }

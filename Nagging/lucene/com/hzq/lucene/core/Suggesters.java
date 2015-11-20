@@ -65,19 +65,20 @@ public class Suggesters {
 	public static void getSuggestResult(String input,String folumn){
 		try {
 			AnalyzingInfixSuggester suggester=LuceneUtil.getSuggester(Constant.Index_TianYaSuggest_Path);
-			
 			HashSet<BytesRef> filtercontexts = new HashSet<BytesRef>();
 			filtercontexts.add(new BytesRef(folumn.getBytes("UTF8")));
-			//先以contexts为过滤条件进行过滤，再以name为关键字进行筛选，根据weight值排序返回前2条
-			//第3个布尔值即是否每个Term都要匹配，第4个参数表示是否需要关键字高亮
+			//filtercontexts过滤,input 输入, 显示2挑数据,每个Term都匹配,关键词高亮
+			Long time1=System.currentTimeMillis();
 			List<LookupResult> results = suggester.lookup(input, filtercontexts, 2, true, true);
+			System.err.println(System.currentTimeMillis()-time1);
 			for (LookupResult result : results) {
 				System.out.println(result.key);
+				System.out.println(result.highlightKey);
 				//从payload中反序列化出Post对象
-				BytesRef bytesRef = result.payload;
-				InputStream in = new ByteArrayInputStream(bytesRef.bytes);
-				TianYaPost post = CommonUtils.deSerialize(in,TianYaPost.class);
-				System.out.println(post);
+//				BytesRef bytesRef = result.payload;
+//				InputStream in = new ByteArrayInputStream(bytesRef.bytes);
+//				String title = CommonUtils.deSerialize(in,String.class);
+//				System.out.println(title);
 			}
 			
 		} catch (IOException e) {
