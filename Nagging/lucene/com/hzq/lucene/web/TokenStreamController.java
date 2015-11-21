@@ -34,7 +34,7 @@ import com.hzq.lucene.synonym.TxtSynonymEngine;
  */
 @Controller
 @RequestMapping("lucene")
-public class SynonymController {
+public class TokenStreamController {
 	
 	
 	@RequestMapping(value="synonym/{id}",method=RequestMethod.GET)
@@ -81,5 +81,13 @@ public class SynonymController {
 		
 		return  gridResult;
 	}
+	
+	
+	@RequestMapping(value="tokenquery",method=RequestMethod.GET)
+	public String tokenquery(){
+		
+		return "lucene/tokenquery";
+	}
+	
 }
 

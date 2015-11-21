@@ -10,13 +10,16 @@
 	
 		<div data-options="region:'north'" style="height:30px">
 		   <shiro:hasPermission name="lucene:tianyagrab">			
-			<a id="data-grab" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" style="height: 25px">开始抓取</a>
+			<a id="data-grab" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" style="height: 25px">简单抓取</a>
 		   </shiro:hasPermission>
 		   <shiro:hasPermission name="lucene:tianyaindex">			
-			<a id="data-index-tianya" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" style="height: 25px">生成天涯索引</a>
+			<a id="data-index-tianya" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" style="height: 25px">生成单目录索引</a>
 		   </shiro:hasPermission>
 		   <shiro:hasPermission name="lucene:tianyaindex">			
 			<a id="data-index-tianyamulty" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" style="height: 25px">生成多目录索引</a>
+		   </shiro:hasPermission>
+		   <shiro:hasPermission name="lucene:tianyaindex">			
+			<a id="data-index-tianyasuggester" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" style="height: 25px">提示功能索引</a>
 		   </shiro:hasPermission>
 		   
 		   <%-- <shiro:hasPermission name="lucene:tianyaindex">			
@@ -102,6 +105,35 @@
 		})
 		return false
 	})
+	
+	
+	//提示功能索引
+	$("#data-index-tianyasuggester").click(function(){
+		loading("索引生成中,请稍等")
+		$.ajax({
+			url:"${ctx}/lucene/tianyaSuggest",
+			success:function(r){
+				loaded()
+				if(r&&r.flag){
+					showmsg(r.msg)
+				}else{
+					alerterror(r.msg)
+				}
+			}
+		})
+		return false
+	})
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	//索引(TaoBao)

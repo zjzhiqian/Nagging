@@ -59,14 +59,18 @@ public class LuceneIndexController {
 		}
 	}
 	
+	/**
+	 * 检索提示部分索引
+	 * @return
+	 */
 	@RequestMapping("tianyaSuggest")
 	@ResponseBody
 	public Json  tianyaPostSuggester(){
-		
+		Long time1=System.currentTimeMillis();
 		List<TianYaPost> posts = tianYaPostService.findAllPosts();
 		boolean rs=Suggesters.createSuggest(posts);
 		if(rs){
-			return new Json(true,"生成成功");
+			return new Json(true,String.format("生成成功,用了%s毫秒",System.currentTimeMillis()-time1+""));
 		}
 		return new Json(false);
 		

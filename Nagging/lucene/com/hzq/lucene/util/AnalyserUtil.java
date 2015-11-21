@@ -9,7 +9,7 @@
  * -------------------------------------------------------------------------
  * 2015年11月2日 huangzhiqian 创建版本
  */
-package com.hzq.lucene.synonym;
+package com.hzq.lucene.util;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -20,6 +20,9 @@ import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
 import org.apache.lucene.analysis.tokenattributes.PositionIncrementAttribute;
 import org.apache.lucene.analysis.tokenattributes.TypeAttribute;
+
+import com.hzq.lucene.synonym.IKSynonymAnalyzer;
+import com.hzq.lucene.synonym.TxtSynonymEngine;
 
 /**
  * 
