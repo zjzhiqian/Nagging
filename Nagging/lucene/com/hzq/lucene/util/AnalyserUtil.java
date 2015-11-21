@@ -31,7 +31,6 @@ import com.hzq.lucene.synonym.TxtSynonymEngine;
  */
 public class AnalyserUtil {
 	
-	
 	/**
 	 * 显示分词详细信息
 	 * @param analyzer
@@ -39,7 +38,7 @@ public class AnalyserUtil {
 	 * @author huangzhiqian
 	 * @date 2015年11月2日
 	 */
-	public static void displayAllTokenInfo(String text,Analyzer analyzer){
+	public static String displayAllTokenInfo(String text,Analyzer analyzer){
 		try {
 			TokenStream stream=analyzer.tokenStream("tokens", new StringReader(text));
 			 //位置增量 语汇单元的距离(0可以作同义词)
@@ -52,27 +51,32 @@ public class AnalyserUtil {
 			TypeAttribute ta=stream.addAttribute(TypeAttribute.class); 
 			stream.reset();
 			int position = 0;
+			StringBuilder builder = new StringBuilder();
 			while (stream.incrementToken()) {
 				int increment = pia.getPositionIncrement();
 				if(increment > 0) {
 					position = position + increment;
-					System.out.print(position + ":");
+//					System.out.print(position + ":");
+					builder.append(position + ":");
 				}
 			    int startOffset = oa.startOffset();
 			    int endOffset = oa.endOffset();
 			    String term = cta.toString();
-			    System.out.println("[" + term + "]" + ":(" + startOffset + "-->" + endOffset + "):" + ta.type());
+//			    System.out.println("[" + term + "]" + ":(" + startOffset + "-->" + endOffset + "):" + ta.type());
+			    builder.append("[" + term + "]" + ":(" + startOffset + "-->" + endOffset + "):" + ta.type());
+			    builder.append("\n");
 			}
-			System.err.println("");
+			return builder.toString();
 		} catch (IOException e) {
 			e.printStackTrace();
+			return null ;
 		}
 	}
 	
 	public static void main(String[] args) {
 		Analyzer analyzer=new IKSynonymAnalyzer(new TxtSynonymEngine());
-		AnalyserUtil.displayAllTokenInfo("we are win", analyzer);
-		
+		String rs=AnalyserUtil.displayAllTokenInfo("we are win", analyzer);
+		System.out.println(rs);
 	}
 	
 }

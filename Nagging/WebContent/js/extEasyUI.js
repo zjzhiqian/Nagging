@@ -3,7 +3,7 @@
  */
 $.fn.panel.defaults.loadingMessage = '加载中....';
 $.fn.datagrid.defaults.loadMsg = '加载中....';
-
+$.fn.datalist.defaults.loadMsg = '加载中....';
 
 /**
  * datagrid/treegrid/tree/combogrid/combobox/form加载数据出错时的操作
