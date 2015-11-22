@@ -52,7 +52,7 @@ public class TianYaPostServiceImpl extends BaseService<TianYaPost> implements Ti
 
 	@Override
 	public void add(TaoBaoPost post) {
-		tianYaPostMapper.add(post.getUrl(),post.getTitle(),post.getModual(),post.getNextPage());
+		tianYaPostMapper.add(post.getUrl(),post.getTitle(),post.getModual(),post.getNextpageurl());
 		
 	}
 
