@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
@@ -36,7 +35,7 @@ public class TaoBaoGrabController {
 	@Autowired
 	TaoBaoPostService taoBaoPostService;
 	
-	
+	private static final String COOKIE_VAL= "mt=ci%3D-1_0; swfstore=257117; thw=cn; cna=TJDXDmZfojkCAbeUx3aHdj4+; showPopup=3; lzstat_uv=23111847702808552989|3600144; v=0; _tb_token_=XoG6dT6B99qEqW7; uc3=nk2=AnDS93hBOWEYdpk%3D&id2=W8twrLUvJaM8&vt3=F8dAScH%2FKCuyaJhkUb0%3D&lg2=Vq8l%2BKCLz3%2F65A%3D%3D; existShop=MTQ0ODIwMjA2NA%3D%3D; lgc=aa616095191; tracknick=aa616095191; sg=146; cookie2=1c5f7d736bf41e9346ba48a3aa58947b; mt=np=&ci=0_1; cookie1=UoH63f0hQrqOdpJbya2KiQs0ss%2FS7iTCpJ38n9RxOBQ%3D; unb=824664974; skt=650033b2dcc1211e; t=163e4edf9106645ab8a9da2b7349e91f; _cc_=VFC%2FuZ9ajQ%3D%3D; tg=0; _l_g_=Ug%3D%3D; _nk_=aa616095191; cookie17=W8twrLUvJaM8; CNZZDATA30070035=cnzz_eid%3D2128470411-1448173462-%26ntime%3D1448197890; uc1=cookie14=UoWzUaiUXzDnbQ%3D%3D&existShop=false&cookie16=URm48syIJ1yk0MX2J7mAAEhTuw%3D%3D&cookie21=URm48syIYn73&tag=3&cookie15=W5iHLLyFOGW7aA%3D%3D&pas=0; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0%26__ll%3D-1%26_ato%3D0; l=AgEBfnPO-uTS7Alk0wa76RhskUMbLnUg; whl=-1%260%260%261448202134615; isg=54183A6E0F15CC5915F29A9F12D378D9";
 	private static final String TAOBAO_URL="https://bbs.taobao.com/catalog/438501.htm?spm=0.0.0.0.SSGqE7";
 	private static CloseableHttpClient httpclient = null;
 	/**标记是否抓取完成的Flag**/
@@ -53,7 +52,7 @@ public class TaoBaoGrabController {
 	
 	@RequestMapping(value="getDetailData",method=RequestMethod.GET)
 	public void doUpdate(){
-		List<TaoBaoPost> posts=taoBaoPostService.findLimitedPost(0,400000);
+		List<TaoBaoPost> posts=taoBaoPostService.findLimitedPost(150000,300000);
 		for(TaoBaoPost post:posts){
 			if(StringUtils.isEmpty(post.getContent())){
 				TaoBaoPost savePost=getPostData(post.getUrl());
@@ -204,6 +203,7 @@ public class TaoBaoGrabController {
 				HttpEntity entity = response.getEntity();
 				if(entity!=null){
 					content = EntityUtils.toString(entity);
+					checkcontent(content);
 					EntityUtils.consume(entity);
 					List<BBSModual> moduals =getModuales(content);
 					for(BBSModual modual:moduals){
@@ -279,7 +279,7 @@ public class TaoBaoGrabController {
 				if(entity!=null){
 					content = EntityUtils.toString(entity);
 				}
-				TimeUnit.SECONDS.sleep(1);
+				checkcontent(content);
 				EntityUtils.consume(entity);
 				Document doc=Jsoup.parse(content);
 				//title,url
@@ -325,11 +325,15 @@ public class TaoBaoGrabController {
 		
 	}
 	
+	private static void checkcontent(String content){
+		if(content.contains("对不起，系统繁忙，请提交验证码后继续")){
+			throw new RuntimeException("对不起，系统繁忙，请提交验证码后继续。");
+		}
+	}
+	
 	/**请求头**/
 	private static void setHeadersForGet(HttpGet httpget) {
-//		httpget.addHeader(new BasicHeader("cookie", "mt=ci%3D-1_0; swfstore=6477; thw=cn; cna=TJDXDmZfojkCAbeUx3aHdj4+; showPopup=3; v=0; _tb_token_=zNv5Yuycs0YU0P3; uc3=nk2=AnDS93hBOWEYdpk%3D&id2=W8twrLUvJaM8&vt3=F8dAScH%2FJpyTg9qEJNc%3D&lg2=VT5L2FSpMGV7TQ%3D%3D; existShop=MTQ0ODE4Mjg4NQ%3D%3D; lgc=aa616095191; tracknick=aa616095191; sg=146; cookie2=3c03816f07cd8bcd2872be08eeea6e8a; mt=np=&ci=0_1; cookie1=UoH63f0hQrqOdpJbya2KiQs0ss%2FS7iTCpJ38n9RxOBQ%3D; unb=824664974; skt=958de47b52ef238e; t=163e4edf9106645ab8a9da2b7349e91f; _cc_=VFC%2FuZ9ajQ%3D%3D; tg=0; _l_g_=Ug%3D%3D; _nk_=aa616095191; cookie17=W8twrLUvJaM8; lzstat_uv=23111847702808552989|3600144; lzstat_ss=2480698172_0_1448211756_3600144; CNZZDATA30070035=cnzz_eid%3D2128470411-1448173462-%26ntime%3D1448178862; uc1=cookie14=UoWzUasgRRjnVw%3D%3D&existShop=false&cookie16=Vq8l%2BKCLySLZMFWHxqs8fwqnEw%3D%3D&cookie21=VT5L2FSpczFp&tag=3&cookie15=W5iHLLyFOGW7aA%3D%3D&pas=0; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0%26__ll%3D-1%26_ato%3D0; l=AtjYddje8w-Tq0A/wrkCUvGNKAhqwTxL; whl=-1%260%260%261448183569032; isg=0C5CA15AF002696028656B4396ADD60F"));
-//		httpget.addHeader(new BasicHeader("cookie","mt=ci%3D-1_0; swfstore=6477; thw=cn; cna=TJDXDmZfojkCAbeUx3aHdj4+; showPopup=3; _tb_token_=zNv5Yuycs0YU0P3; lzstat_uv=23111847702808552989|3600144; lzstat_ss=2480698172_0_1448211756_3600144; JSESSIONID=A6923BFA575304F4E4BBF76AD49E836B; v=0; uc3=nk2=AnDS93hBOWEYdpk%3D&id2=W8twrLUvJaM8&vt3=F8dAScH%2FKW5V2%2F1T6ng%3D&lg2=V32FPkk%2Fw0dUvg%3D%3D; existShop=MTQ0ODE5NTEzNg%3D%3D; lgc=aa616095191; tracknick=aa616095191; sg=146; cookie2=3c03816f07cd8bcd2872be08eeea6e8a; cookie1=UoH63f0hQrqOdpJbya2KiQs0ss%2FS7iTCpJ38n9RxOBQ%3D; unb=824664974; skt=16e121ca3c98aa67; t=163e4edf9106645ab8a9da2b7349e91f; _cc_=VT5L2FSpdA%3D%3D; tg=0; _l_g_=Ug%3D%3D; _nk_=aa616095191; cookie17=W8twrLUvJaM8; mt=ci=0_1; CNZZDATA30070035=cnzz_eid%3D2128470411-1448173462-%26ntime%3D1448194938; uc1=cookie14=UoWzUashSZUtYg%3D%3D&cookie16=URm48syIJ1yk0MX2J7mAAEhTuw%3D%3D&existShop=false&cookie21=VFC%2FuZ9ainBZ&tag=3&cookie15=Vq8l%2BKCLz3%2F65A%3D%3D&pas=0; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0%26__ll%3D-1%26_ato%3D0; l=AqamD4ZXBYUxhc6VwL8UaGE2dhIohepB; whl=-1%260%260%261448195510875; isg=F90E257390320DF72685630D142BAF9C"));
-		httpget.addHeader(new BasicHeader("cookie","swfstore=100237; thw=cn; cna=TJDXDmZfojkCAbeUx3aHdj4+; showPopup=3; lzstat_uv=23111847702808552989|3600144; uc3=nk2=AnDS93hBOWEYdpk%3D&id2=W8twrLUvJaM8&vt3=F8dAScH%2FKW5V2%2F1T6ng%3D&lg2=V32FPkk%2Fw0dUvg%3D%3D; lgc=aa616095191; tracknick=aa616095191; _cc_=VT5L2FSpdA%3D%3D; tg=0; mt=ci=0_1; v=0; cookie2=63c00ad117d0e50361efa167a7aa0454; t=163e4edf9106645ab8a9da2b7349e91f; lzstat_ss=1671402813_0_1448224385_3600144; uc1=cookie14=UoWzUashSZSF0g%3D%3D; CNZZDATA30070035=cnzz_eid%3D2128470411-1448173462-%26ntime%3D1448194938; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0%26__ll%3D-1%26_ato%3D0; isg=BDFD27E7CE85063D14E1D91ECFDA5ACF; l=AoWF8qXCtrAuGA1Y95pnvY3CFc-/BznW"));
+		httpget.addHeader(new BasicHeader("cookie",COOKIE_VAL));
 		httpget.addHeader(new BasicHeader(":host","bbs.taobao.com"));
 		httpget.addHeader(new BasicHeader(":method","GET"));
 		httpget.addHeader(new BasicHeader(":path","/catalog/438501.htm?spm=0.0.0.0.SSGqE7"));
@@ -347,7 +351,7 @@ public class TaoBaoGrabController {
 	
 	/**请求头**/
 	private static void setHeadersForGet2(HttpGet httpget,String modualUrl) {
-		httpget.addHeader(new BasicHeader("cookie","swfstore=100237; thw=cn; cna=TJDXDmZfojkCAbeUx3aHdj4+; showPopup=3; lzstat_uv=23111847702808552989|3600144; uc3=nk2=AnDS93hBOWEYdpk%3D&id2=W8twrLUvJaM8&vt3=F8dAScH%2FKW5V2%2F1T6ng%3D&lg2=V32FPkk%2Fw0dUvg%3D%3D; lgc=aa616095191; tracknick=aa616095191; _cc_=VT5L2FSpdA%3D%3D; tg=0; mt=ci=0_1; v=0; cookie2=63c00ad117d0e50361efa167a7aa0454; t=163e4edf9106645ab8a9da2b7349e91f; lzstat_ss=1671402813_0_1448224385_3600144; uc1=cookie14=UoWzUashSZSF0g%3D%3D; CNZZDATA30070035=cnzz_eid%3D2128470411-1448173462-%26ntime%3D1448194938; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0%26__ll%3D-1%26_ato%3D0; isg=BDFD27E7CE85063D14E1D91ECFDA5ACF; l=AoWF8qXCtrAuGA1Y95pnvY3CFc-/BznW"));
+		httpget.addHeader(new BasicHeader("cookie",COOKIE_VAL));
 		httpget.addHeader(new BasicHeader(":host","bbs.taobao.com"));
 		httpget.addHeader(new BasicHeader(":method","GET"));
 		String headerPath=modualUrl.substring(modualUrl.indexOf("catalog/")-1,modualUrl.length());
