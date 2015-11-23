@@ -107,8 +107,12 @@ public class HttpTest {
 	}
 	
 	public static void main(String[] args) {
-		getPostData("https://bbs.taobao.com/catalog/thread/508895-256357307.htm");
+//		getPostData("https://bbs.taobao.com/catalog/thread/508895-256357307.htm");
 //		System.out.println(Long.parseLong("0"));
+		int step=1000;
+		for(int i=0;i<5000;i=i+step){
+			System.out.println(i);
+		}
 	}
 	
 	

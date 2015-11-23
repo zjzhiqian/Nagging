@@ -35,7 +35,7 @@ public class TaoBaoGrabController {
 	@Autowired
 	TaoBaoPostService taoBaoPostService;
 	
-	private static final String COOKIE_VAL= "mt=ci%3D-1_0; swfstore=257117; thw=cn; cna=TJDXDmZfojkCAbeUx3aHdj4+; showPopup=3; lzstat_uv=23111847702808552989|3600144; v=0; _tb_token_=XoG6dT6B99qEqW7; uc3=nk2=AnDS93hBOWEYdpk%3D&id2=W8twrLUvJaM8&vt3=F8dAScH%2FKCuyaJhkUb0%3D&lg2=Vq8l%2BKCLz3%2F65A%3D%3D; existShop=MTQ0ODIwMjA2NA%3D%3D; lgc=aa616095191; tracknick=aa616095191; sg=146; cookie2=1c5f7d736bf41e9346ba48a3aa58947b; mt=np=&ci=0_1; cookie1=UoH63f0hQrqOdpJbya2KiQs0ss%2FS7iTCpJ38n9RxOBQ%3D; unb=824664974; skt=650033b2dcc1211e; t=163e4edf9106645ab8a9da2b7349e91f; _cc_=VFC%2FuZ9ajQ%3D%3D; tg=0; _l_g_=Ug%3D%3D; _nk_=aa616095191; cookie17=W8twrLUvJaM8; CNZZDATA30070035=cnzz_eid%3D2128470411-1448173462-%26ntime%3D1448197890; uc1=cookie14=UoWzUaiUXzDnbQ%3D%3D&existShop=false&cookie16=URm48syIJ1yk0MX2J7mAAEhTuw%3D%3D&cookie21=URm48syIYn73&tag=3&cookie15=W5iHLLyFOGW7aA%3D%3D&pas=0; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0%26__ll%3D-1%26_ato%3D0; l=AgEBfnPO-uTS7Alk0wa76RhskUMbLnUg; whl=-1%260%260%261448202134615; isg=54183A6E0F15CC5915F29A9F12D378D9";
+	private static final String COOKIE_VAL= "mt=ci%3D-1_0; swfstore=34086; swfstore=137037; thw=cn; cna=TJDXDmZfojkCAbeUx3aHdj4+; lzstat_uv=23111847702808552989|3600144; v=0; _tb_token_=6jtAgLRCReiMsE9; showPopup=0; uc3=nk2=AnDS93hBOWEYdpk%3D&id2=W8twrLUvJaM8&vt3=F8dAScHwEttXXslI6Lg%3D&lg2=UtASsssmOIJ0bQ%3D%3D; existShop=MTQ0ODI4NTQwOA%3D%3D; lgc=aa616095191; tracknick=aa616095191; sg=146; cookie2=146459126c363c688c2d8424341a9a04; cookie1=UoH63f0hQrqOdpJbya2KiQs0ss%2FS7iTCpJ38n9RxOBQ%3D; unb=824664974; skt=cb4cdc95307d656f; t=163e4edf9106645ab8a9da2b7349e91f; _cc_=UIHiLt3xSw%3D%3D; tg=0; _l_g_=Ug%3D%3D; _nk_=aa616095191; cookie17=W8twrLUvJaM8; mt=ci=0_1; CNZZDATA30070035=cnzz_eid%3D2128470411-1448173462-%26ntime%3D1448284377; uc1=cookie14=UoWzUaic%2Fzgibg%3D%3D&existShop=false&cookie16=VFC%2FuZ9az08KUQ56dCrZDlbNdA%3D%3D&cookie21=VT5L2FSpczFp&tag=3&cookie15=Vq8l%2BKCLz3%2F65A%3D%3D&pas=0; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0%26__ll%3D-1%26_ato%3D0; l=Aj8/wNcjnMJAFgdqwTwdzTA3Tx3JJJPG; whl=-1%260%260%261448285494170; isg=EE3C1AFA1F0C82E33956F9DC73668B9E";
 	private static final String TAOBAO_URL="https://bbs.taobao.com/catalog/438501.htm?spm=0.0.0.0.SSGqE7";
 	private static CloseableHttpClient httpclient = null;
 	/**标记是否抓取完成的Flag**/
@@ -52,21 +52,24 @@ public class TaoBaoGrabController {
 	
 	@RequestMapping(value="getDetailData",method=RequestMethod.GET)
 	public void doUpdate(){
-		List<TaoBaoPost> posts=taoBaoPostService.findLimitedPost(150000,300000);
-		for(TaoBaoPost post:posts){
-			if(StringUtils.isEmpty(post.getContent())){
-				TaoBaoPost savePost=getPostData(post.getUrl());
-				if(StringUtils.isEmpty(savePost.getContent())){
-					//如果无数据抓取失败,设置为-99
-					savePost.setReply(-99L);
-					savePost.setClick(-99L);
-				}
-				savePost.setId(post.getId());
-				boolean flag=taoBaoPostService.updatePost(savePost);
-				if(flag){
-					System.out.println(post.getId()+"...成功");
-				}else{
-					System.err.println(post.getId()+"...失败");
+		int step=100000;
+		for(int i=400000;i<900000;i=i+step){
+			List<TaoBaoPost> posts=taoBaoPostService.findLimitedPost(i,step);
+			for(TaoBaoPost post:posts){
+				if(StringUtils.isEmpty(post.getContent())){
+					TaoBaoPost savePost=getPostData(post.getUrl());
+					if(StringUtils.isEmpty(savePost.getContent())){
+						//如果无数据抓取失败,设置为-99
+						savePost.setReply(-99L);
+						savePost.setClick(-99L);
+					}
+					savePost.setId(post.getId());
+					boolean flag=taoBaoPostService.updatePost(savePost);
+					if(flag){
+						System.out.println(post.getId()+"...成功");
+					}else{
+						System.err.println(post.getId()+"...失败");
+					}
 				}
 			}
 		}
