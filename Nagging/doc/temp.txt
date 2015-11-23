@@ -28,3 +28,12 @@ Analyzer的StopFilter和LowerCaseFilter
 		如果查询时扩展,则硬盘控件消耗小,查询速度比较快	
 
 public class PayloadAttributeImpl extends AttributeImpl implements PayloadAttribute, Cloneable
+
+
+
+easyui 自动补全
+
+
+
+
+

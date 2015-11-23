@@ -17,6 +17,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hzq.common.entity.DataList;
 import com.hzq.common.entity.Grid;
 import com.hzq.lucene.synonym.TxtSynonymEngine;
+import com.hzq.lucene.util.AnalyzerUtil;
+import com.hzq.lucene.util.LuceneUtil;
 
 /**
  * 
@@ -83,10 +86,32 @@ public class TokenStreamController {
 	}
 	
 	
+	/**
+	 * 进入分词页面
+	 * @return
+	 * @author huangzhiqian
+	 * @date 2015年11月23日
+	 */
 	@RequestMapping(value="tokenquery",method=RequestMethod.GET)
 	public String tokenquery(){
-		
 		return "lucene/tokenquery";
+	}
+	
+	/**
+	 * 查看分词信息
+	 * @return
+	 * @author huangzhiqian
+	 * @date 2015年11月23日
+	 */
+	@RequestMapping(value="tokenquery",method=RequestMethod.POST)
+	@ResponseBody
+	public String tokenquerypost(HttpServletRequest req){
+		String content=req.getParameter("content");
+		if(StringUtils.isNotEmpty(content)){
+			return AnalyzerUtil.displayAllTokenInfo(content.trim(), LuceneUtil.getSynonymAnalyzer());
+		}else{
+			return "不能为空";
+		}
 	}
 	
 }

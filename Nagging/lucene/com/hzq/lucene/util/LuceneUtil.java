@@ -21,8 +21,10 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
+import com.hzq.lucene.core.HighterInfixSuggester;
 import com.hzq.lucene.synonym.IKSynonymAnalyzer;
 import com.hzq.lucene.synonym.TxtSynonymEngine;
+import com.hzq.system.constant.Constant;
 /**
  * Lucene工具类,默认分词器为IKAnalyser
  * @author huangzhiqian
@@ -40,6 +42,8 @@ public class LuceneUtil {
 	public static FieldType OnLyStoreFieldType = null;
 	/**默认分词器**/
 	private static Analyzer defaultAnalyzer = null;
+	
+	private static HighterInfixSuggester tianyaSuggester = null;
 	static {
 		defaultAnalyzer=getAnalyzer();
 		//  Id
@@ -73,6 +77,12 @@ public class LuceneUtil {
 		OnLyStoreFieldType.setOmitNorms(false);
 		OnLyStoreFieldType.setIndexOptions(IndexOptions.NONE);
 		OnLyStoreFieldType.freeze();
+		
+		try {
+			tianyaSuggester = new HighterInfixSuggester(FSDirectory.open(Paths.get(Constant.Index_TianYaSuggest_Path)), getAnalyzer());
+		} catch (IOException e) {
+			throw new RuntimeException("tianyaSuggester初始化失败");
+		}
 	}
 	/**
 	 * 指定目录,使用默认分词器获取写索引Writer
@@ -121,14 +131,18 @@ public class LuceneUtil {
 	
 	
 	public static AnalyzingInfixSuggester getSuggester(String path){
-		try {
-			Directory indexDir = FSDirectory.open(Paths.get(path));
-			return new AnalyzingInfixSuggester(indexDir, getAnalyzer());
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new RuntimeException("failure accured in create suggester");
+		if(tianyaSuggester==null){
+			try {
+				Directory indexDir = FSDirectory.open(Paths.get(path));
+				return new HighterInfixSuggester(indexDir, getAnalyzer());
+			} catch (IOException e) {
+				throw new RuntimeException("failure accured in create suggester");
+			}
+		}else{
+			return tianyaSuggester;
 		}
-	}
+	}	
+		
 	
 	
 	/**

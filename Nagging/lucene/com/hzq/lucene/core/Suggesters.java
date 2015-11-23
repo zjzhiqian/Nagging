@@ -14,8 +14,11 @@ package com.hzq.lucene.core;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.lucene.search.suggest.Lookup.LookupResult;
 import org.apache.lucene.search.suggest.analyzing.AnalyzingInfixSuggester;
@@ -62,34 +65,36 @@ public class Suggesters {
 	 * @author huangzhiqian
 	 * @date 2015年11月20日
 	 */
-	public static void getSuggestResult(String input,String folumn){
+	public static List<Map<String,Object>> getSuggestResult(String input,String folumn){
+		List<Map<String, Object>> ListMap=new ArrayList<Map<String,Object>>();
 		try {
 			AnalyzingInfixSuggester suggester=LuceneUtil.getSuggester(Constant.Index_TianYaSuggest_Path);
 			HashSet<BytesRef> filtercontexts = new HashSet<BytesRef>();
 			filtercontexts.add(new BytesRef(folumn.getBytes("UTF8")));
-			//filtercontexts过滤,input 输入, 显示2挑数据,每个Term都匹配,关键词高亮
 			Long time1=System.currentTimeMillis();
-			List<LookupResult> results = suggester.lookup(input, filtercontexts, 2, true, true);
-			System.err.println(System.currentTimeMillis()-time1);
+			//filtercontexts过滤,input 输入, 显示5条数据,每个Term都匹配,关键词高亮
+			List<LookupResult> results = suggester.lookup(input, filtercontexts, 5, true, true);
+			Map<String,Object> map = null;
 			for (LookupResult result : results) {
-				System.out.println(result.key);
-				System.out.println(result.highlightKey);
+				map=new HashMap<String, Object>();
 				//从payload中反序列化出Post对象
-//				BytesRef bytesRef = result.payload;
-//				InputStream in = new ByteArrayInputStream(bytesRef.bytes);
-//				String title = CommonUtils.deSerialize(in,String.class);
-//				System.out.println(title);
+				BytesRef bytesRef = result.payload;
+				InputStream in = new ByteArrayInputStream(bytesRef.bytes);
+				String url = CommonUtils.deSerialize(in,String.class);
+				map.put("key", result.highlightKey);
+				map.put("url", url);
+				map.put("time", System.currentTimeMillis()-time1);
+				ListMap.add(map);
 			}
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		return ListMap;
 	}
 	
 	
 	public static void main(String[] args) {
-		getSuggestResult("天涯", "谈天说地");
+			System.out.println(getSuggestResult("事", "谈天说地"));
 	}
 	
 }

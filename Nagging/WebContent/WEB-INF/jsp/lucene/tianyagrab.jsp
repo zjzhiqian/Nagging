@@ -70,30 +70,20 @@
 		})
 	}
 	
-	
 	//单目录索引(TianYa)
-	$("#data-index-tianyamulty").click(function(){
-		loading("索引生成中,请稍等")
-		$.ajax({
-			url:"${ctx}/lucene/tianyaindexMultiPath",
-			success:function(r){
-				loaded()
-				if(r&&r.flag){
-					showmsg(r.msg)
-				}else{
-					alerterror(r.msg)
-				}
-			}
-		})
-		return false
+	$("#data-index-tianya").click(function(){
+		sendAjax("${ctx}/lucene/tianyaindex/1/0")
 	})
-	
 	
 	//多目录索引(TianYa)
-	$("#data-index-tianya").click(function(){
+	$("#data-index-tianyamulty").click(function(){
+		sendAjax("${ctx}/lucene/tianyaindex/1/1")
+	})
+	
+	function sendAjax(url){
 		loading("索引生成中,请稍等")
 		$.ajax({
-			url:"${ctx}/lucene/tianyaindexOnePath",
+			url:url,
 			success:function(r){
 				loaded()
 				if(r&&r.flag){
@@ -104,7 +94,8 @@
 			}
 		})
 		return false
-	})
+		
+	}
 	
 	
 	//提示功能索引
@@ -123,15 +114,6 @@
 		})
 		return false
 	})
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

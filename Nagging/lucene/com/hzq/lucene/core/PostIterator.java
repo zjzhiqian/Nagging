@@ -78,7 +78,9 @@ public class PostIterator implements InputIterator {
 		try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ObjectOutputStream out = new ObjectOutputStream(bos);
-            out.writeObject(currentPost.getTitle());
+            
+            //只需写入 title和url即可
+            out.writeObject(currentPost.getUrl());
             out.close();
             return new BytesRef(bos.toByteArray());
         } catch (IOException e) {
@@ -88,7 +90,7 @@ public class PostIterator implements InputIterator {
 	
 	@Override
 	/**
-	 * 返回权重值
+	 * 权重信息(suggest的排序)
 	 */
 	public long weight() {  
 		return currentPost.getClick();

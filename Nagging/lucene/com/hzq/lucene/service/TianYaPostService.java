@@ -39,10 +39,5 @@ public interface TianYaPostService {
 	 * @param post
 	 */
 	void add(TaoBaoPost post);
-	/**
-	 * 获取所有淘宝帖子
-	 * @return
-	 */
-	List<TaoBaoPost> findAllTbPosts();
 
 }

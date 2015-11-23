@@ -56,9 +56,5 @@ public class TianYaPostServiceImpl extends BaseService<TianYaPost> implements Ti
 		
 	}
 
-	@Override
-	public List<TaoBaoPost> findAllTbPosts() {
-		return tianYaPostMapper.findAllTbPosts();
-	}
 	
 }

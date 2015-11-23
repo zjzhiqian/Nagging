@@ -111,6 +111,7 @@ public class TianYaDataQueries {
 	 * 天涯论坛的查询
 	 * 
 	 * @param condition
+	 * @param type  1表示但目录的检索,2表示多目录检索
 	 * @return
 	 */
 	public static Grid<TianYaPost> getDataGridResult(QueryCondition condition,String type) {
@@ -265,7 +266,11 @@ public class TianYaDataQueries {
 			if (StringUtils.isNotEmpty(doc.get("title"))) {
 				// title的高亮处理
 				TokenStream tokenStream = LuceneUtil.getSynonymAnalyzer().tokenStream("title", doc.get("title"));
-				post.setTitle(highlighter.getBestFragment(tokenStream, doc.get("title")));
+				String result=highlighter.getBestFragment(tokenStream, doc.get("title"));
+				if (StringUtils.isEmpty(result)) {
+					result = doc.get("title");
+				}
+				post.setTitle(result);
 			}
 			if (StringUtils.isNotEmpty(doc.get("storedcontent"))) {
 				TokenStream tokenStream = LuceneUtil.getSynonymAnalyzer().tokenStream("storedcontent", doc.get("storedcontent"));

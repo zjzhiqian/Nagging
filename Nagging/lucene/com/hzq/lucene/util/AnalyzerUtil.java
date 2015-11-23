@@ -29,7 +29,7 @@ import com.hzq.lucene.synonym.TxtSynonymEngine;
  * 显示分词情况，包括Term的起始位置和结束位置(偏移量),位置增量,Term字符串，Term字符串类型)
  * @author huangzhiqian
  */
-public class AnalyserUtil {
+public class AnalyzerUtil {
 	
 	/**
 	 * 显示分词详细信息
@@ -64,6 +64,7 @@ public class AnalyserUtil {
 			    String term = cta.toString();
 //			    System.out.println("[" + term + "]" + ":(" + startOffset + "-->" + endOffset + "):" + ta.type());
 			    builder.append("[" + term + "]" + ":(" + startOffset + "-->" + endOffset + "):" + ta.type());
+			    builder.append("                  <br/>");
 			    builder.append("\n");
 			}
 			return builder.toString();
@@ -75,7 +76,7 @@ public class AnalyserUtil {
 	
 	public static void main(String[] args) {
 		Analyzer analyzer=new IKSynonymAnalyzer(new TxtSynonymEngine());
-		String rs=AnalyserUtil.displayAllTokenInfo("we are win", analyzer);
+		String rs=AnalyzerUtil.displayAllTokenInfo("we are win", analyzer);
 		System.out.println(rs);
 	}
 	

@@ -1,5 +1,8 @@
 package com.hzq.lucene.web;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
@@ -15,6 +18,7 @@ import com.hzq.common.entity.Grid;
 import com.hzq.common.entity.Json;
 import com.hzq.common.entity.QueryCondition;
 import com.hzq.common.util.CommonUtils;
+import com.hzq.lucene.core.Suggesters;
 import com.hzq.lucene.core.TianYaDataQueries;
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.service.TianYaPostService;
@@ -53,6 +57,17 @@ public class TianYaPostController {
 		setSortForcondition(request, condition);
 		Grid<TianYaPost> rs = TianYaDataQueries.getDataGridResult(condition,type);
 		return rs;
+	}
+	
+	@RequestMapping(value="tianyaSuggestQuery",method=RequestMethod.POST)
+	@ResponseBody
+	public List<Map<String,Object>> tianyaSuggestQuery(HttpServletRequest request){
+		String content=request.getParameter("content");
+		List<Map<String,Object>> ListMap = null;
+		if(StringUtils.isNotEmpty(content)){
+			ListMap=Suggesters.getSuggestResult(content, "谈天说地");
+		}
+		return ListMap;
 	}
 	
 	/**
