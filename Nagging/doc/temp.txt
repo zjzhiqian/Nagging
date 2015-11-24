@@ -30,8 +30,9 @@ Analyzer的StopFilter和LowerCaseFilter
 public class PayloadAttributeImpl extends AttributeImpl implements PayloadAttribute, Cloneable
 
 
-
-easyui 自动补全
+https://github.com/ml-distribution/analyzer-profile
+https://github.com/mlcsdev/mlcsseg
+https://github.com/daydayfantasy/ansj_seg
 
 
 
