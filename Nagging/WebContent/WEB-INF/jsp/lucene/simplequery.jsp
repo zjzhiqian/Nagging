@@ -5,11 +5,50 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <style type="text/css">
+
+
+
+a{
+	text-decoration: none
+}
+a:hover{
+	text-decoration: none
+}
+.info{
+	margin-top:6px;
+	color: #999999;
+	font-size: 10px;
+	line-height: 20px;
+}
 #search {
 	text-align: left;
 	margin-left:30px;
 	margin-top:50px;
 	position: relative;
+}
+
+#count{
+	margin-left: 40px;
+	padding-top: 20px;
+	color: #999999;
+	font-size: 13px;
+}
+
+.content{
+	margin-left: 30px;
+	padding-top: 10px;
+}
+
+.title{
+	padding-top: 20px;
+	
+}
+
+.detail{
+	font-size: 12px;
+	line-height: 20px;
+	background-color: #f1f1f1;
+	width: 700px;
 }
 
 
@@ -29,19 +68,13 @@ li {
 
 <script type="text/javascript">
 	$(function() {
-		//取得div层 
+		$autocomplete = $("<div id='suggest'></div>").hide().insertAfter('#submit');
 		var $search = $('#search');
-		//取得输入框JQuery对象 
 		var $searchInput = $search.find('#search-text');
-		//关闭浏览器提供给输入框的自动完成 
 		$searchInput.attr('autocomplete', 'off');
-		//创建自动完成的下拉列表，用于显示服务器返回的数据,插入在搜索按钮的后面，等显示的时候再调整位置 
-		var $autocomplete = $('<div></div>').hide().insertAfter('#submit');
-		//清空下拉列表的内容并且隐藏下拉列表区 
 		var clear = function() {
 			$autocomplete.empty().hide();
 		};
-		//注册事件，当输入框失去焦点的时候清空下拉列表并隐藏 
 		$searchInput.blur(function() {
 			setTimeout(clear, 500);
 		});
@@ -92,9 +125,10 @@ li {
 										selectedItem = -1;
 								})
 								.click(function() {
-										term=term.replace("<font color=\"blue\">","")
-										term=term.replace("</font>","")
+										term=term.replaceAll("<font color=\"blue\">","")
+										term=term.replaceAll("</font>","")
 										$searchInput.val(term);
+										sendQueryAjax()
 										//清空并隐藏下拉列表 
 										$autocomplete.empty().hide();
 								});
@@ -175,14 +209,75 @@ li {
 			});
 		});
 	});
+	
+	
+	
+	
 </script>
 
 </head>
 <body>
+	<script type="text/javascript">
+		//搜索请求
+		function sendQueryAjax(){
+			$("#count").empty().hide()
+			$(".content").empty().hide()
+			$autocomplete.empty().hide();
+			var content = $("#search-text").val()
+			$.ajax({
+				url:"${ctx}/lucene/tianyaIndexQuery/2",
+				data:{'content':content,'title':content,'rows':20,'page':1},
+				success:function(r){
+					if(r.o.flag){
+						console.log(r)
+						str=""
+						str+= $.formatString("<div id=\"count\">为你找到相关结果<span>{0}</span>个 用时{1}ms</div>",r.total,r.o.msg)
+						str+="<div class=\"content\">";
+						for(var i=0;i<r.rows.length;i++){
+							str+=$.formatString("<div class=\"title\"><a href='{0}' target='_blank'>{1}</a><div class='info'><div >发帖人:{2}</div><div >发帖时间:{3}</div></div><div class='detail'>{4}</div></div>",r.rows[i].url,r.rows[i].title,r.rows[i].adduserName,r.rows[i].addTime,r.rows[i].content);
+						}
+						str+="</div>";
+						$(str).insertAfter('#suggest');
+					}else{
+						showmsg(r.o.msg)
+					}
+				}
+			})
+		}
+	
+		$(function(){
+			//搜索
+			$("#submit").click(function(){
+				sendQueryAjax()
+			})	
+		})
+	
+	</script>
+
+
 	<div id="search">
-		<label for="search-text">请输入关键词</label>
-		<input type="text" id="search-text" name="search-text" style="width: 400px"/> 
+		<label for="search-text" style="margin-right: 50px">输入关键词</label>
+		<input type="text" id="search-text" name="search-text" style="width: 400px;"/> 
 		<input type="button" id="submit" value="搜索" />
 	</div>
+	
+	
+<!-- 
+	<div id="count">
+		为你找到相关结果<span>32058</span>个
+	</div>
+	<div class="content">
+		<div class="title">
+			<a href="">现在已到了相互砸饭碗的时代！</a>
+			<div class="info">
+				<div >发帖人:小是是</div>
+				<div >发帖时间:2015-05-10</div>
+			</div>
+			<div class="detail">
+				内容 :的我我我我我我我我我我我我签订我我我签订的我我我我我我我我我我我我签订我我我签订签订我我我签订
+			</div>
+		</div>
+	</div>
+ -->
 </body>
 </html>

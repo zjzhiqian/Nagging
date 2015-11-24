@@ -33,10 +33,6 @@ $.stringToList = function(value) {
 };
 
 
-
-
-
-
 /**
  * @requires jQuery
  * 
@@ -55,10 +51,6 @@ $.serializeObject = function(form) {
 	});
 	return o;
 };
-
-
-
-
 
 
 /**

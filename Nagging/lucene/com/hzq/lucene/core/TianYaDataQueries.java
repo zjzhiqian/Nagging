@@ -158,12 +158,14 @@ public class TianYaDataQueries {
 			clauses = new BooleanClause.Occur[] { BooleanClause.Occur.MUST };
 		}
 		if (FieldCount == 2) {
-			clauses = new BooleanClause.Occur[] { BooleanClause.Occur.MUST, BooleanClause.Occur.MUST };
+			//查询时Title必须要包含,content可以不包含
+			clauses = new BooleanClause.Occur[] { BooleanClause.Occur.SHOULD, BooleanClause.Occur.MUST };
 		}
 
 		try {
 			Long time1 = System.currentTimeMillis();
-			Query query = MultiFieldQueryParser.parse(queryList.toArray(new String[queryList.size()]), fieldList.toArray(new String[fieldList.size()]), clauses, LuceneUtil.getAnalyzer());
+			//在索引的时候使用了同义词分词,在查询的时候就没必要用了
+			Query query = MultiFieldQueryParser.parse(queryList.toArray(new String[queryList.size()]), fieldList.toArray(new String[fieldList.size()]), clauses, LuceneUtil.getIKAnalyzer());
 
 			System.err.println(query.toString());
 			// 排序
@@ -265,7 +267,7 @@ public class TianYaDataQueries {
 
 			if (StringUtils.isNotEmpty(doc.get("title"))) {
 				// title的高亮处理
-				TokenStream tokenStream = LuceneUtil.getSynonymAnalyzer().tokenStream("title", doc.get("title"));
+				TokenStream tokenStream = LuceneUtil.getIKSynonymAnalyzer().tokenStream("title", doc.get("title"));
 				String result=highlighter.getBestFragment(tokenStream, doc.get("title"));
 				if (StringUtils.isEmpty(result)) {
 					result = doc.get("title");
@@ -273,7 +275,7 @@ public class TianYaDataQueries {
 				post.setTitle(result);
 			}
 			if (StringUtils.isNotEmpty(doc.get("storedcontent"))) {
-				TokenStream tokenStream = LuceneUtil.getSynonymAnalyzer().tokenStream("storedcontent", doc.get("storedcontent"));
+				TokenStream tokenStream = LuceneUtil.getIKSynonymAnalyzer().tokenStream("storedcontent", doc.get("storedcontent"));
 				String result = highlighter.getBestFragment(tokenStream, doc.get("storedcontent"));
 				if (StringUtils.isEmpty(result)) {
 					result = doc.get("storedcontent");

@@ -18,6 +18,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.lucene.analysis.Analyzer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -107,8 +108,17 @@ public class TokenStreamController {
 	@ResponseBody
 	public String tokenquerypost(HttpServletRequest req){
 		String content=req.getParameter("content");
+		String type=req.getParameter("type");
 		if(StringUtils.isNotEmpty(content)){
-			return AnalyzerUtil.displayAllTokenInfo(content.trim(), LuceneUtil.getSynonymAnalyzer());
+			Analyzer analyzer=null;
+			if("0".equals(type)){
+				analyzer=LuceneUtil.getStandardAnalyzer();
+			}else if ("1".equals(type)){
+				analyzer=LuceneUtil.getIKAnalyzer();
+			}else{
+				analyzer=LuceneUtil.getIKSynonymAnalyzer();
+			}
+			return AnalyzerUtil.displayAllTokenInfo(content.trim(),analyzer);
 		}else{
 			return "不能为空";
 		}

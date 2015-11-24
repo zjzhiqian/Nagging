@@ -11,7 +11,7 @@
 <script type="text/javascript" src="${ctx}/js/extBrowser.js"></script>
 <script type="text/javascript" src="${ctx}/js/extEasyUI.js"></script>
 <script type="text/javascript" src="${ctx}/js/extJquery.js"></script>
-
+<script type="text/javascript" src="${ctx}/js/extJs.js"></script>
 
 
 <body>

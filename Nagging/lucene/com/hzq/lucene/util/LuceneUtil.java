@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.FieldType;
 import org.apache.lucene.index.IndexOptions;
 import org.apache.lucene.index.IndexWriter;
@@ -41,11 +42,11 @@ public class LuceneUtil {
 	/**只用于存储一些信息**/
 	public static FieldType OnLyStoreFieldType = null;
 	/**默认分词器**/
-	private static Analyzer defaultAnalyzer = null;
+	private static Analyzer defaultWriteAnalyzer = null;
 	
 	private static HighterInfixSuggester tianyaSuggester = null;
 	static {
-		defaultAnalyzer=getAnalyzer();
+		defaultWriteAnalyzer=getIKSynonymAnalyzer();
 		//  Id
 		IdFielType = new FieldType();
 		IdFielType.setStored(true);
@@ -79,18 +80,19 @@ public class LuceneUtil {
 		OnLyStoreFieldType.freeze();
 		
 		try {
-			tianyaSuggester = new HighterInfixSuggester(FSDirectory.open(Paths.get(Constant.Index_TianYaSuggest_Path)), getAnalyzer());
+			tianyaSuggester = new HighterInfixSuggester(FSDirectory.open(Paths.get(Constant.Index_TianYaSuggest_Path)), getIKAnalyzer());
 		} catch (IOException e) {
 			throw new RuntimeException("tianyaSuggester初始化失败");
 		}
 	}
 	/**
 	 * 指定目录,使用默认分词器获取写索引Writer
+	 * 默认IK同义词分词器
 	 * @param path
 	 * @return
 	 */
 	public static IndexWriter getIndexWriter(String path){
-		return getIndexWriter(path,defaultAnalyzer);
+		return getIndexWriter(path,defaultWriteAnalyzer);
 	}
 	
 	/**
@@ -134,7 +136,7 @@ public class LuceneUtil {
 		if(tianyaSuggester==null){
 			try {
 				Directory indexDir = FSDirectory.open(Paths.get(path));
-				return new HighterInfixSuggester(indexDir, getAnalyzer());
+				return new HighterInfixSuggester(indexDir, getIKAnalyzer());
 			} catch (IOException e) {
 				throw new RuntimeException("failure accured in create suggester");
 			}
@@ -144,6 +146,15 @@ public class LuceneUtil {
 	}	
 		
 	
+	/**
+	 * 返回标准分词器
+	 * @return
+	 * @author huangzhiqian
+	 * @date 2015年11月24日
+	 */
+	public static Analyzer getStandardAnalyzer(){
+		return new StandardAnalyzer();
+	}
 	
 	/**
 	 * 返回IK分词器
@@ -151,7 +162,7 @@ public class LuceneUtil {
 	 * @author huangzhiqian
 	 * @date 2015年11月17日
 	 */
-	public static Analyzer getAnalyzer(){
+	public static Analyzer getIKAnalyzer(){
 		return new IKAnalyzer();
 	}
 	
@@ -161,7 +172,7 @@ public class LuceneUtil {
 	 * @author huangzhiqian
 	 * @date 2015年11月17日
 	 */
-	public static Analyzer getSynonymAnalyzer(){
+	public static Analyzer getIKSynonymAnalyzer(){
 		return new IKSynonymAnalyzer(new TxtSynonymEngine());
 		
 	}

@@ -76,7 +76,7 @@ public class AnalyzerUtil {
 	
 	public static void main(String[] args) {
 		Analyzer analyzer=new IKSynonymAnalyzer(new TxtSynonymEngine());
-		String rs=AnalyzerUtil.displayAllTokenInfo("we are win", analyzer);
+		String rs=AnalyzerUtil.displayAllTokenInfo("姓名", analyzer);
 		System.out.println(rs);
 	}
 	
