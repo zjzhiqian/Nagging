@@ -28,6 +28,7 @@ import com.hzq.lucene.entity.BBSModual;
 import com.hzq.lucene.entity.TaoBaoPost;
 import com.hzq.lucene.service.TaoBaoPostService;
 import com.hzq.lucene.service.TianYaPostService;
+import com.hzq.lucene.util.ThreadService;
 
 @Controller
 @RequestMapping("lucene")
@@ -35,7 +36,8 @@ public class TaoBaoGrabController {
 	@Autowired
 	TaoBaoPostService taoBaoPostService;
 	
-	private static final String COOKIE_VAL= "mt=ci%3D-1_0; swfstore=34086; swfstore=137037; thw=cn; cna=TJDXDmZfojkCAbeUx3aHdj4+; lzstat_uv=23111847702808552989|3600144; v=0; _tb_token_=6jtAgLRCReiMsE9; showPopup=0; uc3=nk2=AnDS93hBOWEYdpk%3D&id2=W8twrLUvJaM8&vt3=F8dAScHwEttXXslI6Lg%3D&lg2=UtASsssmOIJ0bQ%3D%3D; existShop=MTQ0ODI4NTQwOA%3D%3D; lgc=aa616095191; tracknick=aa616095191; sg=146; cookie2=146459126c363c688c2d8424341a9a04; cookie1=UoH63f0hQrqOdpJbya2KiQs0ss%2FS7iTCpJ38n9RxOBQ%3D; unb=824664974; skt=cb4cdc95307d656f; t=163e4edf9106645ab8a9da2b7349e91f; _cc_=UIHiLt3xSw%3D%3D; tg=0; _l_g_=Ug%3D%3D; _nk_=aa616095191; cookie17=W8twrLUvJaM8; mt=ci=0_1; CNZZDATA30070035=cnzz_eid%3D2128470411-1448173462-%26ntime%3D1448284377; uc1=cookie14=UoWzUaic%2Fzgibg%3D%3D&existShop=false&cookie16=VFC%2FuZ9az08KUQ56dCrZDlbNdA%3D%3D&cookie21=VT5L2FSpczFp&tag=3&cookie15=Vq8l%2BKCLz3%2F65A%3D%3D&pas=0; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0%26__ll%3D-1%26_ato%3D0; l=Aj8/wNcjnMJAFgdqwTwdzTA3Tx3JJJPG; whl=-1%260%260%261448285494170; isg=EE3C1AFA1F0C82E33956F9DC73668B9E";
+	private static final String COOKIE_VAL= "mt=ci%3D-1_0; swfstore=124389; thw=cn; cna=TJDXDmZfojkCAbeUx3aHdj4+; lzstat_uv=23111847702808552989|3600144; showPopup=0; v=0; lzstat_ss=1568526588_0_1448432853_3600144; _tb_token_=f93670b85e7eb; uc3=nk2=AnDS93hBOWEYdpk%3D&id2=W8twrLUvJaM8&vt3=F8dAScHxAbFcF6LwV%2BE%3D&lg2=V32FPkk%2Fw0dUvg%3D%3D; existShop=MTQ0ODQwNDMxOQ%3D%3D; lgc=aa616095191; tracknick=aa616095191; sg=146; cookie2=96a036c9637671eb61bd8ea8e512cc11; cookie1=UoH63f0hQrqOdpJbya2KiQs0ss%2FS7iTCpJ38n9RxOBQ%3D; unb=824664974; skt=eb956ecbd157fbe3; t=163e4edf9106645ab8a9da2b7349e91f; _cc_=UIHiLt3xSw%3D%3D; tg=0; _l_g_=Ug%3D%3D; _nk_=aa616095191; cookie17=W8twrLUvJaM8; CNZZDATA30070035=cnzz_eid%3D2128470411-1448173462-%26ntime%3D1448404255; mt=ci=0_1; uc1=cookie14=UoWzUa6DCsX%2Big%3D%3D&existShop=false&cookie16=UtASsssmPlP%2Ff1IHDsDaPRu%2BPw%3D%3D&cookie21=WqG3DMC9FxUx&tag=3&cookie15=Vq8l%2BKCLz3%2F65A%3D%3D&pas=0; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0%26__ll%3D-1%26_ato%3D0; l=AqCgHeHEK1cLwwjnyqHKfxuj8KByqYRz; isg=1BDA5F536A35069CA4A9F4A4CD62D9DD; whl=-1%260%260%261448404399668";
+	
 	private static final String TAOBAO_URL="https://bbs.taobao.com/catalog/438501.htm?spm=0.0.0.0.SSGqE7";
 	private static CloseableHttpClient httpclient = null;
 	/**标记是否抓取完成的Flag**/
@@ -53,10 +55,11 @@ public class TaoBaoGrabController {
 	@RequestMapping(value="getDetailData",method=RequestMethod.GET)
 	public void doUpdate(){
 		int step=100000;
-		for(int i=400000;i<900000;i=i+step){
+		for(int i=600000;i<900000;i=i+step){
 			List<TaoBaoPost> posts=taoBaoPostService.findLimitedPost(i,step);
 			for(TaoBaoPost post:posts){
 				if(StringUtils.isEmpty(post.getContent())){
+//					ThreadService.getThreadService().execute(new task(post.getUrl(),post.getId()));
 					TaoBaoPost savePost=getPostData(post.getUrl());
 					if(StringUtils.isEmpty(savePost.getContent())){
 						//如果无数据抓取失败,设置为-99
@@ -73,6 +76,39 @@ public class TaoBaoGrabController {
 				}
 			}
 		}
+	}
+	
+	private class task implements Runnable{
+		private final String url;
+		private final Long id;
+		task(String url,Long id){
+			this.url=url;
+			this.id=id;
+		}
+		@Override
+		public void run() {
+			TaoBaoPost savePost=getPostData(url);
+			try {
+				Thread.sleep(20);
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			if(StringUtils.isEmpty(savePost.getContent())){
+				//如果无数据抓取失败,设置为-99
+				savePost.setReply(-99L);
+				savePost.setClick(-99L);
+			}
+			savePost.setId(id);
+			boolean flag=taoBaoPostService.updatePost(savePost);
+			if(flag){
+				System.out.println(id+"...成功");
+			}else{
+				System.err.println(id+"...失败");
+			}
+		}
+		
+		
 	}
 	
 	
