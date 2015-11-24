@@ -38,7 +38,7 @@ import com.hzq.system.constant.Constant;
 
 /**
  * 
- * 生成多目录索引
+ * 生成索引的类
  * 
  * @author huangzhiqian
  */

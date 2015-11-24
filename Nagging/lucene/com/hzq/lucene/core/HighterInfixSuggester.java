@@ -19,7 +19,7 @@ import org.apache.lucene.store.Directory;
 
 /**
  * 
- * InFixSuggester 覆盖部分高亮
+ * InFixSuggester 覆盖Suggester的高亮部分
  * @author huangzhiqian
  */
 public class HighterInfixSuggester extends AnalyzingInfixSuggester {

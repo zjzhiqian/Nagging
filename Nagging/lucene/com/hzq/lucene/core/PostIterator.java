@@ -53,7 +53,7 @@ public class PostIterator implements InputIterator {
 	}
 
 	@Override
-	public Set<BytesRef> contexts() {
+	public Set<BytesRef> contexts() { //上下文,这里写死 为其中一个folumn
 		 try {
 	            Set<BytesRef> folumn = new HashSet<BytesRef>();
 	            folumn.add(new BytesRef("谈天说地".getBytes("UTF8")));

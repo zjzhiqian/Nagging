@@ -20,6 +20,7 @@ import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 import org.apache.lucene.search.suggest.analyzing.AnalyzingInfixSuggester;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.springframework.stereotype.Component;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
 import com.hzq.lucene.core.HighterInfixSuggester;
@@ -31,6 +32,7 @@ import com.hzq.system.constant.Constant;
  * @author huangzhiqian
  * @date 2015年10月24日 下午5:57:17
  */
+@Component
 public class LuceneUtil {
 	
 	/**ID Field (保存内容,不分词,忽略权重)**/
