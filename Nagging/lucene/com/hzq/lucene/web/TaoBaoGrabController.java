@@ -67,50 +67,33 @@ public class TaoBaoGrabController {
 						savePost.setClick(-99L);
 					}
 					savePost.setId(post.getId());
-					boolean flag=taoBaoPostService.updatePost(savePost);
-					if(flag){
-						System.out.println(post.getId()+"...成功");
-					}else{
-						System.err.println(post.getId()+"...失败");
-					}
+					ThreadService.getThreadService().execute(new task(post));
+//					boolean flag=taoBaoPostService.updatePost(savePost);
+//					if(flag){
+//						System.out.println(post.getId()+"...成功");
+//					}else{
+//						System.err.println(post.getId()+"...失败");
+//					}
 				}
 			}
 		}
 	}
 	
 	private class task implements Runnable{
-		private final String url;
-		private final Long id;
-		task(String url,Long id){
-			this.url=url;
-			this.id=id;
+		private final TaoBaoPost savePost;
+		task(TaoBaoPost savePost){
+			this.savePost=savePost;
 		}
 		@Override
 		public void run() {
-			TaoBaoPost savePost=getPostData(url);
-			try {
-				Thread.sleep(20);
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
-			}
-			if(StringUtils.isEmpty(savePost.getContent())){
-				//如果无数据抓取失败,设置为-99
-				savePost.setReply(-99L);
-				savePost.setClick(-99L);
-			}
-			savePost.setId(id);
 			boolean flag=taoBaoPostService.updatePost(savePost);
 			if(flag){
-				System.out.println(id+"...成功");
+				System.out.println(savePost.getId()+"...成功");
 			}else{
-				System.err.println(id+"...失败");
+				System.err.println(savePost.getId()+"...失败");
 			}
 		}
-		
-		
 	}
-	
 	
 	private TaoBaoPost getPostData(String url){
 		TaoBaoPost post=new TaoBaoPost();
