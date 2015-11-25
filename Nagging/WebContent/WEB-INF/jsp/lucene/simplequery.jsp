@@ -4,67 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<style type="text/css">
 
 
-
-a{
-	text-decoration: none
-}
-a:hover{
-	text-decoration: none
-}
-.info{
-	margin-top:6px;
-	color: #999999;
-	font-size: 10px;
-	line-height: 20px;
-}
-#search {
-	text-align: left;
-	margin-left:30px;
-	margin-top:50px;
-	position: relative;
-}
-
-#count{
-	margin-left: 40px;
-	padding-top: 20px;
-	color: #999999;
-	font-size: 13px;
-}
-
-.content{
-	margin-left: 30px;
-	padding-top: 10px;
-}
-
-.title{
-	padding-top: 20px;
-	
-}
-
-.detail{
-	font-size: 12px;
-	line-height: 20px;
-	background-color: #f1f1f1;
-	width: 700px;
-}
-
-
-li {
-	text-align: left;
-	list-style: none;
-}
-
-.clickable {
-	cursor: default;
-}
-
-.highlight {
-	background-color: #9ACCFB;
-}
-</style>
+<script type="text/javascript" src="${ctx}/js/jquery.pagination.js"></script>
+<link rel="stylesheet" type="text/css" href="${ctx}/styles/luceneQuery.css"  />
 
 <script type="text/javascript">
 	$(function() {
@@ -130,7 +73,7 @@ li {
 										term=term.replaceAll("<font color=\"blue\">","")
 										term=term.replaceAll("</font>","")
 										$searchInput.val(term);
-										sendQueryAjax()
+										sendQueryAjax(0)
 										//清空并隐藏下拉列表 
 										$autocomplete.empty().hide();
 								});
@@ -221,25 +164,40 @@ li {
 <body>
 	<script type="text/javascript">
 		//搜索请求
-		function sendQueryAjax(){
+		
+		function pageselectCallback(page_index, jq){
+	                sendQueryAjax(page_index)
+	                return false;
+	    }
+		
+		function sendQueryAjax(page){
+		
 			$("#count").empty().hide()
 			$(".content").empty().hide()
 			$autocomplete.empty().hide();
 			var content = $("#search-text").val()
 			$.ajax({
 				url:"${ctx}/lucene/tianyaIndexQuery/2",
-				data:{'content':content,'title':content,'rows':20,'page':1},
+				data:{'content':content,'title':content,'rows':20,'page':page+1},
 				success:function(r){
 					if(r.o.flag){
-						console.log(r)
 						str=""
-						str+= $.formatString("<div id=\"count\">为你找到相关结果<span>{0}</span>个 用时{1}ms</div>",r.total,r.o.msg)
+						str+= $.formatString("<div id=\"count\">为你找到相关结果<em>{0}</em>个 用时{1}ms</div>",r.total,r.o.msg)
 						str+="<div class=\"content\">";
 						for(var i=0;i<r.rows.length;i++){
 							str+=$.formatString("<div class=\"title\"><a href='{0}' target='_blank'>{1}</a><div class='info'><div >发帖人:{2}</div><div >发帖时间:{3}</div></div><div class='detail'>{4}</div></div>",r.rows[i].url,r.rows[i].title,r.rows[i].adduserName,r.rows[i].addTime,r.rows[i].content);
 						}
 						str+="</div>";
-						$(str).insertAfter('#suggest');
+						
+						$(".pagination").pagination(r.total, {
+						     callback: pageselectCallback,
+						     items_per_page	:20,
+						     next_text :'下一页',
+						     prev_text :'上一页',
+						     num_edge_entries:1,
+						     current_page:page
+						});
+						$(str).insertAfter($('#result'));
 					}else{
 						showmsg(r.o.msg)
 					}
@@ -250,12 +208,15 @@ li {
 		$(function(){
 			//搜索
 			$("#submit").click(function(){
-				sendQueryAjax()
-			})	
+				sendQueryAjax(0) //搜索第一页数据
+			})
 		})
+		
+		
 	
 	</script>
-
+	
+	
 
 	<div id="search">
 		<label for="search-text" style="margin-right: 50px">输入关键词</label>
@@ -263,7 +224,11 @@ li {
 		<input type="button" id="submit" value="搜索" />
 	</div>
 	
+	<div class="pagination">
+	</div>
 	
+	<div id="result">
+	</div>
 <!-- 
 	<div id="count">
 		为你找到相关结果<span>32058</span>个
