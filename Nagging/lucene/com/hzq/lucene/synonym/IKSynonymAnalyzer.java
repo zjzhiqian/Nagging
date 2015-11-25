@@ -11,19 +11,14 @@
  */
 package com.hzq.lucene.synonym;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.core.LowerCaseFilter;
 import org.apache.lucene.analysis.core.StopFilter;
-import org.apache.lucene.analysis.util.CharArraySet;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 import org.wltea.analyzer.lucene.IKTokenizer;
 
 import com.hzq.lucene.constant.ConstantLucene;
-import com.hzq.system.constant.Constant;
 
 
 
