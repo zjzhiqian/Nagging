@@ -21,7 +21,7 @@ import org.jsoup.select.Elements;
 
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.util.ThreadService;
-import com.hzq.lucene.web.TianYaGrabController;
+import com.hzq.lucene.web.GrabTYController;
 
 /**
  * 抓取数据并解析数据
@@ -29,7 +29,7 @@ import com.hzq.lucene.web.TianYaGrabController;
  * @author huangzhiqian
  * @date 2015年10月18日 下午10:24:42
  */
-public class TianYaDataGrabber {
+public class TYDataGrabber {
 	private static final String TIANYA_URL = "http://bbs.tianya.cn/list-lookout-1.shtml";
 	private static CloseableHttpClient httpclient = null;
 	static {
@@ -107,7 +107,7 @@ public class TianYaDataGrabber {
 				}
 				// 解析List异步线程
 				ThreadService.getThreadService().execute(new TianYaListTask(post, tdEle));
-				TianYaGrabController.getDataList().add(post);
+				GrabTYController.getDataList().add(post);
 			}
 			// 下一页按钮的url(开启异步线程根据下一页url继续解析)
 			Elements nexts = doc.select("div.links");
@@ -120,7 +120,7 @@ public class TianYaDataGrabber {
 				} catch (InterruptedException e) {
 					// doNothing
 				}
-				TianYaGrabController.FinishFlag = true;
+				GrabTYController.FinishFlag = true;
 				System.err.println(tianyaUrl);
 				System.exit(0);
 			}

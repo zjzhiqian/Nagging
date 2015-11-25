@@ -44,6 +44,7 @@
 			}
 			$("#count").empty()
 			$(".content").empty()
+			$(".pagination").empty()
 			//ajax服务端通信 
 			$.ajax({
 				'url' : '${ctx}/lucene/tianyaSuggestQuery', //服务器的地址 

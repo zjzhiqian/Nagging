@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 @RequestMapping("lucene")
-public class SimpleQueryController {
+public class QueryController {
 	
 	
 	@RequestMapping(value="easyquery",method=RequestMethod.GET)

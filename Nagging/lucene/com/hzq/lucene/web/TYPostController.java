@@ -19,13 +19,13 @@ import com.hzq.common.entity.Json;
 import com.hzq.common.entity.QueryCondition;
 import com.hzq.common.util.CommonUtils;
 import com.hzq.lucene.core.Suggesters;
-import com.hzq.lucene.core.TianYaDataQueries;
+import com.hzq.lucene.core.TYDataQueries;
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.service.TianYaPostService;
 
 @Controller
 @RequestMapping("lucene")
-public class TianYaPostController {
+public class TYPostController {
 	@Autowired
 	TianYaPostService tianYaPostService;
 	
@@ -55,7 +55,7 @@ public class TianYaPostController {
 	public Grid<TianYaPost> getPostDaTaByLucene(HttpServletRequest request,@PathVariable("id") String type){
 		QueryCondition condition = CommonUtils.parseRequestToCondition(request);
 		setSortForcondition(request, condition);
-		Grid<TianYaPost> rs = TianYaDataQueries.getDataGridResult(condition,type);
+		Grid<TianYaPost> rs = TYDataQueries.getDataGridResult(condition,type);
 		return rs;
 	}
 	

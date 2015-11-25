@@ -32,7 +32,7 @@ import com.hzq.lucene.util.ThreadService;
 
 @Controller
 @RequestMapping("lucene")
-public class TaoBaoGrabController {
+public class GrabTBController {
 	@Autowired
 	TaoBaoPostService taoBaoPostService;
 	
@@ -55,11 +55,12 @@ public class TaoBaoGrabController {
 	@RequestMapping(value="getDetailData",method=RequestMethod.GET)
 	public void doUpdate(){
 		int step=100000;
+		
 		for(int i=600000;i<900000;i=i+step){
+			
 			List<TaoBaoPost> posts=taoBaoPostService.findLimitedPost(i,step);
 			for(TaoBaoPost post:posts){
 				if(StringUtils.isEmpty(post.getContent())){
-//					ThreadService.getThreadService().execute(new task(post.getUrl(),post.getId()));
 					TaoBaoPost savePost=getPostData(post.getUrl());
 					if(StringUtils.isEmpty(savePost.getContent())){
 						//如果无数据抓取失败,设置为-99
@@ -67,21 +68,21 @@ public class TaoBaoGrabController {
 						savePost.setClick(-99L);
 					}
 					savePost.setId(post.getId());
-					ThreadService.getThreadService().execute(new task(post));
-//					boolean flag=taoBaoPostService.updatePost(savePost);
-//					if(flag){
-//						System.out.println(post.getId()+"...成功");
-//					}else{
-//						System.err.println(post.getId()+"...失败");
-//					}
+					ThreadService.getThreadService().execute(new saveTask(post));
 				}
 			}
+			
 		}
 	}
 	
-	private class task implements Runnable{
+	/**
+	 * 保存异步任务
+	 * @author huangzhiqian
+	 *
+	 */
+	private class saveTask implements Runnable{
 		private final TaoBaoPost savePost;
-		task(TaoBaoPost savePost){
+		saveTask(TaoBaoPost savePost){
 			this.savePost=savePost;
 		}
 		@Override
@@ -95,6 +96,13 @@ public class TaoBaoGrabController {
 		}
 	}
 	
+	/**
+	 * 抓取并解析的详情页面
+	 * @param url
+	 * @return
+	 * @author huangzhiqian
+	 * @date 2015年11月25日
+	 */
 	private TaoBaoPost getPostData(String url){
 		TaoBaoPost post=new TaoBaoPost();
 		try {
@@ -191,24 +199,8 @@ public class TaoBaoGrabController {
 
 	}
 	
-	
-	
-	
-	
-	
-	/**
-	 * 抓取之前的初始化
-	 * 
-	 * @author huangzhiqian
-	 * @date 2015年10月29日
-	 */
-	private static void init() {
-		finishFlag=false;
-		
-	}
-	
 	private static void doHttp(){
-		init();
+		finishFlag=false;
 		try{
 			String content="";
 			HttpGet httpget=null;
@@ -229,10 +221,9 @@ public class TaoBaoGrabController {
 					EntityUtils.consume(entity);
 					List<BBSModual> moduals =getModuales(content);
 					for(BBSModual modual:moduals){
-//						单线程
+						//单线程
 						getDataforModual(modual,modual.getUrl(),modual.getUrl());
 					}
-//					getDataforModual(moduals.get(4), moduals.get(4).getUrl());
 					System.err.println("抓取完成!!");
 					finishFlag=true;
 				}
@@ -275,7 +266,6 @@ public class TaoBaoGrabController {
 		}
 		return moduals;
 	}
-	
 	
 	/**
 	 * 获取BBS每个模块的数据
@@ -388,7 +378,6 @@ public class TaoBaoGrabController {
 		httpget.addHeader(new BasicHeader("user-agent","Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36"));
 		httpget.addHeader(new BasicHeader("referer","https://bbs.taobao.com/catalog/12129511.htm?spm=a210m.7475144.0.0.P2Atao"));
 	}
-	
 	
 	public static void main(String[] args) {
 		doHttp();

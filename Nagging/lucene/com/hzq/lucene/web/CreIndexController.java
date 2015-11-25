@@ -24,7 +24,7 @@ import com.hzq.lucene.service.TianYaPostService;
  */
 @Controller
 @RequestMapping("lucene")
-public class LuceneIndexController {
+public class CreIndexController {
 	@Autowired
 	TianYaPostService tianYaPostService;
 	@Autowired

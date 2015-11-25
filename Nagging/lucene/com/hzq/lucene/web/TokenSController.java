@@ -38,7 +38,7 @@ import com.hzq.lucene.util.LuceneUtil;
  */
 @Controller
 @RequestMapping("lucene")
-public class TokenStreamController {
+public class TokenSController {
 	
 	
 	@RequestMapping(value="synonym/{id}",method=RequestMethod.GET)

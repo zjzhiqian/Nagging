@@ -28,7 +28,6 @@ import org.apache.lucene.search.highlight.Highlighter;
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import org.springframework.stereotype.Component;
 
 import com.hzq.common.entity.Grid;
 import com.hzq.common.entity.Json;
@@ -37,8 +36,7 @@ import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.util.LuceneUtil;
 import com.hzq.system.constant.Constant;
 
-@Component
-public class TianYaDataQueries {
+public class TYDataQueries {
 	private static Directory TianYaderectory = null;
 	private static DirectoryReader TianYareader = null;
 	private static MultiReader TianYaMultireader = null;

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hzq.common.entity.Json;
-import com.hzq.lucene.core.TianYaDataGrabber;
+import com.hzq.lucene.core.TYDataGrabber;
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.service.TianYaPostService;
 import com.hzq.lucene.util.ThreadService;
@@ -24,7 +24,7 @@ import com.hzq.lucene.util.ThreadService;
  * @author huangzhiqian
  *
  */
-public class TianYaGrabController {
+public class GrabTYController {
 	
 	private static volatile long getCount=0;
 	
@@ -42,7 +42,7 @@ public class TianYaGrabController {
 
 
 	public static void setDataList(List<TianYaPost> dataList) {
-		TianYaGrabController.dataList = dataList;
+		GrabTYController.dataList = dataList;
 	}
 
 	static {
@@ -108,7 +108,7 @@ public class TianYaGrabController {
 
 		@Override
 		public void run() {
-			TianYaDataGrabber.grabTianYaData();
+			TYDataGrabber.grabTianYaData();
 		}
 		
 	}
