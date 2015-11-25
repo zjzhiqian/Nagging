@@ -15,6 +15,8 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
+import com.hzq.lucene.entity.TianYaPost;
+
 /**
  * 拼写检查测试
  * @author Lanxiaowei
@@ -68,9 +70,10 @@ public class SpellCheckTest {
         }
     }
 	public static void main(String[] args) throws IOException {
-		SpellCheckTest spellCheckTest = new SpellCheckTest();
-		spellCheckTest.createIndex("《屌丝男士》不是传统意义上的情景喜剧，有固定时长和单一场景，以及简单的生活细节。而是一部具有鲜明网络特点，舞台感十足，整体没有剧情衔接，固定的演员演绎着并不固定角色的笑话集。");
-		String word = "吊丝男士";
-		spellCheckTest.search(word, 5);
+//		SpellCheckTest spellCheckTest = new SpellCheckTest();
+//		spellCheckTest.createIndex("《屌丝男士》不是传统意义上的情景喜剧，有固定时长和单一场景，以及简单的生活细节。而是一部具有鲜明网络特点，舞台感十足，整体没有剧情衔接，固定的演员演绎着并不固定角色的笑话集。");
+//		String word = "吊丝男士";
+//		spellCheckTest.search(word, 5);
+		System.out.println(new TianYaPost().getContent().toLowerCase());
 	}
 }

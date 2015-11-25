@@ -22,10 +22,11 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
-import com.hzq.lucene.core.HighterInfixSuggester;
+import com.hzq.lucene.constant.ConstantLucene;
+import com.hzq.lucene.pinyin.IKPinYinSynonymAnalyzer;
+import com.hzq.lucene.suggest.HighterInfixSuggester;
 import com.hzq.lucene.synonym.IKSynonymAnalyzer;
 import com.hzq.lucene.synonym.TxtSynonymEngine;
-import com.hzq.system.constant.Constant;
 /**
  * Lucene工具类,默认分词器为IKAnalyser
  * @author huangzhiqian
@@ -80,7 +81,7 @@ public class LuceneUtil {
 		OnLyStoreFieldType.freeze();
 		
 		try {
-			tianyaSuggester = new HighterInfixSuggester(FSDirectory.open(Paths.get(Constant.Index_TianYaSuggest_Path)), getIKAnalyzer());
+			tianyaSuggester = new HighterInfixSuggester(FSDirectory.open(Paths.get(ConstantLucene.Index_TianYaSuggest_Path)), getIKAnalyzer());
 		} catch (IOException e) {
 			throw new RuntimeException("tianyaSuggester初始化失败");
 		}
@@ -178,6 +179,16 @@ public class LuceneUtil {
 	}
 	
 	/**
+	 * 返回IK同义词,拼音分词器
+	 * @return
+	 * @author huangzhiqian
+	 * @date 2015年11月24日
+	 */
+	public static Analyzer getIKPinyinAnalyzer() {
+		return new IKPinYinSynonymAnalyzer(new TxtSynonymEngine());
+	}
+	
+	/**
 	 * 
 	 * @param query 索引查询对象
 	 * @param prefix 高亮前缀字符串
@@ -196,6 +207,8 @@ public class LuceneUtil {
 		highlighter.setTextFragmenter(fragmenter);
 		return highlighter;
 	}
+
+	
 
 	
 }

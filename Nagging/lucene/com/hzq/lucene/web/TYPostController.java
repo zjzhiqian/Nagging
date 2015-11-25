@@ -18,10 +18,10 @@ import com.hzq.common.entity.Grid;
 import com.hzq.common.entity.Json;
 import com.hzq.common.entity.QueryCondition;
 import com.hzq.common.util.CommonUtils;
-import com.hzq.lucene.core.Suggesters;
 import com.hzq.lucene.core.TYDataQueries;
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.service.TianYaPostService;
+import com.hzq.lucene.suggest.Suggesters;
 
 @Controller
 @RequestMapping("lucene")

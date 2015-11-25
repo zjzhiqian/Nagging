@@ -115,6 +115,8 @@ public class TokenSController {
 				analyzer=LuceneUtil.getStandardAnalyzer();
 			}else if ("1".equals(type)){
 				analyzer=LuceneUtil.getIKAnalyzer();
+			}else if("4".equals(type)){
+				analyzer=LuceneUtil.getIKPinyinAnalyzer();
 			}else{
 				analyzer=LuceneUtil.getIKSynonymAnalyzer();
 			}

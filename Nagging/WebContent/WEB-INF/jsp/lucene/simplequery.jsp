@@ -42,7 +42,7 @@
 			if($searchInput.val()==""){
 				return false
 			}
-			$("#count").empty()
+			$(".count").empty()
 			$(".content").empty()
 			$(".pagination").empty()
 			//ajax服务端通信 
@@ -173,17 +173,17 @@
 		
 		function sendQueryAjax(page){
 		
-			$("#count").empty().hide()
+			$(".count").empty().hide()
 			$(".content").empty().hide()
 			$autocomplete.empty().hide();
 			var content = $("#search-text").val()
 			$.ajax({
-				url:"${ctx}/lucene/tianyaIndexQuery/2",
+				url:"${ctx}/lucene/easyquery/1",
 				data:{'content':content,'title':content,'rows':20,'page':page+1},
 				success:function(r){
 					if(r.o.flag){
 						str=""
-						str+= $.formatString("<div id=\"count\">为你找到相关结果<em>{0}</em>个 用时{1}ms</div>",r.total,r.o.msg)
+						str+= $.formatString("<div class=\"count\">为你找到相关结果<em>{0}</em>个 用时{1}ms</div>",r.total,r.o.msg)
 						str+="<div class=\"content\">";
 						for(var i=0;i<r.rows.length;i++){
 							str+=$.formatString("<div class=\"title\"><a href='{0}' target='_blank'>{1}</a><div class='info'><div >发帖人:{2}</div><div >发帖时间:{3}</div></div><div class='detail'>{4}</div></div>",r.rows[i].url,r.rows[i].title,r.rows[i].adduserName,r.rows[i].addTime,r.rows[i].content);

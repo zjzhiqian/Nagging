@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hzq.common.entity.Json;
 import com.hzq.lucene.core.IndexCreator;
-import com.hzq.lucene.core.Suggesters;
 import com.hzq.lucene.entity.TaoBaoPost;
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.service.TaoBaoPostService;
 import com.hzq.lucene.service.TianYaPostService;
+import com.hzq.lucene.suggest.Suggesters;
 
 /**
  * 用于生成索引
@@ -58,19 +58,26 @@ public class CreIndexController {
 				}
 			}
 		}else if ("2".equals(type)){
-			List<TaoBaoPost> posts = taoBaoPostService.findLimitedPost(0, 400000);
-			//TB
-			if("0".equals(multi)){
-				//单目录
-				flag=IndexCreator.ToOnePathForTB(posts);
-			}else if("1".equals(multi)){
-				//多目录
-				try {
-					IndexCreator.ToMultiPathForTB(posts);
-					flag=true;
-				} catch (Exception e) {
-					flag=false; msg=e.getMessage();
+			int step=2000;
+			for(int i=0;i<900000;i=i+step){
+				List<TaoBaoPost> posts = taoBaoPostService.findLimitedPost(i,step);
+				//TB
+				if("0".equals(multi)){
+					//单目录
+					flag=IndexCreator.ToOnePathForTB(posts);
+					if(!flag){
+						break; //生成出错,退出
+					}
+				}else if("1".equals(multi)){
+					//多目录
+					try {
+						IndexCreator.ToMultiPathForTB(posts);
+						flag=true;
+					} catch (Exception e) {
+						flag=false; msg=e.getMessage(); break;
+					}
 				}
+				
 			}
 		}
 		if(flag){

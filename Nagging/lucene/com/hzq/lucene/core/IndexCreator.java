@@ -34,7 +34,7 @@ import org.apache.lucene.index.IndexWriter;
 import com.hzq.lucene.entity.TaoBaoPost;
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.util.LuceneUtil;
-import com.hzq.system.constant.Constant;
+import com.hzq.lucene.constant.ConstantLucene;
 
 /**
  * 
@@ -53,10 +53,8 @@ public class IndexCreator {
 	 * @date 2015年11月18日
 	 */
 	public static boolean ToOnePath(List<TianYaPost> posts) {
-		IndexWriter writer = LuceneUtil.getIndexWriter(Constant.Index_TianYaPost_Path);
+		IndexWriter writer = LuceneUtil.getIndexWriter(ConstantLucene.Index_TianYaPost_Path);
 		try {
-			// 生成索引之前 先删除所有此目录下的索引
-			writer.deleteAll();
 			indexDoc(writer, posts);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -77,7 +75,7 @@ public class IndexCreator {
 	 * @date 2015年11月18日
 	 */
 	public static boolean ToMultiPath(List<TianYaPost> posts) throws Exception {
-		int pathNum=Constant.Index_TianYaPost_MultiPathNum;
+		int pathNum=ConstantLucene.Index_TianYaPost_MultiPathNum;
 		ExecutorService pool = Executors.newFixedThreadPool(pathNum);
 		posts.subList(0, posts.size());
 		CountDownLatch countDownLatch1 = new CountDownLatch(1);
@@ -85,7 +83,7 @@ public class IndexCreator {
 		List<List<TianYaPost>> list = DivideList(posts, pathNum);
 		List<Future<Boolean>> result = new ArrayList<Future<Boolean>>();
 		for (int i = 0; i < pathNum; i++) {
-			Callable<Boolean> task = new MultiPathTask<TianYaPost>(Constant.Index_TianYaPost_MultiPath + (i + 1), list.get(i), countDownLatch1, countDownLatch2);
+			Callable<Boolean> task = new MultiPathTask<TianYaPost>(ConstantLucene.Index_TianYaPost_MultiPath + (i + 1), list.get(i), countDownLatch1, countDownLatch2);
 			Future<Boolean> rs = pool.submit(task);
 			result.add(rs);
 		}
@@ -112,10 +110,8 @@ public class IndexCreator {
 	 * @date 2015年11月23日
 	 */
 	public static boolean ToOnePathForTB(List<TaoBaoPost> posts) {
-		IndexWriter writer = LuceneUtil.getIndexWriter(Constant.Index_TaoBaoPost_Path);
+		IndexWriter writer = LuceneUtil.getIndexWriter(ConstantLucene.Index_TaoBaoPost_Path);
 		try {
-			// 生成索引之前 先删除所有此目录下的索引
-			writer.deleteAll();
 			indexDocForTB(writer, posts);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -138,7 +134,7 @@ public class IndexCreator {
 	 * @date 2015年11月18日
 	 */
 	public static boolean ToMultiPathForTB(List<TaoBaoPost> posts) throws Exception {
-		int pathNum=Constant.Index_TaoBaoPost_MultiPathNum;
+		int pathNum=ConstantLucene.Index_TaoBaoPost_MultiPathNum;
 		ExecutorService pool = Executors.newFixedThreadPool(pathNum);
 		posts.subList(0, posts.size());
 		CountDownLatch countDownLatch1 = new CountDownLatch(1);
@@ -146,7 +142,7 @@ public class IndexCreator {
 		List<List<TaoBaoPost>> list = DivideList(posts, pathNum);
 		List<Future<Boolean>> result = new ArrayList<Future<Boolean>>();
 		for (int i = 0; i < pathNum; i++) {
-			Callable<Boolean> task = new MultiPathTask<TaoBaoPost>(Constant.Index_TaoBaoPost_MultiPath + (i + 1), list.get(i), countDownLatch1, countDownLatch2);
+			Callable<Boolean> task = new MultiPathTask<TaoBaoPost>(ConstantLucene.Index_TaoBaoPost_MultiPath + (i + 1), list.get(i), countDownLatch1, countDownLatch2);
 			Future<Boolean> rs = pool.submit(task);
 			result.add(rs);
 		}
@@ -266,7 +262,6 @@ public class IndexCreator {
 	}
 	
 	
-	
 	/**
 	 * 生成多目录索引的任务
 	 * @author huangzhiqian
@@ -292,8 +287,6 @@ public class IndexCreator {
 			countDownLatch1.await();
 			IndexWriter writer = LuceneUtil.getIndexWriter(path);
 			try {
-				// 生成索引之前 先删除所有此目录下的索引
-				writer.deleteAll();
 				if(posts!=null && posts.size()>0){
 					if(posts.get(0) instanceof TianYaPost ){
 						indexDoc(writer, (List<TianYaPost>)posts);
@@ -301,7 +294,6 @@ public class IndexCreator {
 						indexDocForTB(writer, (List<TaoBaoPost>)posts);
 					}
 				}
-				
 			} catch (IOException e) {
 				e.printStackTrace();
 				return false;

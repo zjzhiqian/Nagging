@@ -9,7 +9,7 @@
  * -------------------------------------------------------------------------
  * 2015年11月23日 huangzhiqian 创建版本
  */
-package com.hzq.lucene.core;
+package com.hzq.lucene.suggest;
 
 import java.io.IOException;
 

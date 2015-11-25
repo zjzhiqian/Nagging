@@ -1,3 +1,14 @@
+/**
+ * @(#)TBDataQueries.java
+ *
+ * @author huangzhiqian
+ *
+ * 版本历史
+ * -------------------------------------------------------------------------
+ * 时间 作者 内容
+ * -------------------------------------------------------------------------
+ * 2015年11月25日 huangzhiqian 创建版本
+ */
 package com.hzq.lucene.core;
 
 import java.io.IOException;
@@ -32,18 +43,23 @@ import org.apache.lucene.store.FSDirectory;
 import com.hzq.common.entity.Grid;
 import com.hzq.common.entity.Json;
 import com.hzq.common.entity.QueryCondition;
-import com.hzq.lucene.entity.TianYaPost;
+import com.hzq.lucene.entity.TaoBaoPost;
 import com.hzq.lucene.util.LuceneUtil;
 import com.hzq.lucene.constant.ConstantLucene;
 
-public class TYDataQueries {
-	private static Directory TianYaderectory = null;
-	private static DirectoryReader TianYareader = null;
-	private static MultiReader TianYaMultireader = null;
+/**
+ * 
+ * 
+ * @author huangzhiqian
+ */
+public class TBDataQueries {
+	private static Directory TaoBaoDirectory = null;
+	private static DirectoryReader TaoBaoYareader = null;
+	private static MultiReader TaoBaoMultireader = null;
 	static {
 		try {
-			TianYaderectory = FSDirectory.open(Paths.get(ConstantLucene.Index_TianYaPost_Path));
-			TianYareader = DirectoryReader.open(TianYaderectory);
+			TaoBaoDirectory = FSDirectory.open(Paths.get(ConstantLucene.Index_TaoBaoPost_Path));
+			TaoBaoYareader = DirectoryReader.open(TaoBaoDirectory);
 			setMultiReader();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -58,14 +74,14 @@ public class TYDataQueries {
 	private static void setMultiReader(){
 		try {
 			
-			IndexReader[] readers=new IndexReader[ConstantLucene.Index_TianYaPost_MultiPathNum];
+			IndexReader[] readers=new IndexReader[ConstantLucene.Index_TaoBaoPost_MultiPathNum];
 			IndexReader reader=null;
-			for(int i=0;i<ConstantLucene.Index_TianYaPost_MultiPathNum;i++){
-				Directory dic=FSDirectory.open(Paths.get(ConstantLucene.Index_TianYaPost_MultiPath+(i+1)));
+			for(int i=0;i<ConstantLucene.Index_TaoBaoPost_MultiPathNum;i++){
+				Directory dic=FSDirectory.open(Paths.get(ConstantLucene.Index_TaoBaoPost_MultiPath+(i+1)));
 				reader=DirectoryReader.open(dic);
 				readers[i]=reader;
 			}
-			TianYaMultireader=new MultiReader(readers);
+			TaoBaoMultireader=new MultiReader(readers);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -78,10 +94,10 @@ public class TYDataQueries {
 	 */
 	private static IndexSearcher getTianYaSearcherOnePath() {
 		try {
-			if (TianYareader == null) {
-				TianYareader = DirectoryReader.open(TianYaderectory);
+			if (TaoBaoYareader == null) {
+				TaoBaoYareader = DirectoryReader.open(TaoBaoDirectory);
 			}
-			return new IndexSearcher(TianYareader);
+			return new IndexSearcher(TaoBaoYareader);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException("获取IndexSearcher出错");
@@ -95,10 +111,10 @@ public class TYDataQueries {
 	 */
 	private static IndexSearcher getTianYaSearcherMultiPath() {
 		try {
-			if (TianYaMultireader == null) {
+			if (TaoBaoMultireader == null) {
 				setMultiReader();
 			}
-			return new IndexSearcher(TianYaMultireader);
+			return new IndexSearcher(TaoBaoMultireader);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException("获取IndexSearcher出错");
@@ -106,16 +122,16 @@ public class TYDataQueries {
 	}
 
 	/**
-	 * 天涯论坛的查询
+	 * 查询
 	 * 
 	 * @param condition
 	 * @param type  1表示单目录的检索,2表示多目录检索
 	 * @return
 	 */
-	public static Grid<TianYaPost> getDataGridResult(QueryCondition condition,String type) {
-		Grid<TianYaPost> rs = new Grid<TianYaPost>();
+	public static Grid<TaoBaoPost> getDataGridResult(QueryCondition condition,String type) {
+		Grid<TaoBaoPost> rs = new Grid<TaoBaoPost>();
 
-		List<TianYaPost> rsList = new LinkedList<TianYaPost>();
+		List<TaoBaoPost> rsList = new LinkedList<TaoBaoPost>();
 		
 		IndexSearcher searcher = null;
 		if("1".equals(type)){
@@ -162,9 +178,7 @@ public class TYDataQueries {
 
 		try {
 			Long time1 = System.currentTimeMillis();
-			//在索引的时候使用了同义词分词,在查询的时候就没必要用了
 			Query query = MultiFieldQueryParser.parse(queryList.toArray(new String[queryList.size()]), fieldList.toArray(new String[fieldList.size()]), clauses, LuceneUtil.getIKAnalyzer());
-
 			System.err.println(query.toString());
 			// 排序
 			Sort sort = null;
@@ -198,7 +212,7 @@ public class TYDataQueries {
 			
 			for (ScoreDoc sd : docs) {
 				Document doc = searcher.doc(sd.doc);
-				TianYaPost post = parseDocToTianyaPost(doc, highlighter);
+				TaoBaoPost post = parseDocToTaoBaoPost(doc, highlighter);
 				if (post != null) {
 					rsList.add(post);
 				}
@@ -226,7 +240,7 @@ public class TYDataQueries {
 	 * @return
 	 * @throws IOException
 	 */
-	private static ScoreDoc getLastScoreDocs(int page, int rows, Query query, IndexSearcher searcher, Sort sort, Grid<TianYaPost> rs) throws IOException {
+	private static ScoreDoc getLastScoreDocs(int page, int rows, Query query, IndexSearcher searcher, Sort sort, Grid<TaoBaoPost> rs) throws IOException {
 		if (page <= 1) {
 			// 如果是第一页 只要查出Count就行
 			int totalCount = searcher.search(query, 1).totalHits;
@@ -257,10 +271,10 @@ public class TYDataQueries {
 	 *            用于高亮显示部分结果
 	 * @return
 	 */
-	private static TianYaPost parseDocToTianyaPost(Document doc, Highlighter highlighter) {
-		TianYaPost post = null;
+	private static TaoBaoPost parseDocToTaoBaoPost(Document doc, Highlighter highlighter) {
+		TaoBaoPost post = null;
 		try {
-			post = new TianYaPost();
+			post = new TaoBaoPost();
 			post.setId(Long.parseLong(doc.get("id")));
 
 			if (StringUtils.isNotEmpty(doc.get("title"))) {
@@ -271,25 +285,18 @@ public class TYDataQueries {
 					result = doc.get("title");
 				}
 				post.setTitle(result);
-			}else{
-				post.setTitle("");
 			}
-			
 			if (StringUtils.isNotEmpty(doc.get("storedcontent"))) {
+				//content的高亮处理
 				TokenStream tokenStream = LuceneUtil.getIKSynonymAnalyzer().tokenStream("storedcontent", doc.get("storedcontent"));
 				String result = highlighter.getBestFragment(tokenStream, doc.get("storedcontent"));
 				if (StringUtils.isEmpty(result)) {
 					result = doc.get("storedcontent");
 				}
 				post.setContent(result);
-			}else{
-				post.setContent("");
 			}
 			if (StringUtils.isNotEmpty(doc.get("url"))) {
 				post.setUrl(doc.get("url"));
-			}
-			if (StringUtils.isNotEmpty(doc.get("adduser"))) {
-				post.setAdduserId(doc.get("adduser"));
 			}
 			if (StringUtils.isNotEmpty(doc.get("addusername"))) {
 				post.setAdduserName(doc.get("addusername"));
@@ -298,20 +305,13 @@ public class TYDataQueries {
 				Date addTime = new Date(Long.parseLong(doc.get("addtime")));
 				post.setAddTime(addTime);
 			}
-			if (StringUtils.isNotEmpty(doc.get("lastreplytime"))) {
-				Date lastReplyTime = new Date(Long.parseLong(doc.get("lastreplytime")));
-				post.setLastReplyTime(lastReplyTime);
-			}
 			post.setClick(Long.parseLong(doc.get("click")));
 			post.setReply(Long.parseLong(doc.get("reply")));
-			if (StringUtils.isNotEmpty(doc.get("isBest"))) {
-				post.setIsBest(doc.get("isBest"));
-			}
 		} catch (NumberFormatException | IOException | InvalidTokenOffsetsException e) {
 			e.printStackTrace();
 			return null;
 		}
 		return post;
 	}
-
 }
+

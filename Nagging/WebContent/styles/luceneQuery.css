@@ -52,7 +52,7 @@ a:hover{
 	position: relative;
 }
 
-#count{
+.count{
 	margin-left: 40px;
 	padding-top: 20px;
 	color: #999999;

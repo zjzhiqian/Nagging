@@ -56,5 +56,6 @@ public class TianYaPostServiceImpl extends BaseService<TianYaPost> implements Ti
 		
 	}
 
+
 	
 }

@@ -9,7 +9,7 @@
  * -------------------------------------------------------------------------
  * 2015年11月20日 huangzhiqian 创建版本
  */
-package com.hzq.lucene.core;
+package com.hzq.lucene.suggest;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -27,7 +27,7 @@ import org.apache.lucene.util.BytesRef;
 import com.hzq.common.util.CommonUtils;
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.util.LuceneUtil;
-import com.hzq.system.constant.Constant;
+import com.hzq.lucene.constant.ConstantLucene;
 
 /**
  * 
@@ -45,7 +45,7 @@ public class Suggesters {
 	 */
 	public static boolean createSuggest(List<TianYaPost> posts){
 		
-		AnalyzingInfixSuggester suggester=LuceneUtil.getSuggester(Constant.Index_TianYaSuggest_Path);
+		AnalyzingInfixSuggester suggester=LuceneUtil.getSuggester(ConstantLucene.Index_TianYaSuggest_Path);
 		try {
 			suggester.build(new PostIterator(posts.iterator()));
 			suggester.commit();
@@ -68,7 +68,7 @@ public class Suggesters {
 	public static List<Map<String,Object>> getSuggestResult(String input,String folumn){
 		List<Map<String, Object>> ListMap=new ArrayList<Map<String,Object>>();
 		try {
-			AnalyzingInfixSuggester suggester=LuceneUtil.getSuggester(Constant.Index_TianYaSuggest_Path);
+			AnalyzingInfixSuggester suggester=LuceneUtil.getSuggester(ConstantLucene.Index_TianYaSuggest_Path);
 			HashSet<BytesRef> filtercontexts = new HashSet<BytesRef>();
 			filtercontexts.add(new BytesRef(folumn.getBytes("UTF8")));
 			Long time1=System.currentTimeMillis();
@@ -90,11 +90,6 @@ public class Suggesters {
 			e.printStackTrace();
 		}
 		return ListMap;
-	}
-	
-	
-	public static void main(String[] args) {
-			System.out.println(getSuggestResult("事", "谈天说地"));
 	}
 	
 }

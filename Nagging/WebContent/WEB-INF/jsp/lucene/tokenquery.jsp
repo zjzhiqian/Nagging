@@ -16,6 +16,7 @@
 			    	<option value="0">StanDardAnalyzer</option>
 			    	<option value="1">IKAnalyzer</option>
 			    	<option value="2" selected="selected">IKSynonymAnalyzer</option>
+			    	<option value="4" selected="selected">IKPinyinSynonymAnalyzer</option>
 			    </select>
 				   <shiro:hasPermission name="lucene:tianyagrab">			
 					<a id="query" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" style="height: 25px;padding-left: ">查看分词</a>

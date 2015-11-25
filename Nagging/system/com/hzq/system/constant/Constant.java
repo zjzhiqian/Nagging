@@ -47,51 +47,5 @@ public class Constant {
 	public  static final String SHIRO_KICK_KEY = "shiro_kicked";
 	
 	
-	
-	//********************索引相关********************//
-	
-	/**
-	 * TianYa帖子索引储存路径
-	 */
-	public static final String Index_TianYaPost_Path="C:\\luceneIndex\\TianYa";
-	
-	/**
-	 * TianYa帖子索引多目录的数量
-	 */
-	public static final int Index_TianYaPost_MultiPathNum=5;
-	
-	/**
-	 * TianYa帖子索引储存多目录路径
-	 */
-    public static final String Index_TianYaPost_MultiPath="C:\\luceneIndex\\TianYaMulti\\index";
-	
-    /**
-     * TianYa检索 提示内容索引存储路径
-     */
-    public static final String Index_TianYaSuggest_Path="C:\\luceneIndex\\TianYaSuggest";
-    
-    
-    
-    /**
-     * 淘宝帖子索引储存路径
-     */
-    public static final String Index_TaoBaoPost_Path="C:\\luceneIndex\\TaoBao";
-    
-    /**
-     * TaoBao帖子索引储存多目录路径
-     */
-    public static final String Index_TaoBaoPost_MultiPath="C:\\luceneIndex\\TaoBaoMulty\\index";
-    
-    /**
-     * TaoBao帖子索引多目录的数量
-     */
-    public static final int Index_TaoBaoPost_MultiPathNum=5;
-    
-    /**
-     * TaoBao检索 提示内容索引存储路径
-     */
-    public static final String Index_TaoBaoSuggest_Path="C:\\luceneIndex\\TaoBaoSuggest";
-    
-	
 }
 
