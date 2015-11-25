@@ -58,8 +58,8 @@ public class CreIndexController {
 				}
 			}
 		}else if ("2".equals(type)){
-			int step=2000;
-			for(int i=0;i<900000;i=i+step){
+			int step=100000;
+			for(int i=0;i<800000;i=i+step){
 				List<TaoBaoPost> posts = taoBaoPostService.findLimitedPost(i,step);
 				//TB
 				if("0".equals(multi)){

@@ -1,6 +1,7 @@
 package com.hzq.lucene.web;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +37,7 @@ public class GrabTBController {
 	@Autowired
 	TaoBaoPostService taoBaoPostService;
 	
-	private static final String COOKIE_VAL= "mt=ci%3D-1_0; swfstore=124389; thw=cn; cna=TJDXDmZfojkCAbeUx3aHdj4+; lzstat_uv=23111847702808552989|3600144; showPopup=0; v=0; lzstat_ss=1568526588_0_1448432853_3600144; _tb_token_=f93670b85e7eb; uc3=nk2=AnDS93hBOWEYdpk%3D&id2=W8twrLUvJaM8&vt3=F8dAScHxAbFcF6LwV%2BE%3D&lg2=V32FPkk%2Fw0dUvg%3D%3D; existShop=MTQ0ODQwNDMxOQ%3D%3D; lgc=aa616095191; tracknick=aa616095191; sg=146; cookie2=96a036c9637671eb61bd8ea8e512cc11; cookie1=UoH63f0hQrqOdpJbya2KiQs0ss%2FS7iTCpJ38n9RxOBQ%3D; unb=824664974; skt=eb956ecbd157fbe3; t=163e4edf9106645ab8a9da2b7349e91f; _cc_=UIHiLt3xSw%3D%3D; tg=0; _l_g_=Ug%3D%3D; _nk_=aa616095191; cookie17=W8twrLUvJaM8; CNZZDATA30070035=cnzz_eid%3D2128470411-1448173462-%26ntime%3D1448404255; mt=ci=0_1; uc1=cookie14=UoWzUa6DCsX%2Big%3D%3D&existShop=false&cookie16=UtASsssmPlP%2Ff1IHDsDaPRu%2BPw%3D%3D&cookie21=WqG3DMC9FxUx&tag=3&cookie15=Vq8l%2BKCLz3%2F65A%3D%3D&pas=0; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0%26__ll%3D-1%26_ato%3D0; l=AqCgHeHEK1cLwwjnyqHKfxuj8KByqYRz; isg=1BDA5F536A35069CA4A9F4A4CD62D9DD; whl=-1%260%260%261448404399668";
-	
+	private static final String COOKIE_VAL="mt=ci%3D-1_0; swfstore=13466; thw=cn; cna=TJDXDmZfojkCAbeUx3aHdj4+; lzstat_uv=23111847702808552989|3600144; showPopup=0; v=0; lzstat_ss=2089773674_0_1448515884_3600144; _tb_token_=hlz18vcqJxK5L51; uc3=nk2=AnDS93hBOWEYdpk%3D&id2=W8twrLUvJaM8&vt3=F8dAScAfsVniC1GY6ZU%3D&lg2=Vq8l%2BKCLz3%2F65A%3D%3D; existShop=MTQ0ODQ4NzAzMA%3D%3D; lgc=aa616095191; tracknick=aa616095191; sg=146; cookie2=375041a88ff3ce3c0c81a1c40e4fc1f7; mt=np=&ci=0_1; cookie1=UoH63f0hQrqOdpJbya2KiQs0ss%2FS7iTCpJ38n9RxOBQ%3D; unb=824664974; skt=bdc8ebafa06be6c4; t=163e4edf9106645ab8a9da2b7349e91f; _cc_=U%2BGCWk%2F7og%3D%3D; tg=0; _l_g_=Ug%3D%3D; _nk_=aa616095191; cookie17=W8twrLUvJaM8; CNZZDATA30070035=cnzz_eid%3D2128470411-1448173462-%26ntime%3D1448483736; isg=9B9FAA69D0078D775D20ECACF493D0B0; uc1=cookie14=UoWzUa6LmNQwtg%3D%3D&existShop=false&cookie16=U%2BGCWk%2F74Mx5tgzv3dWpnhjPaQ%3D%3D&cookie21=VT5L2FSpczFp&tag=3&cookie15=VT5L2FSpMGV7TQ%3D%3D&pas=0; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0%26__ll%3D-1%26_ato%3D0; l=Ari41df006/zyyCfohliNX48CGhKIRyr; whl=-1%260%260%261448487105468";
 	private static final String TAOBAO_URL="https://bbs.taobao.com/catalog/438501.htm?spm=0.0.0.0.SSGqE7";
 	private static CloseableHttpClient httpclient = null;
 	/**标记是否抓取完成的Flag**/
@@ -61,14 +61,8 @@ public class GrabTBController {
 			List<TaoBaoPost> posts=taoBaoPostService.findLimitedPost(i,step);
 			for(TaoBaoPost post:posts){
 				if(StringUtils.isEmpty(post.getContent())){
-					TaoBaoPost savePost=getPostData(post.getUrl());
-					if(StringUtils.isEmpty(savePost.getContent())){
-						//如果无数据抓取失败,设置为-99
-						savePost.setReply(-99L);
-						savePost.setClick(-99L);
-					}
-					savePost.setId(post.getId());
-					ThreadService.getThreadService().execute(new saveTask(post));
+					String content=getPostData(post.getUrl());
+					ThreadService.getThreadService().execute(new saveTask(content, post.getId()));
 				}
 			}
 			
@@ -81,55 +75,16 @@ public class GrabTBController {
 	 *
 	 */
 	private class saveTask implements Runnable{
-		private final TaoBaoPost savePost;
-		saveTask(TaoBaoPost savePost){
-			this.savePost=savePost;
+		private final String content;
+		private final Long id;
+		saveTask(String content,Long id){
+			this.content=content;
+			this.id=id;
 		}
 		@Override
 		public void run() {
-			boolean flag=taoBaoPostService.updatePost(savePost);
-			if(flag){
-				System.out.println(savePost.getId()+"...成功");
-			}else{
-				System.err.println(savePost.getId()+"...失败");
-			}
-		}
-	}
-	
-	/**
-	 * 抓取并解析的详情页面
-	 * @param url
-	 * @return
-	 * @author huangzhiqian
-	 * @date 2015年11月25日
-	 */
-	private TaoBaoPost getPostData(String url){
-		TaoBaoPost post=new TaoBaoPost();
-		try {
-			String content = "";
-			CloseableHttpResponse response = null;
-			try {
-				HttpGet httpget = new HttpGet(url);
-				httpget.setConfig(RequestConfig.custom().setConnectTimeout(40000).setConnectionRequestTimeout(40000).setSocketTimeout(40000).build());
-				setHeadersForGet(httpget);
-				response = httpclient.execute(httpget);
-				HttpEntity entity = response.getEntity();
-				if (entity != null) {
-					content = EntityUtils.toString(entity);
-				}
-				EntityUtils.consume(entity);
-			} finally {
-				try {
-					if (response != null) {
-						response.close();
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			if(content.contains("全登陆不允许iframe嵌入")){
-				throw new RuntimeException("全登陆不允许iframe嵌入,需要重新登录");
-			}
+			TaoBaoPost post=new TaoBaoPost();
+			post.setId(id);
 			Document doc = Jsoup.parse(content);
 			Elements ele=doc.select("span.time-author");
 			//发帖时间
@@ -138,7 +93,11 @@ public class GrabTBController {
 				sendTime=sendTime.replace("|", "");
 				sendTime=sendTime.replace("发表于", "");
 				sendTime=sendTime.replace("只看楼主", "").trim();
-				post.setAddTime(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(sendTime));
+				try {
+					post.setAddTime(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(sendTime));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
 			}
 			
 			//发帖人名称
@@ -190,12 +149,60 @@ public class GrabTBController {
 				post.setClick(Long.parseLong(watch));
 				post.setReply(Long.parseLong(reply));
 			}
+			
+			if(StringUtils.isEmpty(post.getContent())){
+				//如果无数据抓取失败,设置为-99
+				post.setReply(-99L);
+				post.setClick(-99L);
+			}
+			boolean flag=taoBaoPostService.updatePost(post);
+			if(flag){
+				System.out.println(post.getId()+"...成功");
+			}else{
+				System.err.println(post.getId()+"...失败");
+			}
+		}
+	}
+	
+	/**
+	 * 抓取并解析的详情页面
+	 * @param url
+	 * @return
+	 * @author huangzhiqian
+	 * @date 2015年11月25日
+	 */
+	private String getPostData(String url){
+		try {
+			String content = "";
+			CloseableHttpResponse response = null;
+			try {
+				HttpGet httpget = new HttpGet(url);
+				httpget.setConfig(RequestConfig.custom().setConnectTimeout(40000).setConnectionRequestTimeout(40000).setSocketTimeout(40000).build());
+				setHeadersForGet(httpget);
+				response = httpclient.execute(httpget);
+				HttpEntity entity = response.getEntity();
+				if (entity != null) {
+					content = EntityUtils.toString(entity);
+				}
+				EntityUtils.consume(entity);
+			} finally {
+				try {
+					if (response != null) {
+						response.close();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if(content.contains("全登陆不允许iframe嵌入")){
+				throw new RuntimeException("全登陆不允许iframe嵌入,需要重新登录");
+			}
+			return content;
 		} catch (Exception e) {
 			// 捕获异常继续执行
 			e.printStackTrace();
 			return null;
 		}
-		return post;
 
 	}
 	

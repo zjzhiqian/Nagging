@@ -22,6 +22,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.Field.Store;
@@ -229,6 +230,12 @@ public class IndexCreator {
 		for (TaoBaoPost post : posts) {
 			doc = new Document();
 			// ID
+			if(post.getContent()==null||StringUtils.isEmpty(post.getContent())){
+				continue;
+			}
+			if(post.getClick()==null||post.getReply()==null||post.getAddTime()==null||post.getAdduserName()==null){
+				continue;
+			}
 			doc.add(new Field("id", post.getId() + "", LuceneUtil.IdFielType));
 			doc.add(new Field("title", post.getTitle() + "", LuceneUtil.TitleFielType));
 			String content = post.getContent().toLowerCase();
