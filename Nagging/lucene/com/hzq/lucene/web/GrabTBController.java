@@ -37,7 +37,7 @@ public class GrabTBController {
 	@Autowired
 	TaoBaoPostService taoBaoPostService;
 	
-	private static final String COOKIE_VAL="mt=ci%3D-1_0; swfstore=13466; thw=cn; cna=TJDXDmZfojkCAbeUx3aHdj4+; lzstat_uv=23111847702808552989|3600144; showPopup=0; v=0; lzstat_ss=2089773674_0_1448515884_3600144; _tb_token_=hlz18vcqJxK5L51; uc3=nk2=AnDS93hBOWEYdpk%3D&id2=W8twrLUvJaM8&vt3=F8dAScAfsVniC1GY6ZU%3D&lg2=Vq8l%2BKCLz3%2F65A%3D%3D; existShop=MTQ0ODQ4NzAzMA%3D%3D; lgc=aa616095191; tracknick=aa616095191; sg=146; cookie2=375041a88ff3ce3c0c81a1c40e4fc1f7; mt=np=&ci=0_1; cookie1=UoH63f0hQrqOdpJbya2KiQs0ss%2FS7iTCpJ38n9RxOBQ%3D; unb=824664974; skt=bdc8ebafa06be6c4; t=163e4edf9106645ab8a9da2b7349e91f; _cc_=U%2BGCWk%2F7og%3D%3D; tg=0; _l_g_=Ug%3D%3D; _nk_=aa616095191; cookie17=W8twrLUvJaM8; CNZZDATA30070035=cnzz_eid%3D2128470411-1448173462-%26ntime%3D1448483736; isg=9B9FAA69D0078D775D20ECACF493D0B0; uc1=cookie14=UoWzUa6LmNQwtg%3D%3D&existShop=false&cookie16=U%2BGCWk%2F74Mx5tgzv3dWpnhjPaQ%3D%3D&cookie21=VT5L2FSpczFp&tag=3&cookie15=VT5L2FSpMGV7TQ%3D%3D&pas=0; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0%26__ll%3D-1%26_ato%3D0; l=Ari41df006/zyyCfohliNX48CGhKIRyr; whl=-1%260%260%261448487105468";
+	private static final String COOKIE_VAL="mt=ci%3D-1_0; swfstore=208512; thw=cn; cna=TJDXDmZfojkCAbeUx3aHdj4+; lzstat_uv=23111847702808552989|3600144; showPopup=3; v=0; _tb_token_=yQy202z3nXbZXB; lzstat_ss=916384926_0_1448565230_3600144; uc3=nk2=AnDS93hBOWEYdpk%3D&id2=W8twrLUvJaM8&vt3=F8dAScAeBM%2FuK1py27g%3D&lg2=WqG3DMC9VAQiUQ%3D%3D; existShop=MTQ0ODUzNjM4MA%3D%3D; lgc=aa616095191; tracknick=aa616095191; sg=146; cookie2=1444c520f3e6f391a0ef057f87018bf9; mt=np=&ci=0_1; cookie1=UoH63f0hQrqOdpJbya2KiQs0ss%2FS7iTCpJ38n9RxOBQ%3D; unb=824664974; skt=d0a5896e3916b5ae; t=163e4edf9106645ab8a9da2b7349e91f; _cc_=VFC%2FuZ9ajQ%3D%3D; tg=0; _l_g_=Ug%3D%3D; _nk_=aa616095191; cookie17=W8twrLUvJaM8; CNZZDATA30070035=cnzz_eid%3D2128470411-1448173462-%26ntime%3D1448532737; uc1=cookie14=UoWzUa%2BzOsWHsA%3D%3D&existShop=false&cookie16=W5iHLLyFPlMGbLDwA%2BdvAGZqLg%3D%3D&cookie21=U%2BGCWk%2F7pY%2FF&tag=3&cookie15=Vq8l%2BKCLz3%2F65A%3D%3D&pas=0; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0%26__ll%3D-1%26_ato%3D0; l=Anp6k1AJMUF9oSKZtOOAK-FhSq6cK/4F; whl=-1%260%260%261448536458826; isg=706B6187DB449D3B9C23ADEA3C8F7996";
 	private static final String TAOBAO_URL="https://bbs.taobao.com/catalog/438501.htm?spm=0.0.0.0.SSGqE7";
 	private static CloseableHttpClient httpclient = null;
 	/**标记是否抓取完成的Flag**/
@@ -56,7 +56,7 @@ public class GrabTBController {
 	public void doUpdate(){
 		int step=100000;
 		
-		for(int i=600000;i<900000;i=i+step){
+		for(int i=800000;i<900000;i=i+step){
 			
 			List<TaoBaoPost> posts=taoBaoPostService.findLimitedPost(i,step);
 			for(TaoBaoPost post:posts){
