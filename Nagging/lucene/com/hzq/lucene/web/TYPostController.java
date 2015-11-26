@@ -1,8 +1,5 @@
 package com.hzq.lucene.web;
 
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
@@ -21,7 +18,6 @@ import com.hzq.common.util.CommonUtils;
 import com.hzq.lucene.core.TYDataQueries;
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.service.TianYaPostService;
-import com.hzq.lucene.suggest.Suggesters;
 
 @Controller
 @RequestMapping("lucene")
@@ -58,18 +54,7 @@ public class TYPostController {
 		Grid<TianYaPost> rs = TYDataQueries.getDataGridResult(condition,type);
 		return rs;
 	}
-	
-	@RequestMapping(value="tianyaSuggestQuery",method=RequestMethod.POST)
-	@ResponseBody
-	public List<Map<String,Object>> tianyaSuggestQuery(HttpServletRequest request){
-		String content=request.getParameter("content");
-		List<Map<String,Object>> ListMap = null;
-		if(StringUtils.isNotEmpty(content)){
-			ListMap=Suggesters.getSuggestResult(content, "谈天说地");
-		}
-		return ListMap;
-	}
-	
+		
 	/**
 	 * 根据request获得排序方式,放入condition
 	 * @param request

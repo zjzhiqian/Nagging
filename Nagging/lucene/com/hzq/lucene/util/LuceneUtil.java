@@ -145,6 +145,8 @@ public class LuceneUtil {
 			return tianyaSuggester;
 		}
 	}	
+	
+	
 		
 	
 	/**

@@ -42,7 +42,7 @@ public class ConstantLucene {
     /**
      * TaoBao帖子索引储存多目录路径
      */
-    public static final String Index_TaoBaoPost_MultiPath="C:\\luceneIndex\\TaoBaoMulty\\index";
+    public static final String Index_TaoBaoPost_MultiPath="C:\\luceneIndex\\TaoBaoMulti\\index";
     
     /**
      * TaoBao帖子索引多目录的数量

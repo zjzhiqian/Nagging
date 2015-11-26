@@ -2,6 +2,8 @@ package com.hzq.lucene.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,13 +37,11 @@ public class CreIndexController {
 	 * @multi  1 单目录 2 多目录
 	 * @return
 	 */
-	@RequestMapping("tianyaindex/{type}/{multi}")
+	@RequestMapping("index/{type}/{multi}")
 	@ResponseBody
 	public Json tianyaPostIndex(@PathVariable String type,@PathVariable String multi) {
 		Long time1=System.currentTimeMillis();
 		boolean flag=false; String msg="系统错误";
-		
-		
 		if("1".equals(type)){
 			//TY
 			List<TianYaPost> posts = tianYaPostService.findAllPosts();
@@ -86,47 +86,40 @@ public class CreIndexController {
 			return new Json(false,msg);
 		}
 		
-		
-		
-		
 	}
 	
 
 	/**
-	 * 检索提示部分索引(TianYa)
+	 * 检索提示部分索引
 	 * @return
 	 */
-	@RequestMapping("tianyaSuggest")
+	@RequestMapping("suggest/{type}")
 	@ResponseBody
-	public Json  tianyaPostSuggester(){
-		Long time1=System.currentTimeMillis();
-		List<TianYaPost> posts = tianYaPostService.findAllPosts();
-		boolean rs=Suggesters.createSuggest(posts);
-		if(rs){
+	public Json  tianyaPostSuggester(HttpServletRequest req,@PathVariable("type")String type){
+		Long time1=System.currentTimeMillis(); 
+		boolean flag=true;
+		if("1".equals(type)){ //TY部分
+			List<TianYaPost> posts = tianYaPostService.findAllPosts();
+			flag=Suggesters.createSuggest(posts);
+		}else if("2".equals(type)){ //TB部分
+			int step=100000;
+			for(int i=0;i<900000;i=i+step){
+				List<TaoBaoPost> posts=taoBaoPostService.findLimitedPost(i, step);
+				boolean rs=Suggesters.createSuggestForTb(posts);
+				if(!rs){
+					flag=false;
+					break;
+				}
+			}
+			
+		}
+		if(flag){
 			return new Json(true,String.format("生成成功,用了%s毫秒",System.currentTimeMillis()-time1+""));
 		}
 		return new Json(false);
 		
 	}
 	
-	
-	
-	/**
-	 * 生成索引(TaoBao)
-	 * @return
-	 */
-	@RequestMapping("taobaoPostIndex")
-	@ResponseBody
-	public Json taobaoPostIndex() {
-		Long time1=System.currentTimeMillis();
-		List<TaoBaoPost> posts = taoBaoPostService.findLimitedPost(0, 40000);
-		boolean flag=IndexCreator.ToOnePathForTB(posts);
-		Json json=new Json(false);
-		if(flag){
-			json=new Json(true,String.format("生成成功,用了%s毫秒",System.currentTimeMillis()-time1+""));
-		}
-		return json;
-	}
 	
 
 }

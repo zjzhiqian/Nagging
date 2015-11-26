@@ -39,7 +39,7 @@ import com.hzq.lucene.constant.ConstantLucene;
 
 /**
  * 
- * 生成索引的类
+ * 生成索引,包括索引提示的类
  * 
  * @author huangzhiqian
  */

@@ -72,12 +72,12 @@
 	
 	//单目录索引(TianYa)
 	$("#data-index-tianya").click(function(){
-		sendAjax("${ctx}/lucene/tianyaindex/1/0")
+		sendAjax("${ctx}/lucene/index/1/0")
 	})
 	
 	//多目录索引(TianYa)
 	$("#data-index-tianyamulty").click(function(){
-		sendAjax("${ctx}/lucene/tianyaindex/1/1")
+		sendAjax("${ctx}/lucene/index/1/1")
 	})
 	
 	function sendAjax(url){
@@ -102,7 +102,7 @@
 	$("#data-index-tianyasuggester").click(function(){
 		loading("索引生成中,请稍等")
 		$.ajax({
-			url:"${ctx}/lucene/tianyaSuggest",
+			url:"${ctx}/lucene/suggest/1",
 			success:function(r){
 				loaded()
 				if(r&&r.flag){

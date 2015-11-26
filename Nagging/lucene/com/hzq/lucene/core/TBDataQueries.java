@@ -313,5 +313,21 @@ public class TBDataQueries {
 		}
 		return post;
 	}
+	
+	
+	
+	public static void main(String[] args) {
+		QueryCondition condition=new QueryCondition();
+		condition.getCondition().put("rows", 20);
+		condition.getCondition().put("page", "1");
+		condition.getCondition().put("title", "淘宝");
+		condition.getCondition().put("content", "淘宝");
+		Grid<TaoBaoPost> grid=getDataGridResult(condition,"2");
+		System.out.println(grid.getTotal());
+		for(TaoBaoPost p:grid.getRows()){
+			System.out.println(p.getTitle());
+		}
+		System.out.println(grid.getO());
+	}
 }
 

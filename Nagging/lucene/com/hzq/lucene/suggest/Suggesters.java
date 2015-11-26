@@ -25,6 +25,7 @@ import org.apache.lucene.search.suggest.analyzing.AnalyzingInfixSuggester;
 import org.apache.lucene.util.BytesRef;
 
 import com.hzq.common.util.CommonUtils;
+import com.hzq.lucene.entity.TaoBaoPost;
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.util.LuceneUtil;
 import com.hzq.lucene.constant.ConstantLucene;
@@ -57,6 +58,31 @@ public class Suggesters {
 		return true;
 		
 	}
+	
+	
+	
+	/**
+	 * 创建索引提示
+	 * @param posts
+	 * @return
+	 * @author huangzhiqian
+	 * @date 2015年11月20日
+	 */
+	public static boolean createSuggestForTb(List<TaoBaoPost> posts){
+		
+		AnalyzingInfixSuggester suggester=LuceneUtil.getSuggester(ConstantLucene.Index_TaoBaoPost_Path);
+		try {
+			suggester.build(new TBPostIterator(posts.iterator()));
+			suggester.commit();
+			suggester.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+		
+	}
+	
 	
 	/**
 	 *  获取查询结果提示
@@ -91,6 +117,48 @@ public class Suggesters {
 		}
 		return ListMap;
 	}
+	
+	
+	
+	/**
+	 *  获取查询结果提示
+	 * @param input	  用户输入
+	 * @param folumn  筛选板块
+	 * @author huangzhiqian
+	 * @date 2015年11月20日
+	 */
+	public static List<Map<String,Object>> getSuggestResultForTB(String input,String folumn){
+		List<Map<String, Object>> ListMap=new ArrayList<Map<String,Object>>();
+		try {
+			AnalyzingInfixSuggester suggester=LuceneUtil.getSuggester(ConstantLucene.Index_TaoBaoSuggest_Path);
+			HashSet<BytesRef> filtercontexts = new HashSet<BytesRef>();
+			filtercontexts.add(new BytesRef(folumn.getBytes("UTF8")));
+			Long time1=System.currentTimeMillis();
+			//filtercontexts过滤,input 输入, 显示5条数据,每个Term都匹配,关键词高亮
+			List<LookupResult> results = suggester.lookup(input, filtercontexts, 5, true, true);
+			Map<String,Object> map = null;
+			for (LookupResult result : results) {
+				map=new HashMap<String, Object>();
+				//从payload中反序列化出Post对象
+				BytesRef bytesRef = result.payload;
+				InputStream in = new ByteArrayInputStream(bytesRef.bytes);
+				String url = CommonUtils.deSerialize(in,String.class);
+				map.put("key", result.highlightKey);
+				map.put("url", url);
+				map.put("time", System.currentTimeMillis()-time1);
+				ListMap.add(map);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return ListMap;
+	}
+	
+	
+	
+	
+	
+	
 	
 }
 
