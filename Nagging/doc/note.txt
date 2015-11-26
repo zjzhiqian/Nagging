@@ -1,14 +1,14 @@
 开发运行环境 JDK1.8+Tomcat7  (SpringMVC部分GET乱码解决      <Connector connectionTimeout="20000" port="8080" protocol="HTTP/1.1" redirectPort="8443" URIEncoding="UTF-8" /> )
 
 springMVC + spring + mybatis  
-		使用spring4的新特性 泛型以依赖注入+ 自己优化的Mybatis-generator生产Dao以及Mapper.xml实现了 绝大部分单表操作无需操作任何dao层
+		使用spring4的新特性 泛型以依赖注入+ 自己优化的Mybatis-generator生产Dao以及Mapper.xml实现了  单表操作的Dao层基本无需修改
 
 shiro权限管理	
 	    用户登陆部分  使用1024次SHA-1+salt的加密
 	    集成了验证码,保证一个用户ID只有一个Session,登陆次数过多锁定(ehcache缓存)
       AOP分散于方法的注解进行权限拦截(方法级权限控制)
 
-前台采用了easy-ui 1.4.3 用到了绝大部分的easy-ui组件
+前台easy-ui 1.4.3 
 
 Lucene  
 	httpClient数据抓取,jsoup数据解析

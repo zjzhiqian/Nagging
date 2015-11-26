@@ -14,9 +14,6 @@ import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 
 /**
  * 拼音过滤器[负责将汉字转换为拼音]
- * 
- * @author Lanxiaowei
- *
  */
 public class PinyinTokenFilter extends TokenFilter {
 	private final CharTermAttribute termAtt;

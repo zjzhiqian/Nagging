@@ -313,14 +313,6 @@ public class IndexCreator {
 
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
 
 	/**
 	 * 拆分list

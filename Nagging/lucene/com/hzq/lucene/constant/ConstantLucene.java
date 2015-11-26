@@ -56,7 +56,9 @@ public class ConstantLucene {
     
 	
 	
-	
+	/**
+	 * 停止词集合
+	 */
 	public static final CharArraySet STOP_WORDS_SET;
 	static {
 		List<String> stopWords = Arrays.asList(new String[] { "a", "an", "and", "are", "as", "at", "be", "but", "by", "for", "if", "in", "into", "is", "it", "no", "not", "of", "on", "or", "such",
