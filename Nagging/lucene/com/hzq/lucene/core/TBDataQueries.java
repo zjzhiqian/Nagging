@@ -88,7 +88,7 @@ public class TBDataQueries {
 	}
 
 	/**
-	 * 获取天涯论坛Searcher(单目录)
+	 * 获取tbSearcher(单目录)
 	 * 
 	 * @return
 	 */
@@ -105,7 +105,7 @@ public class TBDataQueries {
 	}
 	
 	/**
-	 * 获取天涯论坛Searcher(多目录)
+	 * 获取tbSearcher(多目录)
 	 * 
 	 * @return
 	 */

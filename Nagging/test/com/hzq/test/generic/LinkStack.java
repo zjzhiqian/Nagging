@@ -15,7 +15,7 @@ package com.hzq.test.generic;
  * 
  * @author huangzhiqian
  */
-public class LinedStack<T> {
+public class LinkStack<T> {
 	private static class Node<U>{
 		U item;
 		Node<U> next;
@@ -48,7 +48,7 @@ public class LinedStack<T> {
 	}
 	
 	public static void main(String[] args) {
-		LinedStack<String> stack=new LinedStack<String>();
+		LinkStack<String> stack=new LinkStack<String>();
 		for(String s:"a dwe weqj".split(" ")){
 			stack.push(s);
 		}

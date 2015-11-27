@@ -17,11 +17,6 @@ import org.wltea.analyzer.lucene.IKAnalyzer;
 
 import com.hzq.lucene.entity.TianYaPost;
 
-/**
- * 拼写检查测试
- * @author Lanxiaowei
- *
- */
 public class SpellCheckTest {
 	private static String dicpath = "C:/main2012.dic";
     private Document document;
