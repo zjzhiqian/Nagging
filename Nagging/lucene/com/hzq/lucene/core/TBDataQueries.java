@@ -178,7 +178,7 @@ public class TBDataQueries {
 
 		try {
 			Long time1 = System.currentTimeMillis();
-			Query query = MultiFieldQueryParser.parse(queryList.toArray(new String[queryList.size()]), fieldList.toArray(new String[fieldList.size()]), clauses, LuceneUtil.getIKAnalyzer());
+			Query query = MultiFieldQueryParser.parse(queryList.toArray(new String[queryList.size()]), fieldList.toArray(new String[fieldList.size()]), clauses, LuceneUtil.getIKPinyinAnalyzer());
 			System.err.println(query.toString());
 			// 排序
 			Sort sort = null;

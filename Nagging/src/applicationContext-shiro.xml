@@ -86,8 +86,8 @@
 				/js/** = anon
 				/styles/** = anon
 				/validatecode.jsp = anon
-				/=anon
-				/kicked =anon
+				/ = anon
+				/kicked = anon
 				<!-- 退出url,shiro会自动清除session -->
 				/logout = logout
 				

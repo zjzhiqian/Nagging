@@ -30,7 +30,7 @@ import com.hzq.lucene.synonym.SynonymFilter;
  */
 public class IKPinYinSynonymAnalyzer extends IKAnalyzer {
 	private SynonymEngine engine;
-
+	
 	public IKPinYinSynonymAnalyzer(SynonymEngine engine) {
 		this.engine = engine;
 	}

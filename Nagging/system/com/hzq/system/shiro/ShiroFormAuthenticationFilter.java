@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -214,7 +216,9 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
 		// shiroLoginFailure
 		return true;
 	}
-
+	
+	
+	private static Lock lock=new ReentrantLock();
 	/**
 	 * 如果在其他地方已经登录，尝试踢出
 	 * 
@@ -226,19 +230,20 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
 		Session shiroSession = subject.getSession();
 		Serializable sessionId = shiroSession.getId();
 		// 避免并发操作同一个cache
-		synchronized (Subject.class) {
+		try{
+			lock.lock();
 			Deque<Serializable> deque = cache.get(username);
 			if (deque == null) {
 				deque = new LinkedList<Serializable>();
 				cache.put(username, deque);
 			}
 
-			// 如果队列里没有此sessionId，且用户没有被踢出；放入队列
+			// 如果队列里没有此sessionId，且用户没有被踢出;放入队列
 			if (!deque.contains(sessionId) && shiroSession.getAttribute(Constant.SHIRO_KICK_KEY) == null) {
 				deque.push(sessionId);
 			}
 
-			// 如果队列里的sessionId数超出最大会话数，开始踢人
+			// 如果队列里的sessionId数超出最大会话数,开始踢人
 			while (deque.size() > maxSession) {
 				Serializable kickoutSessionId = null;
 				if (kickoutAfter) { // 如果踢出后者
@@ -254,7 +259,10 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
 				} catch (Exception e) {// ignore exception
 				}
 			}
+		}finally{
+			lock.unlock();
 		}
+		
 	}
 
 }

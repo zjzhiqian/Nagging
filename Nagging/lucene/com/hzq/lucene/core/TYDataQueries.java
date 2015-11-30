@@ -193,7 +193,7 @@ public class TYDataQueries {
 			rs.setO(new Json(true, System.currentTimeMillis() - time1 + ""));
 
 			// 高亮
-			Highlighter highlighter = LuceneUtil.createHighlighter(query, null, null, 50);
+			Highlighter highlighter = LuceneUtil.createHighlighter(query, null, null, 200);
 			ScoreDoc[] docs = tds.scoreDocs;
 			
 			for (ScoreDoc sd : docs) {

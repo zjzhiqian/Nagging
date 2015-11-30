@@ -34,6 +34,8 @@ import org.apache.lucene.index.IndexWriter;
 
 import com.hzq.lucene.entity.TaoBaoPost;
 import com.hzq.lucene.entity.TianYaPost;
+import com.hzq.lucene.pinyin.IKPinYinSynonymAnalyzer;
+import com.hzq.lucene.synonym.TxtSynonymEngine;
 import com.hzq.lucene.util.LuceneUtil;
 import com.hzq.lucene.constant.ConstantLucene;
 
@@ -54,7 +56,7 @@ public class IndexCreator {
 	 * @date 2015年11月18日
 	 */
 	public static boolean ToOnePath(List<TianYaPost> posts) {
-		IndexWriter writer = LuceneUtil.getIndexWriter(ConstantLucene.Index_TianYaPost_Path);
+		IndexWriter writer = LuceneUtil.getIndexWriter(ConstantLucene.Index_TianYaPost_Path,new IKPinYinSynonymAnalyzer(new TxtSynonymEngine()));
 		try {
 			indexDoc(writer, posts);
 		} catch (IOException e) {
