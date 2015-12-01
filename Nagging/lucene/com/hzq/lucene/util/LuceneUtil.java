@@ -46,6 +46,7 @@ public class LuceneUtil {
 	private static Analyzer defaultWriteAnalyzer = null;
 	
 	private static HighterInfixSuggester tianyaSuggester = null;
+	public static HighterInfixSuggester taobaoSuggester = null;
 	static {
 		defaultWriteAnalyzer=getIKSynonymAnalyzer();
 		//  Id
@@ -82,6 +83,7 @@ public class LuceneUtil {
 		
 		try {
 			tianyaSuggester = new HighterInfixSuggester(FSDirectory.open(Paths.get(ConstantLucene.Index_TianYaSuggest_Path)), getIKAnalyzer());
+			taobaoSuggester = new HighterInfixSuggester(FSDirectory.open(Paths.get(ConstantLucene.Index_TaoBaoSuggest_Path)), getIKAnalyzer());
 		} catch (IOException e) {
 			throw new RuntimeException("tianyaSuggester初始化失败");
 		}
@@ -146,7 +148,18 @@ public class LuceneUtil {
 		}
 	}	
 	
-	
+	public static AnalyzingInfixSuggester getSuggesterForTb(String path){
+		if(taobaoSuggester==null){
+			try {
+				Directory indexDir = FSDirectory.open(Paths.get(path));
+				return new HighterInfixSuggester(indexDir, getIKAnalyzer());
+			} catch (IOException e) {
+				throw new RuntimeException("failure accured in create suggester");
+			}
+		}else{
+			return taobaoSuggester;
+		}
+	}
 		
 	
 	/**

@@ -39,7 +39,7 @@ public class CreIndexController {
 	 */
 	@RequestMapping("index/{type}/{multi}")
 	@ResponseBody
-	public Json tianyaPostIndex(@PathVariable String type,@PathVariable String multi) {
+	public Json postIndex(@PathVariable String type,@PathVariable String multi) {
 		Long time1=System.currentTimeMillis();
 		boolean flag=false; String msg="系统错误";
 		if("1".equals(type)){
@@ -95,7 +95,7 @@ public class CreIndexController {
 	 */
 	@RequestMapping("suggest/{type}")
 	@ResponseBody
-	public Json  tianyaPostSuggester(HttpServletRequest req,@PathVariable("type")String type){
+	public Json  suggestCreator(HttpServletRequest req,@PathVariable("type")String type){
 		Long time1=System.currentTimeMillis(); 
 		boolean flag=true;
 		if("1".equals(type)){ //TY部分

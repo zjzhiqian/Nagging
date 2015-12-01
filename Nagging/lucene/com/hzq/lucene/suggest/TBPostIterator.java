@@ -92,7 +92,11 @@ public class TBPostIterator implements InputIterator {
 	 * 权重信息(suggest的排序)
 	 */
 	public long weight() {  
-		return currentPost.getClick();
+		if(currentPost.getClick()!=null){
+			return currentPost.getClick();
+		}else{
+			return 1L;
+		}
 	}
 
 }
