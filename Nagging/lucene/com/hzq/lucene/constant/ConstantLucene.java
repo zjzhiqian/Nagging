@@ -27,7 +27,7 @@ public class ConstantLucene {
 	/**
 	 * TianYa帖子索引储存多目录路径
 	 */
-    public static final String Index_TianYaPost_MultiPath="C:\\luceneIndex\\TianYaMulti\\index";
+    public static final String Index_TianYaPost_MultiPath="C:\\luceneIndex\\TianYaMulty\\index";
 	
     /**
      * TianYa检索 提示内容索引存储路径
