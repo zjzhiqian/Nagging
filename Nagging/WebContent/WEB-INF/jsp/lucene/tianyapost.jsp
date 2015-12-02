@@ -76,17 +76,6 @@
 			    pageList:[10,20,30,40,50],  
 			    fitColumns:true,
 			    border:false,
-			    onDblClickRow:function(rowIndex,rowData){
-			      <shiro:hasPermission name="user:edit">
-			    	if(editRow!=undefined){
-			    		  $.messager.alert("提醒","请先完成当前操作","warning");
-			    		  return false;
-			    	 }
-			    	dg.datagrid('unselectAll');
-			    	dg.datagrid('beginEdit',rowIndex);
-			    	editRow=rowIndex;
-			      </shiro:hasPermission>
-			    },
 			    toolbar:[
 						
 				],

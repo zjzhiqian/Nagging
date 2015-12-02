@@ -77,8 +77,7 @@
 				title:"天涯帖子",
 				tb:"tianya_post"
 			})
-			
-			
+			$(this).linkbutton("disable");
 		})
 		
 	</script>	
