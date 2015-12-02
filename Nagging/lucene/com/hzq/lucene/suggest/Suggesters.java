@@ -70,11 +70,12 @@ public class Suggesters {
 	 */
 	public static boolean createSuggestForTb(List<TaoBaoPost> posts){
 		
-		AnalyzingInfixSuggester suggester=LuceneUtil.getSuggester(ConstantLucene.Index_TaoBaoPost_Path);
+		AnalyzingInfixSuggester suggester=LuceneUtil.getSuggesterForTb(ConstantLucene.Index_TaoBaoSuggest_Path);
 		try {
 			suggester.build(new TBPostIterator(posts.iterator()));
 			suggester.commit();
 			suggester.close();
+			LuceneUtil.taobaoSuggester=null;
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
@@ -130,7 +131,7 @@ public class Suggesters {
 	public static List<Map<String,Object>> getSuggestResultForTB(String input,String folumn){
 		List<Map<String, Object>> ListMap=new ArrayList<Map<String,Object>>();
 		try {
-			AnalyzingInfixSuggester suggester=LuceneUtil.getSuggester(ConstantLucene.Index_TaoBaoSuggest_Path);
+			AnalyzingInfixSuggester suggester=LuceneUtil.getSuggesterForTb(ConstantLucene.Index_TaoBaoSuggest_Path);
 			HashSet<BytesRef> filtercontexts = new HashSet<BytesRef>();
 			filtercontexts.add(new BytesRef(folumn.getBytes("UTF8")));
 			Long time1=System.currentTimeMillis();
