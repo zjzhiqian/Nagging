@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -17,6 +16,9 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import com.hzq.common.entity.QueryCondition;
+import com.hzq.common.util.CommonUtils;
 
 public class ExcelUtils {
 	private static final Map<String,LinkedHashMap<String,String>> SYS_MAP=new HashMap<String,LinkedHashMap<String,String>>();
@@ -30,16 +32,12 @@ public class ExcelUtils {
 		SYS_MAP.put("tianya_post", gridMap);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public static <T> ResponseEntity<byte[]> Exeport(List<T> list,String title,String tableName) throws IOException{
-		LinkedHashMap<String,String> gridMap=SYS_MAP.get(tableName);
+	public static <T> ResponseEntity<byte[]> Exeport(List<T> list,QueryCondition con) throws IOException{
+		LinkedHashMap<String,String> gridMap=SYS_MAP.get(con.getCondition().get("ExcelTable"));
 		//输出流
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
-		
-		
 		HSSFWorkbook book = new HSSFWorkbook();
 		HSSFSheet sheet = book.createSheet("sheet1");
-		
 		//表头 
 		HSSFRow titleRow = sheet.createRow(0);
 		int titleCell = 0;
@@ -53,14 +51,8 @@ public class ExcelUtils {
 		}
 		//数据
 		for (int rowNum = 0; rowNum < list.size(); rowNum++) { //一条数据
-			T t = list.get(rowNum);
-			Map<Object, Object> dataMap = null;
-			try {
-				 //TODO 自己写一个Object TO Map
-				dataMap = BeanUtils.describe(t);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			T obj = list.get(rowNum);
+			Map<String, Object> dataMap = CommonUtils.describe(obj,true);
 			//所有字段这样都是String的
 			HSSFRow row = sheet.createRow(rowNum+1);
 			int cellNum = 0;
@@ -72,45 +64,23 @@ public class ExcelUtils {
 						cell.setCellValue((String) object);
 						cell.setCellType(HSSFCell.CELL_TYPE_STRING);
 					} 
-//					else if (object instanceof BigDecimal) {
-//						BigDecimal bignum = (BigDecimal) object;
-//						cell.setCellValue(bignum+"");
-//						cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
-//					} else if (object instanceof Date) {
-//						Date date = (Date) object;
-//						cell.setCellValue("'"+sdf.format(date));
-//					} else if (object instanceof Integer) {
-//						Integer intnum = (Integer) object;
-//						cell.setCellValue(intnum);
-//					}else if (object instanceof Long){
-//						Long longnum=(Long)object;
-//						cell.setCellValue(longnum);
-//					}
 				} else {
 					cell.setCellValue("");
 				}
 
 			}
 		}
-		
 		//自适应 列宽
-		int i = 0;
-		for (Entry<String, String> entry : gridMap.entrySet()) {
-			sheet.autoSizeColumn(i);
-			int maxColumnWidth = sheet.getColumnWidth(i);
-			if(maxColumnWidth>5000){
-				maxColumnWidth=5000;
-			}
-			sheet.setColumnWidth(i, maxColumnWidth + 500);
-			titleCell++;
-		}
-		
-		
-		
-		
+//		int i = 0;
+//		for (Entry<String, String> entry : gridMap.entrySet()) {
+//			sheet.autoSizeColumn(i);
+//			int maxColumnWidth = sheet.getColumnWidth(i);
+//			sheet.setColumnWidth(i, maxColumnWidth + 500);
+//			titleCell++;
+//		}
 		book.write(os);
 		HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "attachment;filename=\""+new String((title+".xls").getBytes("gb2312"), "ISO8859-1" )+"\"");
+        headers.add("Content-Disposition", "attachment;filename=\""+new String((con.getCondition().get("ExcelTitle")+".xls").getBytes("gb2312"), "ISO8859-1" )+"\"");
         HttpStatus statusCode = HttpStatus.OK;
 		return new ResponseEntity<byte[]>(os.toByteArray(), headers, statusCode);
 	}

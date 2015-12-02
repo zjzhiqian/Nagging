@@ -60,12 +60,8 @@ public class ExcelController {
 		QueryCondition condition=CommonUtils.parseRequestToCondition(req);
 		Grid<TianYaPost> posts=tianYaPostService.getDataGridResult(condition);
 		List<TianYaPost> list=posts.getRows();
-        return ExcelUtils.Exeport(list,"标题","tianya_post");
+        return ExcelUtils.Exeport(list,condition);
 	}
-	
-	
-	
-	
 	
 }
 
