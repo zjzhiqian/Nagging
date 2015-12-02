@@ -90,7 +90,6 @@
 				/kicked = anon
 				<!-- 退出url,shiro会自动清除session -->
 				/logout = logout
-				
 				/**=authc
 			</value>
 		</property>
