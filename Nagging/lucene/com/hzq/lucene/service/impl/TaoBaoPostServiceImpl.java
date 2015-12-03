@@ -26,5 +26,4 @@ public class TaoBaoPostServiceImpl extends BaseService<TaoBaoPost> implements Ta
 	}
 
 	
-
 }

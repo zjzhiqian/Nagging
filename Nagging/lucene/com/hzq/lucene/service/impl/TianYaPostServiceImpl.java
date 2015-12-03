@@ -1,6 +1,8 @@
 package com.hzq.lucene.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,9 +55,18 @@ public class TianYaPostServiceImpl extends BaseService<TianYaPost> implements Ti
 	@Override
 	public void add(TaoBaoPost post) {
 		tianYaPostMapper.add(post.getUrl(),post.getTitle(),post.getModual(),post.getNextpageurl());
-		
 	}
 
+	
+	@Override
+	public Map<String, Object> importExcel(List<TianYaPost> posts) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		for(TianYaPost post:posts){
+			savePost(post);
+		}
+		map.put("flag", true);
+		return map;
+	}
 
 	
 }

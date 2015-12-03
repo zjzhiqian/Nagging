@@ -80,6 +80,19 @@
 			$(this).linkbutton("disable");
 		})
 		
+		
+		$("#import").click(function(){
+			$.importExcel({
+				url:"${ctx}/store/importExcel",
+				clazz:"tianYaPostServiceImpl",
+				method:"importExcel",
+				module:"module",
+				tn:"tn",
+				pojo:"TianYaPost",
+				datagrid:dg
+			})
+		})
+		
 	</script>	
 </body>
 

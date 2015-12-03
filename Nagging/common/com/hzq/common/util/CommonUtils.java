@@ -3,11 +3,14 @@ package com.hzq.common.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -148,5 +151,61 @@ public class CommonUtils {
 
 		return result;
 	}
+	
+	/**
+	 * 类似于BeanUtil的populate
+	 * @param entity
+	 * @param map
+	 * @author huangzhiqian
+	 * @date 2015年12月3日
+	 */
+	public static void populate(Object entity,Map<String,Object> map){
+		for(Entry<String, Object> entry : map.entrySet()){
+			SetProperty(entity, entry.getKey(), entry.getValue());
+		}
+	}
+	
+	/**
+	 * 为Object赋值
+	 * @param entity
+	 * @param Key
+	 * @param Value
+	 * @author huangzhiqian
+	 * @date 2015年12月3日
+	 */
+	public static void SetProperty(Object entity, String Key, Object Value){  
+		try{
+			Class<?> clazz = entity.getClass();  
+			Method[] methods = clazz.getMethods();  
+			for (Method cc : methods) {  
+				String name = cc.getName();  
+				if (name.startsWith("set")) {  
+					Class<?>[] type = cc.getParameterTypes();  
+					if (type.length == 1) {  
+						String ParamName = Character.toLowerCase(name.charAt(3))+ name.substring(4);
+						if(!ParamName.equals(Key)){
+							continue;
+						}
+						String ParamType=type[0].getName();  
+						if ("java.lang.String".equals(ParamType)) {  
+							cc.invoke(entity,new Object[] {Value});  
+						} else if ("java.lang.Integer".equals(ParamType)||"int".equals(ParamType)) {  
+							cc.invoke(entity,new Object[] {Integer.parseInt(Value.toString())});  
+						} else if ("java.util.Date".equals(ParamType)) {  
+							cc.invoke(entity,new SimpleDateFormat("yyyy-MM-dd").parse(Value.toString()));//可自定义  
+						} else if ("java.lang.Boolean".equals(ParamType)) {  
+							cc.invoke(entity, new Object[] {Boolean.valueOf(Value.toString())});  
+						} else if ("java.lang.Long".equals(ParamType)) {
+							
+						}  
+					}  
+				}  
+				
+			}  
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+    }  
+	
 	
 }

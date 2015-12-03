@@ -29,5 +29,34 @@ $.exportExcel = function exportExcel(opt){
 		
 	}
 	
+}
+
+$.importExcel = function importExcel(opt){
+	parent.$.modalDialog({
+		title : 'Excel导入',
+		width : 400,
+		height : 200,
+		href : opt.url,
+		buttons : [ {
+			id:'btn-excel-ok',
+			text : '确定',
+			width : 100 ,
+			handler :function(){
+				if(opt.datagrid){
+					parent.$.modalDialog.dg=opt.datagrid;
+				}
+			}
+		}],
+		onLoad:function(){
+			$("#excel-clazz").val(opt.clazz);
+			$("#excel-method").val(opt.method);
+			$("#excel-modual").val(opt.clazz);
+			$("#excel-tn").val(opt.clazz);
+			$("#excel-pojo").val(opt.pojo);
+		}
+	});
+	
+	
+	
 	
 }

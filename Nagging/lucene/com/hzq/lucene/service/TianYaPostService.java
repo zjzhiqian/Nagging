@@ -1,6 +1,7 @@
 package com.hzq.lucene.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.hzq.common.entity.Grid;
 import com.hzq.common.entity.QueryCondition;
@@ -39,5 +40,7 @@ public interface TianYaPostService {
 	 * @param post
 	 */
 	void add(TaoBaoPost post);
-
+	
+	
+	Map<String,Object> importExcel(List<TianYaPost> posts);
 }
