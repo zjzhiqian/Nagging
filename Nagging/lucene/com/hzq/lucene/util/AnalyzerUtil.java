@@ -20,9 +20,7 @@ import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
 import org.apache.lucene.analysis.tokenattributes.PositionIncrementAttribute;
 import org.apache.lucene.analysis.tokenattributes.TypeAttribute;
-
-import com.hzq.lucene.synonym.IKSynonymAnalyzer;
-import com.hzq.lucene.synonym.TxtSynonymEngine;
+import org.wltea.analyzer.lucene.IKAnalyzer;
 
 /**
  * 
@@ -75,7 +73,7 @@ public class AnalyzerUtil {
 	}
 	
 	public static void main(String[] args) {
-		Analyzer analyzer=new IKSynonymAnalyzer(new TxtSynonymEngine());
+		Analyzer analyzer=new IKAnalyzer();
 		String rs=AnalyzerUtil.displayAllTokenInfo("姓名", analyzer);
 		System.out.println(rs);
 	}
