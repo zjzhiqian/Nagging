@@ -33,7 +33,7 @@ import com.hzq.common.base.BaseController;
 import com.hzq.common.entity.Grid;
 import com.hzq.common.entity.Json;
 import com.hzq.common.entity.QueryCondition;
-import com.hzq.common.util.CommonUtils;
+import com.hzq.common.util.Utils;
 import com.hzq.common.util.SaltGenerator;
 import com.hzq.system.annotation.Log;
 import com.hzq.system.constant.Constant;
@@ -113,7 +113,7 @@ public class SysUserController extends BaseController {
 	@RequiresPermissions("user:query")
 	@ResponseBody
 	public Grid<SysUser> showUsers(HttpServletRequest request) {
-		QueryCondition condition = CommonUtils.parseRequestToCondition(request);
+		QueryCondition condition = Utils.parseRequestToCondition(request);
 		Grid<SysUser> rs = sysUserService.getDataGridResult(condition);
 		return rs;
 	}

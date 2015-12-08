@@ -30,10 +30,6 @@
   		jQuery.ajaxSetup({
   			type : 'POST',
   			statusCode : {
-  				/* 900: function(){
-  					alert("用户登录数量超过系统限制！");
-    				top.location.href="login";
-  				}, */
   				401: function(){
   					$.messager.alert("错误","未登录！","error");
   					top.location.href="${ctx}/login";
@@ -60,11 +56,6 @@
   		    }
   		});
 	
-		
-  		
-  		
-  		
-  		
 	
 		function loading(msg){
 			var text="提交中....";
@@ -98,23 +89,4 @@
 			});
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 </script>		
-
-
-
-

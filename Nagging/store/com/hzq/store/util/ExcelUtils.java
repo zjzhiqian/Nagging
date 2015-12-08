@@ -32,7 +32,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.hzq.common.entity.QueryCondition;
-import com.hzq.common.util.CommonUtils;
+import com.hzq.common.util.Utils;
 
 public class ExcelUtils {
 	public final static Map<String, String> FILE_TYPE_MAP = new HashMap<String, String>();
@@ -83,7 +83,7 @@ public class ExcelUtils {
 		// 数据
 		for (int rowNum = 0; rowNum < list.size(); rowNum++) { // 一条数据
 			T obj = list.get(rowNum);
-			Map<String, Object> dataMap = CommonUtils.describe(obj, true);
+			Map<String, Object> dataMap = Utils.describe(obj, true);
 			// 所有字段这样都是String的
 			HSSFRow row = sheet.createRow(rowNum + 1);
 			int cellNum = 0;

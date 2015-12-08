@@ -33,7 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.hzq.common.entity.Grid;
 import com.hzq.common.entity.QueryCondition;
-import com.hzq.common.util.CommonUtils;
+import com.hzq.common.util.Utils;
 import com.hzq.common.util.SpringContextUtils;
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.service.TianYaPostService;
@@ -67,7 +67,7 @@ public class ExcelController {
 	 */
 	@RequestMapping(value="extractExcel",method=RequestMethod.POST)
 	public ResponseEntity<byte[]> extractExcel(HttpServletRequest req) throws IOException{
-		QueryCondition condition=CommonUtils.parseRequestToCondition(req);
+		QueryCondition condition=Utils.parseRequestToCondition(req);
 		Grid<TianYaPost> posts=tianYaPostService.getDataGridResult(condition);
 		List<TianYaPost> list=posts.getRows();
         return ExcelUtils.Exeport(list,condition);
@@ -119,7 +119,7 @@ public class ExcelController {
 				for(Map<String,Object> map:listMap){
 					bean=clazz.newInstance();
 //					BeanUtils.populate(bean, map);
-					CommonUtils.populate(bean, map);
+					Utils.populate(bean, map);
 					addBeanList.add(bean);
 				}
 				try{

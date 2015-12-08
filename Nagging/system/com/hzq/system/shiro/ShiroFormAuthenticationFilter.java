@@ -31,7 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hzq.common.util.AESUtil;
 import com.hzq.common.util.AjaxUtil;
-import com.hzq.common.util.CommonUtils;
+import com.hzq.common.util.Utils;
 import com.hzq.system.constant.Constant;
 import com.hzq.system.entity.ShiroUser;
 import com.hzq.system.service.SysUserService;
@@ -41,7 +41,7 @@ import com.hzq.system.service.SysUserService;
  * 
  * @author hzq
  *
- *         2015年9月1日 下午9:59:27
+ * 2015年9月1日 下午9:59:27
  */
 
 public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
@@ -198,7 +198,7 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
 		shirouser.setSessionId(AESUtil.encrypt(sessionId.toString()));
 		
 		
-		String lastIp=CommonUtils.getIP((HttpServletRequest) request);
+		String lastIp=Utils.getIP((HttpServletRequest) request);
 		sysUserService.updateUserForLogin(shirouser.getId(),lastIp);
 		SecurityUtils.getSubject().getSession().setAttribute("user", shirouser);
 

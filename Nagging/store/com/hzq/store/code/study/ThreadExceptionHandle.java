@@ -9,7 +9,7 @@
  * -------------------------------------------------------------------------
  * 2015年11月27日 huangzhiqian 创建版本
  */
-package com.hzq.test.a;
+package com.hzq.store.code.study;
 
 import java.io.IOException;
 import java.lang.Thread.UncaughtExceptionHandler;

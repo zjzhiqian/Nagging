@@ -43,22 +43,6 @@ public class TreeUtil {
 		return newTreeDataList;
 	}
 	
-	
-	
-/*	public  static List<SysPermission> getChildrenPermission(String pid, List<SysPermission> permissions) {
-		List<SysPermission> newTreeDataList = new ArrayList<SysPermission>();
-		for (SysPermission p : permissions) {
-			if (p.getPid() == null)
-				continue;
-			if (p.getPid().equals(pid)) {
-				newTreeDataList.add(p);
-				newTreeDataList.addAll(getChildrenPermission(p.getId() + "", permissions));
-				
-			}
-		}
-		return newTreeDataList;
-	}*/
-	
 	/**
 	 * 获取指定节点所有子节点的id
 	 * @param pid

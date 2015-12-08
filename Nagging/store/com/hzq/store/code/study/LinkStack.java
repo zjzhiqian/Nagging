@@ -9,7 +9,7 @@
  * -------------------------------------------------------------------------
  * 2015年10月6日 huangzhiqian 创建版本
  */
-package com.hzq.test.generic;
+package com.hzq.store.code.study;
 /**
  * 
  * 

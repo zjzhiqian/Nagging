@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hzq.common.entity.Grid;
 import com.hzq.common.entity.Json;
 import com.hzq.common.entity.QueryCondition;
-import com.hzq.common.util.CommonUtils;
+import com.hzq.common.util.Utils;
 import com.hzq.lucene.core.TYDataQueries;
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.service.TianYaPostService;
@@ -36,7 +36,7 @@ public class TYPostController {
 	@RequiresPermissions("lucene:tianyapostquery")
 	@ResponseBody
 	public Grid<TianYaPost>  getPostDaTa(HttpServletRequest request){
-		QueryCondition condition = CommonUtils.parseRequestToCondition(request);
+		QueryCondition condition = Utils.parseRequestToCondition(request);
 		setSortForcondition(request,condition);
 		Long time=System.currentTimeMillis();
 		Grid<TianYaPost> rs = tianYaPostService.getDataGridResult(condition);
@@ -49,7 +49,7 @@ public class TYPostController {
 	@RequiresPermissions("lucene:tianyapostquery")
 	@ResponseBody
 	public Grid<TianYaPost> getPostDaTaByLucene(HttpServletRequest request,@PathVariable("id") String type){
-		QueryCondition condition = CommonUtils.parseRequestToCondition(request);
+		QueryCondition condition = Utils.parseRequestToCondition(request);
 		setSortForcondition(request, condition);
 		Grid<TianYaPost> rs = TYDataQueries.getDataGridResult(condition,type);
 		return rs;

@@ -15,10 +15,8 @@ public class ClearShiroCache {
 	
 	@RequestMapping("/clearShiroCache")
 	public String clearShiroCache(){
-		
 		//清除缓存，将来正常开发要在service调用customRealm.clearCached()
 		shiroRealm.clearCached();
-		
 		return "success";
 	}
 

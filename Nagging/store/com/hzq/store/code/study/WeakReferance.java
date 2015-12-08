@@ -9,7 +9,7 @@
  * -------------------------------------------------------------------------
  * 2015年11月27日 huangzhiqian 创建版本
  */
-package com.hzq.test.a;
+package com.hzq.store.code.study;
 
 import java.lang.ref.WeakReference;
 import java.util.Map;
@@ -20,7 +20,7 @@ import java.util.WeakHashMap;
  * 
  * @author huangzhiqian
  */
-public class ReferenceTest {
+public class WeakReferance {
 	static void StrongReference() {
 		Object object = new Object();
 		// 通过赋值创建 StrongReference

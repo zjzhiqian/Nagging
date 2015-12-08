@@ -37,7 +37,7 @@ public class ShiroRealm extends AuthorizingRealm {
 	
 	@Override
 	public void setName(String name) {
-		super.setName("shiroRealm");
+		super.setName("DBRealm");
 	}
 	/**
 	 * 认证回调函数,登录时调用.

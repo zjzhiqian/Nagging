@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hzq.common.entity.Grid;
 import com.hzq.common.entity.QueryCondition;
-import com.hzq.common.util.CommonUtils;
+import com.hzq.common.util.Utils;
 import com.hzq.lucene.core.TBDataQueries;
 import com.hzq.lucene.core.TYDataQueries;
 import com.hzq.lucene.entity.TaoBaoPost;
@@ -58,7 +58,7 @@ public class QueryController {
 	@RequestMapping(value="easyquery/{id}",method=RequestMethod.POST)
 	@ResponseBody
 	public Grid<TianYaPost> getPostDadaTYByLucene(HttpServletRequest request,@PathVariable("id") String type){
-		QueryCondition condition = CommonUtils.parseRequestToCondition(request);
+		QueryCondition condition = Utils.parseRequestToCondition(request);
 		Grid<TianYaPost> rs = TYDataQueries.getDataGridResult(condition,type);
 		return rs;
 	}
@@ -101,7 +101,7 @@ public class QueryController {
 	@RequestMapping(value="complexquery/{type}",method=RequestMethod.POST)
 	@ResponseBody
 	public Grid<TaoBaoPost> getPostDadaTBByLucene(HttpServletRequest request,@PathVariable("type") String type){
-		QueryCondition condition = CommonUtils.parseRequestToCondition(request);
+		QueryCondition condition = Utils.parseRequestToCondition(request);
 		Grid<TaoBaoPost> rs = TBDataQueries.getDataGridResult(condition,type);
 		return rs;
 	}

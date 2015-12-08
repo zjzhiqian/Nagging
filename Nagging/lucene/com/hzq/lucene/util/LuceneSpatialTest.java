@@ -108,6 +108,7 @@ public class LuceneSpatialTest {
 		//根据SpatialArgs参数创建过滤器
 		Filter filter = strategy.makeFilter(args);
 		//开始搜索
+		@SuppressWarnings("deprecation")
 		TopDocs docs = indexSearcher.search(new MatchAllDocsQuery(), filter,10, idSort);
 		
 		Document doc1 = indexSearcher.doc(docs.scoreDocs[0].doc);

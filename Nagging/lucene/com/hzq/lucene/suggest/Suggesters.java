@@ -24,7 +24,7 @@ import org.apache.lucene.search.suggest.Lookup.LookupResult;
 import org.apache.lucene.search.suggest.analyzing.AnalyzingInfixSuggester;
 import org.apache.lucene.util.BytesRef;
 
-import com.hzq.common.util.CommonUtils;
+import com.hzq.common.util.Utils;
 import com.hzq.lucene.entity.TaoBaoPost;
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.util.LuceneUtil;
@@ -107,7 +107,7 @@ public class Suggesters {
 				//从payload中反序列化出Post对象
 				BytesRef bytesRef = result.payload;
 				InputStream in = new ByteArrayInputStream(bytesRef.bytes);
-				String url = CommonUtils.deSerialize(in,String.class);
+				String url = Utils.deSerialize(in,String.class);
 				map.put("key", result.highlightKey);
 				map.put("url", url);
 				map.put("time", System.currentTimeMillis()-time1);
@@ -143,7 +143,7 @@ public class Suggesters {
 				//从payload中反序列化出Post对象
 				BytesRef bytesRef = result.payload;
 				InputStream in = new ByteArrayInputStream(bytesRef.bytes);
-				String url = CommonUtils.deSerialize(in,String.class);
+				String url = Utils.deSerialize(in,String.class);
 				map.put("key", result.highlightKey);
 				map.put("url", url);
 				map.put("time", System.currentTimeMillis()-time1);

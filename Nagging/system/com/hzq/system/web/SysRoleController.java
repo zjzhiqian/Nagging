@@ -35,7 +35,7 @@ import com.hzq.common.entity.Grid;
 import com.hzq.common.entity.Json;
 import com.hzq.common.entity.MenuTree;
 import com.hzq.common.entity.QueryCondition;
-import com.hzq.common.util.CommonUtils;
+import com.hzq.common.util.Utils;
 import com.hzq.system.entity.ComboRole;
 import com.hzq.system.entity.ShiroUser;
 import com.hzq.system.entity.SysPermission;
@@ -69,7 +69,7 @@ public class SysRoleController extends BaseController{
 	@RequiresPermissions("role:query")
 	@ResponseBody
 	public Grid<SysRole> getRoles(HttpServletRequest request){
-			QueryCondition con=CommonUtils.parseRequestToCondition(request);
+			QueryCondition con=Utils.parseRequestToCondition(request);
 			Grid<SysRole> grid=sysRoleService.getDataGridResult(con);
 		return grid;
 	}

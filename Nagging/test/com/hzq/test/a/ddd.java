@@ -32,7 +32,7 @@ import org.apache.http.util.EntityUtils;
 public class ddd {
 	private static CloseableHttpClient httpclient = null;
 	
-	private static final String url = "http://ismeitian.com/account/captcha/5200";
+	private static final String url = "http://202.121.199.138/nature/time/AddTime.asp?Timestamp=1449540489167";
 	private static final String COOKIE_VAL = "";
 	static{
 		httpclient = HttpClients.custom().build();
@@ -40,7 +40,9 @@ public class ddd {
 	
 	
 	public static void main(String[] args) {
+		for(int i=0;i<120;i++){
 			sendHttp();
+		}
 	}
 
 	private static void sendHttp(){
@@ -72,17 +74,19 @@ public class ddd {
 	
 	
 	private static void setHeadersForGet(HttpGet httpget) {
+		httpget.addHeader(new BasicHeader("Accept","*/*"));
 		httpget.addHeader(new BasicHeader("accept-encoding","gzip, deflate, sdch"));
 		httpget.addHeader(new BasicHeader("accept-language","zh-CN,zh;q=0.8"));
 		httpget.addHeader(new BasicHeader("Cache-Control","no-cache"));
 		httpget.addHeader(new BasicHeader("Connection","keep-alive"));
 		httpget.addHeader(new BasicHeader("cookie",COOKIE_VAL));
-		httpget.addHeader(new BasicHeader("Host","ismeitian.com"));
+		httpget.addHeader(new BasicHeader("Host","202.121.199.138"));
 		httpget.addHeader(new BasicHeader("Pragma","no-cache"));
-		httpget.addHeader(new BasicHeader("Upgrade-Insecure-Requests","1"));
+		httpget.addHeader(new BasicHeader("Referer","http://202.121.199.138/nature/time/WEBPAGE.ASP"));
 		httpget.addHeader(new BasicHeader("user-agent","Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36"));
-		
 	}
+	
 
 }
+
 

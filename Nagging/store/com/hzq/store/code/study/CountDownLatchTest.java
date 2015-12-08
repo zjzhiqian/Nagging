@@ -9,7 +9,7 @@
  * -------------------------------------------------------------------------
  * 2015年10月29日 huangzhiqian 创建版本
  */
-package com.hzq.test.a;
+package com.hzq.store.code.study;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,16 +20,17 @@ import java.util.concurrent.CountDownLatch;
  * 
  * @author huangzhiqian
  */
-public class CountDownLatchDemo {
-	final static SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+public class CountDownLatchTest {
+	
     public static void main(String[] args) throws InterruptedException {
     	CountDownLatch latch=new CountDownLatch(2);//两个工人的协作
-    	Worker worker1=new Worker("zhang san", 5000, latch);
-    	Worker worker2=new Worker("li si", 8000, latch);
+    	Worker worker1=new Worker("Worker1", 3000, latch);
+    	Worker worker2=new Worker("Worker2", 6000, latch);
     	worker1.start();//
     	worker2.start();//
     	latch.await();//等待所有工人完成工作
-        System.out.println("all work done at "+sdf.format(new Date()));
+    	SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println("ALL FINISHED  "+sdf.format(new Date()));
 	}
     
     
@@ -43,9 +44,10 @@ public class CountDownLatchDemo {
     		 this.latch=latch;
     	}
     	public void run(){
-    		System.out.println("Worker "+workerName+" do work begin at "+sdf.format(new Date()));
+    		SimpleDateFormat sdf1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    		System.out.println(workerName+" BEGIN  "+sdf1.format(new Date()));
     		doWork();//工作了
-    		System.out.println("Worker "+workerName+" do work complete at "+sdf.format(new Date()));
+    		System.out.println(workerName+" FINISH "+sdf1.format(new Date()));
     		latch.countDown();//工人完成工作，计数器减一
 
     	}

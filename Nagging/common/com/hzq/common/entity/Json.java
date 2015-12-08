@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  * @author hzq
- *ajax返回通用json
+ * ajax返回通用json
  * 2015年9月3日 下午11:27:36 
  */
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
