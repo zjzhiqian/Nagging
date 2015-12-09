@@ -49,7 +49,7 @@ public class WeakReferance {
 	}
 	
 	static void commonMap() {
-		Map commonMap = new HashMap();
+		Map<Object, Object> commonMap = new HashMap<Object, Object>();
 		Object key = new Object();
 		Object value = new Object();
 		commonMap.put(key, value);
