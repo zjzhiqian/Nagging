@@ -1,4 +1,4 @@
-package com.hzq.lucene.util;
+package com.hzq.store.study.lucene;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;

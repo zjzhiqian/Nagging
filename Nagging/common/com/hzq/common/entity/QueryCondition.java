@@ -17,7 +17,7 @@ import java.util.Map;
 
 /**
  * 
- * 
+ * 查询条件List
  * @author huangzhiqian
  */
 public class QueryCondition implements Serializable{

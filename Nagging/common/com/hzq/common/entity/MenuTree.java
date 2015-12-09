@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  * @author hzq
- *easy-ui MenuTree
+ * easy-ui MenuTree
  * 2015年9月5日 下午10:31:11 
  */
 public class MenuTree implements Serializable{

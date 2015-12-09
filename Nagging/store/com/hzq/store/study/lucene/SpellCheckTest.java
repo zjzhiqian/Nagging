@@ -1,4 +1,4 @@
-package com.hzq.test.a;
+package com.hzq.store.study.lucene;
 
 import java.io.IOException;
 import java.nio.file.Paths;

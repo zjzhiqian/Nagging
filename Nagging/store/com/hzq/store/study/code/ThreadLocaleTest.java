@@ -9,7 +9,7 @@
  * -------------------------------------------------------------------------
  * 2015年11月30日 huangzhiqian 创建版本
  */
-package com.hzq.store.code.study;
+package com.hzq.store.study.code;
 
 import java.util.Random;
 import java.util.concurrent.ExecutorService;

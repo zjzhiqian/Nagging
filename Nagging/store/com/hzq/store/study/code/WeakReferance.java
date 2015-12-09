@@ -9,9 +9,10 @@
  * -------------------------------------------------------------------------
  * 2015年11月27日 huangzhiqian 创建版本
  */
-package com.hzq.store.code.study;
+package com.hzq.store.study.code;
 
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -44,8 +45,25 @@ public class WeakReferance {
 		System.gc();
 		// 一旦没有指向 referent 的强引用, WeakReference 在 GC 后会被自动回收
 		System.out.println(null == referent.get());
-		/************** false **********************/
+		/************** true **********************/
 	}
+	
+	static void commonMap() {
+		Map commonMap = new HashMap();
+		Object key = new Object();
+		Object value = new Object();
+		commonMap.put(key, value);
+		System.out.println(commonMap.containsValue(value));
+		key = null;
+		System.gc();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println(commonMap.containsValue(value));
+	}
+	
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	static void weakMap() {
@@ -74,6 +92,8 @@ public class WeakReferance {
 		StrongReference();
 		System.out.println("**********************");
 		WeakReference();
+		System.out.println("**********************");
+		commonMap();
 		System.out.println("**********************");
 		weakMap();
 	}
