@@ -32,12 +32,10 @@ import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
 
+import com.hzq.lucene.constant.ConstantLucene;
 import com.hzq.lucene.entity.TaoBaoPost;
 import com.hzq.lucene.entity.TianYaPost;
-import com.hzq.lucene.pinyin.IKPinYinSynonymAnalyzer;
-import com.hzq.lucene.synonym.TxtSynonymEngine;
 import com.hzq.lucene.util.LuceneUtil;
-import com.hzq.lucene.constant.ConstantLucene;
 
 /**
  * 
@@ -46,7 +44,9 @@ import com.hzq.lucene.constant.ConstantLucene;
  * @author huangzhiqian
  */
 public class IndexCreator {
-
+	
+	
+	
 	/**
 	 * 生成单目录索引
 	 * 
@@ -56,7 +56,7 @@ public class IndexCreator {
 	 * @date 2015年11月18日
 	 */
 	public static boolean ToOnePath(List<TianYaPost> posts) {
-		IndexWriter writer = LuceneUtil.getIndexWriter(ConstantLucene.Index_TianYaPost_Path,new IKPinYinSynonymAnalyzer(new TxtSynonymEngine()));
+		IndexWriter writer = LuceneUtil.getIndexWriter(ConstantLucene.Index_TianYaPost_Path,LuceneUtil.getCreateAnalyzer());
 		try {
 			indexDoc(writer, posts);
 		} catch (IOException e) {
@@ -67,6 +67,27 @@ public class IndexCreator {
 		}
 		return true;
 	}
+	
+	/**
+	 * 生成单目录索引TB
+	 * @param posts
+	 * @return
+	 * @author huangzhiqian
+	 * @date 2015年11月23日
+	 */
+	public static boolean ToOnePathForTB(List<TaoBaoPost> posts) {
+		IndexWriter writer = LuceneUtil.getIndexWriter(ConstantLucene.Index_TaoBaoPost_Path,LuceneUtil.getCreateAnalyzer());
+		try {
+			indexDocForTB(writer, posts);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			LuceneUtil.closeWriter(writer);
+		}
+		return true;
+	}
+	
 
 	/**
 	 * 生成多目录索引
@@ -105,25 +126,7 @@ public class IndexCreator {
 		return true;
 	}
 
-	/**
-	 * 
-	 * @param posts
-	 * @return
-	 * @author huangzhiqian
-	 * @date 2015年11月23日
-	 */
-	public static boolean ToOnePathForTB(List<TaoBaoPost> posts) {
-		IndexWriter writer = LuceneUtil.getIndexWriter(ConstantLucene.Index_TaoBaoPost_Path);
-		try {
-			indexDocForTB(writer, posts);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		} finally {
-			LuceneUtil.closeWriter(writer);
-		}
-		return true;
-	}
+
 
 	
 	
@@ -294,7 +297,7 @@ public class IndexCreator {
 		@Override
 		public Boolean call() throws Exception {
 			countDownLatch1.await();
-			IndexWriter writer = LuceneUtil.getIndexWriter(path);
+			IndexWriter writer = LuceneUtil.getIndexWriter(path,LuceneUtil.getCreateAnalyzer());
 			try {
 				if(posts!=null && posts.size()>0){
 					if(posts.get(0) instanceof TianYaPost ){
@@ -315,7 +318,6 @@ public class IndexCreator {
 
 	}
 	
-
 	/**
 	 * 拆分list
 	 * 
@@ -341,5 +343,5 @@ public class IndexCreator {
 		}
 		return rsList;
 	}
-
+	
 }

@@ -1,7 +1,6 @@
 package com.hzq.lucene.core;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -11,9 +10,6 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.document.Document;
-import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.index.MultiReader;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.flexible.standard.QueryParserUtil;
@@ -26,85 +22,14 @@ import org.apache.lucene.search.SortField;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.highlight.Highlighter;
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
-import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.FSDirectory;
 
 import com.hzq.common.entity.Grid;
 import com.hzq.common.entity.Json;
 import com.hzq.common.entity.QueryCondition;
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.util.LuceneUtil;
-import com.hzq.lucene.constant.ConstantLucene;
 
 public class TYDataQueries {
-	private static Directory TianYaderectory = null;
-	private static DirectoryReader TianYareader = null;
-	private static MultiReader TianYaMultireader = null;
-	static {
-		try {
-			TianYaderectory = FSDirectory.open(Paths.get(ConstantLucene.Index_TianYaPost_Path));
-			TianYareader = DirectoryReader.open(TianYaderectory);
-			setMultiReader();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * 初始化多目录索引 
-	 * @author huangzhiqian
-	 * @date 2015年11月18日
-	 */
-	private static void setMultiReader(){
-		try {
-			
-			IndexReader[] readers=new IndexReader[ConstantLucene.Index_TianYaPost_MultiPathNum];
-			IndexReader reader=null;
-			for(int i=0;i<ConstantLucene.Index_TianYaPost_MultiPathNum;i++){
-				Directory dic=FSDirectory.open(Paths.get(ConstantLucene.Index_TianYaPost_MultiPath+(i+1)));
-				reader=DirectoryReader.open(dic);
-				readers[i]=reader;
-			}
-			TianYaMultireader=new MultiReader(readers);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * 获取天涯论坛Searcher(单目录)
-	 * 
-	 * @return
-	 */
-	private static IndexSearcher getTianYaSearcherOnePath() {
-		try {
-			if (TianYareader == null) {
-				TianYareader = DirectoryReader.open(TianYaderectory);
-			}
-			return new IndexSearcher(TianYareader);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("获取IndexSearcher出错");
-		}
-	}
-	
-	/**
-	 * 获取天涯论坛Searcher(多目录)
-	 * 
-	 * @return
-	 */
-	private static IndexSearcher getTianYaSearcherMultiPath() {
-		try {
-			if (TianYaMultireader == null) {
-				setMultiReader();
-			}
-			return new IndexSearcher(TianYaMultireader);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("获取IndexSearcher出错");
-		}
-	}
-
 	/**
 	 * 天涯论坛的查询
 	 * 
@@ -119,10 +44,9 @@ public class TYDataQueries {
 		
 		IndexSearcher searcher = null;
 		if("1".equals(type)){
-			searcher=getTianYaSearcherOnePath();
+			searcher=LuceneUtil.getTYSearcherOnePath();
 		}else if("2".equals(type)){
-			//TODO 可以开启多个线程进行单目录查询 Union查询结果来再次提高查询效率  那排序怎么处理?
-			searcher=getTianYaSearcherMultiPath();
+			searcher=LuceneUtil.getTYSearcherMulti();
 		}else{
 			return null;
 		}
@@ -135,7 +59,6 @@ public class TYDataQueries {
 			fieldList.add("content");
 			String content = QueryParserUtil.escape((String) map.get("content"));
 			queryList.add(content.toLowerCase());
-
 			FieldCount++;
 		}
 		if (map.containsKey("title")) {
@@ -193,7 +116,7 @@ public class TYDataQueries {
 			rs.setO(new Json(true, System.currentTimeMillis() - time1 + ""));
 
 			// 高亮
-			Highlighter highlighter = LuceneUtil.createHighlighter(query, null, null, 200);
+			Highlighter highlighter = LuceneUtil.createHighlighter(query, null, null, 200,true);
 			ScoreDoc[] docs = tds.scoreDocs;
 			
 			for (ScoreDoc sd : docs) {
@@ -265,7 +188,7 @@ public class TYDataQueries {
 
 			if (StringUtils.isNotEmpty(doc.get("title"))) {
 				// title的高亮处理
-				TokenStream tokenStream = LuceneUtil.getIKSynonymAnalyzer().tokenStream("title", doc.get("title"));
+				TokenStream tokenStream = LuceneUtil.getCreateAnalyzer().tokenStream("title", doc.get("title"));
 				String result=highlighter.getBestFragment(tokenStream, doc.get("title"));
 				if (StringUtils.isEmpty(result)) {
 					result = doc.get("title");
@@ -276,7 +199,7 @@ public class TYDataQueries {
 			}
 			
 			if (StringUtils.isNotEmpty(doc.get("storedcontent"))) {
-				TokenStream tokenStream = LuceneUtil.getIKSynonymAnalyzer().tokenStream("storedcontent", doc.get("storedcontent"));
+				TokenStream tokenStream = LuceneUtil.getCreateAnalyzer().tokenStream("storedcontent", doc.get("storedcontent"));
 				String result = highlighter.getBestFragment(tokenStream, doc.get("storedcontent"));
 				if (StringUtils.isEmpty(result)) {
 					result = doc.get("storedcontent");

@@ -36,5 +36,7 @@ https://github.com/daydayfantasy/ansj_seg
 
 
 
+Exception in thread "main" org.apache.lucene.search.highlight.InvalidTokenOffsetsException: Token jif exceeds length of provided text sized 14
 
+@throws InvalidTokenOffsetsException thrown if any token's endOffset exceeds the provided text's length
 

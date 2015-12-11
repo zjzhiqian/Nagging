@@ -9,10 +9,12 @@ import org.springframework.stereotype.Service;
 
 import com.hzq.common.base.BaseService;
 import com.hzq.common.entity.Grid;
+import com.hzq.common.entity.Json;
 import com.hzq.common.entity.QueryCondition;
 import com.hzq.lucene.dao.TianYaPostMapper;
 import com.hzq.lucene.entity.TaoBaoPost;
 import com.hzq.lucene.entity.TianYaPost;
+import com.hzq.lucene.job.LuceneNRTJob;
 import com.hzq.lucene.service.TianYaPostService;
 
 @Service
@@ -66,6 +68,17 @@ public class TianYaPostServiceImpl extends BaseService<TianYaPost> implements Ti
 		}
 		map.put("flag", true);
 		return map;
+	}
+
+	@Override
+	
+	
+	public Json addTianYaPost(TianYaPost post) {
+		if(insert(post)){
+			LuceneNRTJob.posts.push(post);
+			return new Json(true,"添加成功");
+		}
+		return new Json(false);
 	}
 
 	

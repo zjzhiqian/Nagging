@@ -207,7 +207,7 @@ public class TBDataQueries {
 			rs.setO(new Json(true, System.currentTimeMillis() - time1 + ""));
 
 			// 高亮
-			Highlighter highlighter = LuceneUtil.createHighlighter(query, null, null, 50);
+			Highlighter highlighter = LuceneUtil.createHighlighter(query, null, null, 50,true);
 			ScoreDoc[] docs = tds.scoreDocs;
 			
 			for (ScoreDoc sd : docs) {
@@ -279,7 +279,7 @@ public class TBDataQueries {
 
 			if (StringUtils.isNotEmpty(doc.get("title"))) {
 				// title的高亮处理
-				TokenStream tokenStream = LuceneUtil.getIKSynonymAnalyzer().tokenStream("title", doc.get("title"));
+				TokenStream tokenStream = LuceneUtil.getCreateAnalyzer().tokenStream("title", doc.get("title"));
 				String result=highlighter.getBestFragment(tokenStream, doc.get("title"));
 				if (StringUtils.isEmpty(result)) {
 					result = doc.get("title");
@@ -288,7 +288,7 @@ public class TBDataQueries {
 			}
 			if (StringUtils.isNotEmpty(doc.get("storedcontent"))) {
 				//content的高亮处理
-				TokenStream tokenStream = LuceneUtil.getIKSynonymAnalyzer().tokenStream("storedcontent", doc.get("storedcontent"));
+				TokenStream tokenStream = LuceneUtil.getCreateAnalyzer().tokenStream("storedcontent", doc.get("storedcontent"));
 				String result = highlighter.getBestFragment(tokenStream, doc.get("storedcontent"));
 				if (StringUtils.isEmpty(result)) {
 					result = doc.get("storedcontent");
@@ -314,20 +314,5 @@ public class TBDataQueries {
 		return post;
 	}
 	
-	
-	
-	public static void main(String[] args) {
-		QueryCondition condition=new QueryCondition();
-		condition.getCondition().put("rows", 20);
-		condition.getCondition().put("page", "1");
-		condition.getCondition().put("title", "淘宝");
-		condition.getCondition().put("content", "淘宝");
-		Grid<TaoBaoPost> grid=getDataGridResult(condition,"2");
-		System.out.println(grid.getTotal());
-		for(TaoBaoPost p:grid.getRows()){
-			System.out.println(p.getTitle());
-		}
-		System.out.println(grid.getO());
-	}
 }
 

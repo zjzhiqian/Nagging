@@ -230,22 +230,5 @@
 	
 	<div id="result">
 	</div>
-<!-- 
-	<div id="count">
-		为你找到相关结果<span>32058</span>个
-	</div>
-	<div class="content">
-		<div class="title">
-			<a href="">现在已到了相互砸饭碗的时代！</a>
-			<div class="info">
-				<div >发帖人:小是是</div>
-				<div >发帖时间:2015-05-10</div>
-			</div>
-			<div class="detail">
-				内容 :的我我我我我我我我我我我我签订我我我签订的我我我我我我我我我我我我签订我我我签订签订我我我签订
-			</div>
-		</div>
-	</div>
- -->
 </body>
 </html>

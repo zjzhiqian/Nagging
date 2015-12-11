@@ -1,5 +1,7 @@
 package com.hzq.lucene.web;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
@@ -55,6 +57,24 @@ public class TYPostController {
 		return rs;
 	}
 		
+	@RequestMapping(value="addTianYaPost",method = RequestMethod.GET)
+	@ResponseBody
+	public Json AddPost(HttpServletRequest request){
+		TianYaPost post =new TianYaPost();
+		post.setContent("没有没有没有");
+		post.setTitle("没有没有没有");
+		post.setUrl("www.baidu.com");
+		post.setAdduserId("3");
+		post.setAdduserName("黄大人");
+		post.setAddTime(new Date());
+		post.setLastReplyTime(new Date());
+		post.setClick(9999L);
+		post.setReply(3L);
+		post.setIsBest("1");
+		return tianYaPostService.addTianYaPost(post);
+	}
+	
+	
 	/**
 	 * 根据request获得排序方式,放入condition
 	 * @param request
