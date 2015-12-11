@@ -31,10 +31,7 @@ public class SaltGenerator {
 	 * @date 2015年9月2日
 	 */
 	private static byte[] generateSalt(int numBytes) {
-		Validate.isTrue(numBytes > 0,
-				"numBytes argument must be a positive integer (1 or larger)",
-				numBytes);
-
+		Validate.isTrue(numBytes > 0,"numBytes argument must be a positive integer (1 or larger)",numBytes);
 		byte[] bytes = new byte[numBytes];
 		random.nextBytes(bytes);
 		return bytes;
@@ -51,7 +48,7 @@ public class SaltGenerator {
 		return Hex.encodeHexString(input);
 	}
 	/**
-	 * 生产制定长度*2的盐 
+	 * 生产指定长度*2的盐 
 	 * @param saltlength
 	 * @return
 	 * @author huangzhiqian

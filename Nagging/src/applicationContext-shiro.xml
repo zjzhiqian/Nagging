@@ -85,12 +85,12 @@
 				/images/** = anon
 				/js/** = anon
 				/styles/** = anon
-				/validatecode.jsp = anon
+				/validatecode.jsp = anon  <!-- 验证码不需要拦截 -->
 				/ = anon
 				/kicked = anon
 				<!-- 退出url,shiro会自动清除session -->
 				/logout = logout
-				/**=authc
+				/**=authc <!-- 拦截其他所有资源 -->
 			</value>
 		</property>
 	</bean>

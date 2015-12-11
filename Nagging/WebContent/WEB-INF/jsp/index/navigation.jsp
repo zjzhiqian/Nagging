@@ -3,7 +3,7 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 
 
-<div id="acc" class="easyui-accordion" data-options="fit:true,border:false" style="margin-bottom: 30px">
+<div id="acc" class="easyui-accordion" data-options="fit:true,selected:false,border:false" style="margin-bottom: 30px">
 	 <c:forEach items="${navs }" var="per" varStatus="s" >
 	 	<div title="${per.operatename }" style="padding: 5px;" data-options="border:false,iconCls:'${per.auth}'">
 	 
