@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+.t1 { width:400px; }
+</style>
+<script>
+
+
+window.onload = function () {
+	var adiv = document.getElementsByTagName('div');
+	var iNow = null;
+	var iNew = null;
+	var t = 0;
+	var str = '';
+	var timer = null;
+	
+	iNew = new Date(2055,11,15,13,13,13); //11 是12月
+	clearInterval( timer );
+	timer = setInterval (function (){
+		iNow = new Date();
+		t = Math.floor( ( iNew - iNow ) / 1000 );
+		if ( t >= 0 ) {
+			str = Math.floor(t/86400)+'天'+Math.floor(t%86400/3600)+'时'+Math.floor(t%86400%3600/60)+'分'+t%60+'秒';
+			adiv[0].innerHTML = str;
+		} else {
+			clearInterval( timer );
+		}
+	}, 1000);
+};
+</script>
+</head>
+
+<body>
+
+距离下班还剩：<div></div>
+
+</body>
+</html>
+
