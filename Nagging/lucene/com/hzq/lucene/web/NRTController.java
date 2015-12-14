@@ -11,6 +11,7 @@
  */
 package com.hzq.lucene.web;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * 
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author huangzhiqian
  */
 @RequestMapping("lucene")
+@Controller
 public class NRTController {
+	@RequestMapping("NRT")
 	public String ShowNRTPage(){
 		return "lucene/nrt";
 	}

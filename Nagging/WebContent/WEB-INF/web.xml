@@ -33,7 +33,11 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-
+	
+	<!-- Server Listener -->
+	<listener>
+		<listener-class>com.hzq.system.listener.ServerListener</listener-class>
+	</listener>
 
 	<filter>
 		<filter-name>shiroFilter</filter-name>
@@ -54,11 +58,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<!-- siteMeshFilter -->
-	<!-- <filter> <filter-name>sitemeshFilter</filter-name> <filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class> 
-		</filter> <filter-mapping> <filter-name>sitemeshFilter</filter-name> <url-pattern>/*</url-pattern> 
-		</filter-mapping> -->
-
+	
 
 
 	<!-- Spring MVC -->

@@ -2,6 +2,8 @@ package com.hzq.lucene.util;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -117,7 +119,7 @@ public class LuceneUtil {
 		}
 	}
 
-	private static DirectoryReader TianYareader = null;
+	
 	private static IndexWriter TianYaWriter = null;
 	public static IndexWriter getTianYaWriterOne(){
 		if(TianYaWriter == null){
@@ -137,32 +139,44 @@ public class LuceneUtil {
 	 * 
 	 * @return
 	 */
+	private static final Lock searcherLock = new ReentrantLock();
+	private static DirectoryReader TianYareader = null;
+	private static IndexSearcher tianyaSearcher = null ;
 	public static IndexSearcher getTYSearcherOnePath() {
-		if (TianYareader == null) {
-			try {
-				TianYareader = DirectoryReader.open(getTianYaWriterOne(), false);
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new RuntimeException("获取Writer失败");
-			}
-		}
-
-		try {
-			return new IndexSearcher(TianYareader);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("获取IndexSearcher出错");
-		}
+		synchronized (searcherLock) {
+            try {
+                if(tianyaSearcher == null && TianYareader == null) {
+                	TianYareader = DirectoryReader.open(getTianYaWriterOne(), false);
+                	tianyaSearcher = new IndexSearcher(TianYareader);
+                } else if(tianyaSearcher != null && TianYareader != null && !TianYareader.isCurrent()) {
+                    //近实时
+                    DirectoryReader newDirReader = DirectoryReader.openIfChanged(TianYareader);
+                    tianyaSearcher = new IndexSearcher(newDirReader);
+                    TianYareader.close(); //释放旧资源
+                    TianYareader = newDirReader;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return tianyaSearcher;
+		
+//		if (TianYareader == null) {
+//			try {
+//				TianYareader = DirectoryReader.open(getTianYaWriterOne(), false);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//				throw new RuntimeException("获取Writer失败");
+//			}
+//		}
+//
+//		try {
+//			return new IndexSearcher(TianYareader);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			throw new RuntimeException("获取IndexSearcher出错");
+//		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -208,14 +222,20 @@ public class LuceneUtil {
 	 * @author huangzhiqian
 	 * @date 2015年12月11日
 	 */
+	private static Lock suggetorLock =new ReentrantLock();
 	public static AnalyzingInfixSuggester getQuerySuggester(String path) {
 		if (tianyaSuggester == null) {
 			try {
-				Directory indexDir = FSDirectory.open(Paths.get(path));
-				tianyaSuggester = new HighterInfixSuggester(indexDir, getCreateAnalyzer());
+				suggetorLock.lock();
+				if(tianyaSuggester == null){
+					Directory indexDir = FSDirectory.open(Paths.get(path));
+					tianyaSuggester = new HighterInfixSuggester(indexDir, getCreateAnalyzer());
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 				throw new RuntimeException("failure accured in create suggester");
+			}finally{
+				suggetorLock.unlock();
 			}
 		}
 		return tianyaSuggester;

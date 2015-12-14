@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hzq.common.base.BaseController;
 import com.hzq.common.entity.Grid;
 import com.hzq.common.entity.Json;
 import com.hzq.common.entity.QueryCondition;
@@ -20,10 +21,11 @@ import com.hzq.common.util.Utils;
 import com.hzq.lucene.core.TYDataQueries;
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.service.TianYaPostService;
+import com.hzq.system.entity.ShiroUser;
 
 @Controller
 @RequestMapping("lucene")
-public class TYPostController {
+public class TYPostController extends BaseController{
 	@Autowired
 	TianYaPostService tianYaPostService;
 	
@@ -57,19 +59,21 @@ public class TYPostController {
 		return rs;
 	}
 		
-	@RequestMapping(value="addTianYaPost",method = RequestMethod.GET)
+	@RequestMapping(value="addTianYaPost",method = RequestMethod.POST)
 	@ResponseBody
 	public Json AddPost(HttpServletRequest request){
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
 		TianYaPost post =new TianYaPost();
-		post.setContent("没有没有没有");
-		post.setTitle("没有没有没有");
-		post.setUrl("www.baidu.com");
-		post.setAdduserId("3");
-		post.setAdduserName("黄大人");
+		post.setContent(content);
+		post.setTitle(title);
+		post.setUrl("http://www.baidu.com");
+		ShiroUser shiroUser = getShiroUser();
+		post.setAdduserId(shiroUser.getId()+"");
+		post.setAdduserName(shiroUser.getUsername());
 		post.setAddTime(new Date());
 		post.setLastReplyTime(new Date());
-		post.setClick(9999L);
-		post.setReply(3L);
+		post.setLastReplyTime(new Date());
 		post.setIsBest("1");
 		return tianYaPostService.addTianYaPost(post);
 	}
