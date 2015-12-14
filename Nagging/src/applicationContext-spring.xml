@@ -100,7 +100,7 @@
             <value>doIndex</value>
         </property>
     </bean>
-    <!-- 定义触发时间 -->
+    <!-- LuceneNRT触发时间 -->
     <bean id="luceneTimer" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail">
             <ref bean="luceneTask"/>

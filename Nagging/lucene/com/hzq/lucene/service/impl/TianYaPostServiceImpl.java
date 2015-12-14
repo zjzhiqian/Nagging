@@ -3,6 +3,7 @@ package com.hzq.lucene.service.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -75,8 +76,14 @@ public class TianYaPostServiceImpl extends BaseService<TianYaPost> implements Ti
 	
 	public Json addTianYaPost(TianYaPost post) {
 		if(insert(post)){
-			LuceneNRTJob.posts.push(post);
-			return new Json(true,"添加成功");
+			Lock lock = LuceneNRTJob.getNrtlock();
+			lock.lock(); //索引添加过程很快,在这里lock不会有什么问题,如果非要优化,可以在异步线程中执行
+			try{
+				LuceneNRTJob.posts.push(post);
+				return new Json(true,"添加成功");
+			}finally{
+				lock.unlock();
+			}
 		}
 		return new Json(false);
 	}
