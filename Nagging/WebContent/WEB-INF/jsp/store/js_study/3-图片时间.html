@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+
+<script>
+
+window.onload = function () {
+	var str="";
+	
+	
+	var oBody = document.body;
+	var oP = document.getElementById('time');
+	var aImg = document.getElementsByTagName('img');
+	
+	setInterval( fnTime, 1000 );
+	
+	fnTime ();
+	
+	function fnTime () {
+	
+		var myTime = new Date();
+		var iHours = myTime.getHours();
+		var iMin = myTime.getMinutes();
+		var iSec = myTime.getSeconds();
+		var str = toTwo(iHours)+toTwo(iMin)+toTwo(iSec);    //122015
+		aImg[0].src = 'img/' + str.charAt(0) + '.JPG';
+		aImg[1].src = 'img/' + str.charAt(1) + '.JPG';
+		aImg[3].src = 'img/' + str.charAt(2) + '.JPG';
+		aImg[4].src = 'img/' + str.charAt(3) + '.JPG';
+		aImg[6].src = 'img/' + str.charAt(4) + '.JPG';
+		aImg[7].src = 'img/' + str.charAt(5) + '.JPG';
+	}
+};
+
+function toTwo ( n ) {
+	return n < 10 ?  '0' + n : '' + n;
+}
+
+</script>
+
+</head>
+
+<body>
+<img src="img/0.JPG" />
+<img src="img/0.JPG" />
+<img src="img/colon.JPG" />
+<img src="img/0.JPG" />
+<img src="img/0.JPG" />
+<img src="img/colon.JPG" />
+<img src="img/0.JPG" />
+<img src="img/0.JPG" />
+</body>
+</html>
