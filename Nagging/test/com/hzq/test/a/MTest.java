@@ -15,15 +15,12 @@ import java.io.IOException;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
-import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.Query;
-import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.highlight.CusHzqHighlighter;
 import org.apache.lucene.search.highlight.Formatter;
 import org.apache.lucene.search.highlight.Fragmenter;
-import org.apache.lucene.search.highlight.Highlighter;
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 import org.apache.lucene.search.highlight.QueryScorer;
 import org.apache.lucene.search.highlight.Scorer;
@@ -33,7 +30,6 @@ import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 import com.hzq.lucene.pinyin.IKPinYinSynonymAnalyzer;
 import com.hzq.lucene.synonym.TxtSynonymEngine;
 import com.hzq.lucene.util.AnalyzerUtil;
-import com.hzq.lucene.util.LuceneUtil;
 
 
 /**
@@ -47,7 +43,7 @@ public class MTest {
 		String text="教你六个方法拥有女主般的肌肤！";
 		Analyzer analyzer= new IKPinYinSynonymAnalyzer(new TxtSynonymEngine());
 		TokenStream tokenStream = analyzer.tokenStream("title",text);
-		
+		analyzer.close();
 		String rs=AnalyzerUtil.displayAllTokenInfo(text,new IKPinYinSynonymAnalyzer(new TxtSynonymEngine()));
 		
 		System.out.println(rs);
