@@ -7,13 +7,13 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -30,10 +30,14 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hzq.common.entity.QueryCondition;
 import com.hzq.common.util.Utils;
 
+@SuppressWarnings("unchecked")
+@Component
 public class ExcelUtils {
 	public final static Map<String, String> FILE_TYPE_MAP = new HashMap<String, String>();
 
@@ -44,13 +48,23 @@ public class ExcelUtils {
 
 	private static final Map<String, LinkedHashMap<String, String>> SYS_MAP = new HashMap<String, LinkedHashMap<String, String>>();
 	static {
-		List<String> titleList = Arrays.asList("内容", "超链接", "标题", "添加人", "最后回复时间");
-		List<String> fieldList = Arrays.asList("content", "url", "title", "adduserName", "lastReplyTime");
-		LinkedHashMap<String, String> gridMap = new LinkedHashMap<String, String>();
-		for (int i = 0; i < titleList.size(); i++) {
-			gridMap.put(titleList.get(i), fieldList.get(i));
+		
+		try{
+			//读取配置文件的Excel列名和字段的对应
+			Properties prop = new Properties(); 
+			InputStream in = ExcelUtils.class.getResourceAsStream("/excelJson.properties");   
+			prop.load(in);
+			ObjectMapper mapper = new ObjectMapper();
+			for(Object obj:prop.keySet()){
+				String key = obj.toString();
+				LinkedHashMap<String,String> gridMap=mapper.readValue(prop.getProperty(key), LinkedHashMap.class);
+				SYS_MAP.put(key, gridMap);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new RuntimeException("ExcelUtil初始化失败");
 		}
-		SYS_MAP.put("tianya_post", gridMap);
 	}
 	
 	
@@ -296,7 +310,6 @@ public class ExcelUtils {
 				return hssfCell.getStringCellValue();
 			}
 		} else if (hssfCell.getCellType() == HSSFCell.CELL_TYPE_FORMULA) {
-			System.out.println(hssfCell);
 			return hssfCell.getNumericCellValue();
 		} else if (hssfCell.getCellType() == HSSFCell.CELL_TYPE_STRING) {
 			return hssfCell.getStringCellValue().trim();

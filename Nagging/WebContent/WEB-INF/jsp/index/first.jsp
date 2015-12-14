@@ -175,8 +175,8 @@
 	<div class="easyui-layout" data-options="fit:true" style="margin-top: 0px">
     	
     	
-    	<div style='background: url("images/layout-browser-hd-bg.gif") ; height: 23px; color: rgb(255, 255, 255); line-height: 20px; overflow: hidden; font-family: Verdana, 微软雅黑, 黑体;' region="north">
-		<img  src="images/block.gif" width="20" height="23" style="float: left"> 
+    	<div style='background: url("images/titlebg.gif") ; height: 23px; color: rgb(255, 255, 255); line-height: 20px; overflow: hidden; font-family: Verdana, 微软雅黑, 黑体;' region="north">
+		<img  src="images/block.png" width="20" height="23" style="float: left"> 
 		<span style="padding-left: 10px; float: none; " >欢迎进入系统</span>
 		<span style="padding-right: 50px; float: right;">欢迎当前用户：${user.nick }
 			<a href="#" onclick="changePsw()" style="padding-left: 20px"><font color="white">修改密码</font></a> &nbsp;&nbsp;
