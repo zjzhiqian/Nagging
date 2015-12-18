@@ -1,16 +1,16 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
-   "http://www.w3.org/TR/html4/strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>js01_hello</title>
-	<meta name="author" content="Administrator" />
-	<script type="text/javascript">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<script>
 	//第一种定义方式
-	function fn1() {
+	function fn1(){
 		alert("fn1");
 	}
+	
 	//函数就是一个非常特殊的对象，是一个Function类的实例，其实在内存中存储的操作是通过一个键值对来存储的
 	alert(typeof fn1);
 	
@@ -27,17 +27,15 @@
 	 */
 	fn2();
 	fn1();
-	
-	/**
-	 * 对于对象而言，是通过引用的指向来完成赋值的，此时修改o1或者o2会将两个值都完成修改
-	 */
-	var o1 = new Object();
-	var o2 = o1;
-	o2.name = "Leon";
-	alert(o1.name);
-	</script>
-</head>
+
+	var o1 =new Object()
+	o2 = o1 
+	o2.name ='123'
+	alert(o1.name)
+</script>
+
+
 <body>
+
 </body>
 </html>
-

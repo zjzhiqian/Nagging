@@ -1,12 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
-   "http://www.w3.org/TR/html4/strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>js01_hello</title>
-	<meta name="author" content="Administrator" />
-	<script type="text/javascript">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script type="text/javascript">
 	/**
 	 * 由于函数是对象，所以可以直接把函数通过参数传递进来
 	 */
@@ -35,6 +33,9 @@
 		var rel = function(num) {
 			return arg+num;
 		}
+// 		function rel(num){
+// 			return arg+num;
+// 		}
 		return rel;
 	}
 	//此时f是一个函数对象，可以完成调用
@@ -42,8 +43,8 @@
 	alert(f(20));
 	alert(f(11));
 	</script>
-</head>
+
 <body>
+
 </body>
 </html>
-
