@@ -137,7 +137,7 @@ public class TBDataQueries {
 		if("1".equals(type)){
 			searcher=getTianYaSearcherOnePath();
 		}else if("2".equals(type)){
-			//TODO 可以开启多个线程进行单目录查询 Union查询结果来再次提高查询效率  那排序怎么处理?
+			//可以开启多个线程进行单目录查询 Union查询结果来再次提高查询效率  那排序怎么处理?
 			searcher=getTianYaSearcherMultiPath();
 		}else{
 			return null;
