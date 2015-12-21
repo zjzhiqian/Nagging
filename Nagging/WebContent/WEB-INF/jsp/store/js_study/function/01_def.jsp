@@ -1,25 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-
-<script>
+<xmp>
 	//第一种定义方式
 	function fn1(){
-		alert("fn1");
+		console.log("fn1")
 	}
 	
 	//函数就是一个非常特殊的对象，是一个Function类的实例，其实在内存中存储的操作是通过一个键值对来存储的
-	alert(typeof fn1);
+	console.log(typeof fn1)
 	
 	//由于函数是一个对象，所以可以通过如下方式定义
 	//以下是通过函数的拷贝来完成赋值，两个引用并没有指向同一个对象
 	var fn2 = fn1;
 	fn2();
 	fn1 = function() {
-		alert("fnn1");
+		console.log("fnn1")
 	}
 	/**
 	 * 函数虽然是一个对象，但是却和对象有一些区别，对象是通过引用的指向完成对象的赋值的，而函数却是通过对象的拷贝来完成的
@@ -31,11 +24,8 @@
 	var o1 =new Object()
 	o2 = o1 
 	o2.name ='123'
-	alert(o1.name)
-</script>
+	console.log(o1.name)
+</xmp>
 
-
-<body>
-
-</body>
-</html>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>

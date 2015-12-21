@@ -42,22 +42,13 @@
 					}
 				})
 			}
-		
-		
 		})
-		
-		
 	});
-	
-	
-	
 	
 </script>
 
 </head>
 <body>
-	
-	
 	<form style="margin-top: 60px;">
 		<label style="margin-left: 44px">title:</label>
 		<input type="text" id="title" name="title"/> 

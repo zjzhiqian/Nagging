@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<xmp>
 <!-- 	function.apply(this,arguments) 某个函数调用 方法,arguments是数组 this是调用该方法的对象-->
 <!-- 	function.call(this,arg1,arg2,arg3) call是通过参数列表来完成传递，其他和apply没有任何区别 -->
 
-	<script type="text/javascript">
 		function sum(num1, num2) {
 			return num1 + num2;
 		}
@@ -35,9 +28,6 @@
 		}
 		alert(callSum3(22, 33));
 		
-		
-		
-		
-	</script>
-</body>
-</html>
+</xmp>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>

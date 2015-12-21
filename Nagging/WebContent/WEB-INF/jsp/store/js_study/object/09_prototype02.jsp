@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-
-<script type="text/javascript">
+<xmp>
 	/**
 	 *基于原型的创建虽然可以有效的完成封装，但是依然有一些问题
 	 * 1、无法通过构造函数来设置属性值
@@ -36,7 +29,6 @@
 	console.log(p2)
 	//此时原型中就多了一个Mike,这就是原型所带来的第二个问题
 	p2.say();//leon ada chris mike
-</script>
-<body>
-</body>
-</html>
+<xmp>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>

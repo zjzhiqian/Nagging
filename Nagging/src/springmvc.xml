@@ -37,9 +37,10 @@
 	<mvc:default-servlet-handler />
 	
 	<!-- 必配,注册Mapping,Adapter,ExceptionResolver,JSR303,数据转换等 -->
-	<!-- 处理responseBody 里面日期类型 -->  
+	
 	<mvc:annotation-driven >
         <mvc:message-converters>  
+        	<!-- 处理responseBody 里面日期类型 -->  
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
                 <property name="objectMapper">  
                     <bean class="com.fasterxml.jackson.databind.ObjectMapper">  
@@ -50,7 +51,16 @@
                         </property>  
                     </bean>  
                 </property>  
+            </bean>
+            <!-- 处理responseBody String编码 -->  
+             <bean class="org.springframework.http.converter.StringHttpMessageConverter">  
+                    <property name="supportedMediaTypes">  
+                        <list>  
+                            <value>text/html;charset=UTF-8</value>  
+                        </list>  
+                    </property>  
             </bean>  
+            
         </mvc:message-converters>
 	</mvc:annotation-driven >
 	

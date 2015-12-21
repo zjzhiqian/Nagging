@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-
-<script type="text/javascript">
+<xmp>
 	var s = '  213 '
 	console.log(s)	
 	console.log(s.trim())	
@@ -14,7 +7,6 @@
 		return this.replace(/(^\s+)|(\s+$)/g,"");
 	}
 	
-</script>
-<body>
-</body>
-</html>
+<xmp>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>

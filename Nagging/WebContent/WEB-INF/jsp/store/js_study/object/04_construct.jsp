@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<script type="text/javascript">
+<xmp>
 	/**
 	 * 通过构造函数的方式创建，和基于工厂的创建类似
 	 * 最大的区别就是函数的名称就是类的名称，按照java的约定，第一个
@@ -48,10 +42,6 @@
 	 * 同一个函数
 	 */
 	alert(p1.say==p2.say);
-</script>
-
-
-<body>
-
-</body>
-</html>
+<xmp>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>

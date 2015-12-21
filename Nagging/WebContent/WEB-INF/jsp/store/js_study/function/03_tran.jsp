@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<script type="text/javascript">
+<xmp>
 	/**
 	 * 由于函数是对象，所以可以直接把函数通过参数传递进来
 	 */
@@ -42,9 +36,6 @@
 	var f = fn1(20);
 	alert(f(20));
 	alert(f(11));
-	</script>
-
-<body>
-
-</body>
-</html>
+</xmp>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>

@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-
-<script type="text/javascript">
+<xmp>
 		/**
 		 * 组合的实现方式是属性通过伪造的方式实现，方法通过原型链的方式实现
 		 * 注意内存模型
@@ -43,7 +36,6 @@
 		
 		
 		console.log(c1.ps == c2.ps)
-</script>
-<body>
-</body>
-</html>
+<xmp>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>

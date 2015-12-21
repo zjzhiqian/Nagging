@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-
-<script type="text/javascript">
+<xmp>
 	/**
 	 * 通过工厂的方式来创建Person对象
 	 * 在createPerson中创建一个对象
@@ -30,10 +23,6 @@
 	p1.say();
 	p2.say();
 	
-	</script>
-
-
-<body>
-
-</body>
-</html>
+<xmp>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>

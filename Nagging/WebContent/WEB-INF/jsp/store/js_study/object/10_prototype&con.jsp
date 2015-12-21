@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-
-<script type="text/javascript">
+<xmp>
 	
 /**
  * 为了解决原型所带来的问题，此处需要通过组合构造函数和原型来实现对象的创建
@@ -34,7 +27,6 @@
 	var p2 = new Person("Ada",33,["Leon"]);
 	console.log(p2)
 	
-</script>
-<body>
-</body>
-</html>
+<xmp>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>

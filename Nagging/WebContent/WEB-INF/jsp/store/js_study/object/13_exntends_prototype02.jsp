@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-
-<script type="text/javascript">
+<xmp>
 		/**
 		 * js实现继承的第一种方式是基于原型链的方式
 		 */
@@ -49,8 +42,6 @@
 		var c2 = new Child();
 		alert(c2.color);//red yellow blue
 	
-	
-</script>
-<body>
-</body>
-</html>
+<xmp>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>

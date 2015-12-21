@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-
-	<script type="text/javascript">
+<xmp>
 	/**
 	 * 原型是js中非常特殊一个对象，当一个函数创建之后，会随之就产生一个原型对象
 	 * 当通过这个函数的构造函数创建了一个具体的对象之后，在这个具体的对象中
@@ -35,9 +28,6 @@
 // 	alert(p1.constructor==Person);
 	
 // 	alert(p1.name)
-	</script>
-
-<body>
-
-</body>
-</html>
+<xmp>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>

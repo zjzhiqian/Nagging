@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-
-<script type="text/javascript">
+<xmp>
 /**
  * 为了让定义的方式更加符合java的需求，就把定义方法的原型代码放置到Person这个构造函数中
  */
@@ -35,8 +28,6 @@
 	
 	console.log(p1.say == p2.say)
 	
-	
-</script>
-<body>
-</body>
-</html>
+<xmp>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>

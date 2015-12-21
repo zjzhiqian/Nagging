@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-
-<script type="text/javascript">
+<xmp>
 	// function sum(num1,num2) {
 		// return num1+num2;
 	// }
@@ -40,12 +33,7 @@
 	alert(sum(19));
 	
 	alert(sum(19,20));
-	</script>
+</xmp>
 
-
-<body>
-	
-
-
-</body>
-</html>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>

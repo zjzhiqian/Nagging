@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-
-	<script type="text/javascript">
+<xmp>
 	/**
 	 * 当需要创建一个类的时候，设置类的属性和方法需要通过this关键字来引用
 	 * 但是特别注意:this关键字在调用时会根据不同的调用对象变得不同
@@ -29,10 +22,6 @@
 	c.showColor();//yellow
 	//此时调用的对象等于是window,showColor的this就是window,所以就会找window中color
 	showColor();//red
-	</script>
-
-<body>
-
-
-</body>
-</html>
+</xmp>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>

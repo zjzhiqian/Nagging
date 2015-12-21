@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<script type="text/javascript">
+<xmp>
 	/**
 	 * 以下演示了通过原型的创建方式，使用基于原型的创建可以将属性和方法
 	 * 设置为Person专有的，不能再通过window来调用
@@ -24,10 +18,6 @@
 	alert(p1.say==p2.say)
 	//通过window没有办法调用say方法，如此就完成了封装
 	// say();
-	</script>
-
-
-<body>
-
-</body>
-</html>
+<xmp>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>

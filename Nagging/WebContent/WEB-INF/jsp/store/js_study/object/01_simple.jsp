@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-
-<script type="text/javascript">
+<xmp>
 	/**
 	 * 在js中并不存在类，所以可以直接通过Object来创建对象
 	 * 但是使用如下方式创建，带来最大的问题是，由于没有类的约束
@@ -19,11 +12,6 @@
 	}
 	
 	console.log(person.say)
-	</script>
-
-<body>
-
-
-
-</body>
-</html>
+<xmp>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>

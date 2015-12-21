@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-
-<body>
-	<div id="person"></div>
-</body>
-
-
-
-<script type="text/javascript">
-
-
+<xmp>
 /**
  * 根据数字来进行排序的函数
  */
@@ -63,14 +48,13 @@ function sortByProperty(propertyName) {
 }
 function show() {
 	var p = document.getElementById("person");
+	var str = ""
 	for(var i=0;i<ps.length;i++) {
-		p.innerHTML+=ps[i].name+","+ps[i].age+"<br/>";
+		str+=ps[i].name+","+ps[i].age+";
 	}
+	console.log(str)
 }
 show();
-
-
-
-</script>
-
-</html>
+</xmp>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>

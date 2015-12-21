@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-
-
-<script type="text/javascript">
-
+<xmp>
 function say(num) {
 	/*
 	 * 在函数对象中有一个属性叫做arguments,通过这个属性可以获取相应的参数值，这个属性
@@ -43,9 +34,6 @@ function say(num) {
 
 say(1,2,3);
 
-
-
-
-</script>
-
-</html>
+</xmp>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>

@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<script type="text/javascript">
+<xmp>
 	/**
 	 * json的意思就是javascript simple object notation
 	 * json就是js的对象，但是它省去了xml中标签，而是通过{}来完成对象的说明
@@ -48,9 +42,6 @@
 			friends:["Ada","Chris"]
 		}
 	];
-	</script>
-
-<body>
-
-</body>
-</html>
+<xmp>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>
