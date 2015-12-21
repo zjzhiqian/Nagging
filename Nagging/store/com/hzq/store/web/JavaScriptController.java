@@ -12,6 +12,7 @@
 package com.hzq.store.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -24,11 +25,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class JavaScriptController {
 	
 	
-	@RequestMapping("demo3")
-	public String test3()throws Exception{
-		return "store/js_study/function/01_def";
+	
+	@RequestMapping(value="js/1/{val}")
+	public String jsFunction(@PathVariable("val") String value)throws Exception{
+		return "store/js_study/function/"+value;
 	}
 	
+	@RequestMapping(value="js/2/{val}")
+	public String jsObject(@PathVariable("val") String value)throws Exception{
+		return "store/js_study/object/"+value;
+	}
 	
 }
 
