@@ -6,8 +6,6 @@
 <div id="acc" class="easyui-accordion" data-options="fit:true,selected:false,border:false" style="margin-bottom: 30px">
 	 <c:forEach items="${navs }" var="per" varStatus="s" >
 	 	<div title="${per.operatename }" style="padding: 5px;" data-options="border:false,iconCls:'${per.auth}'">
-	 
-<%-- 	 	<div title="${per.operatename }" style="padding: 5px;" data-options="border:false"> --%>
 			<ul value="${per.id }"></ul>
 		</div>
 	 </c:forEach>

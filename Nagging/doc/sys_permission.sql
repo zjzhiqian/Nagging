@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
+Source Server         : Nagging
 Source Server Version : 50529
 Source Host           : localhost:3306
 Source Database       : shiro
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50529
 File Encoding         : 65001
 
-Date: 2015-12-21 20:24:55
+Date: 2015-12-22 07:17:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -74,7 +74,7 @@ INSERT INTO `sys_permission` VALUES ('109', '分词信息查看', '查看分词�
 INSERT INTO `sys_permission` VALUES ('110', '简单搜索', '简单搜索', 'icon-kmousetool', '/lucene/easyquery', '2', '1', '103', '1', '2015-11-24 08:19:49', '1', null, null);
 INSERT INTO `sys_permission` VALUES ('111', '测试100W', '100W数据', 'icon-baobiao_3', '/lucene/complexquery', '2', '1', '103', '2', '2015-11-26 10:23:47', '1', null, null);
 INSERT INTO `sys_permission` VALUES ('112', 'Store', '代码仓库', 'icon-kcalc', null, '0', '1', '-1', '2', '2015-12-02 11:05:41', '1', '2015-12-10 14:04:13', '1');
-INSERT INTO `sys_permission` VALUES ('113', '简单示例', '通用Excel', 'icon-warehouse_f', null, '1', '1', '112', '0', '2015-12-02 11:08:51', '1', null, null);
+INSERT INTO `sys_permission` VALUES ('113', 'Excel', '通用Excel', 'icon-warehouse_f', null, '1', '1', '112', '0', '2015-12-02 11:08:51', '1', '2015-12-21 21:22:52', '1');
 INSERT INTO `sys_permission` VALUES ('114', 'Excel', 'Excel导入导出示例', 'icon-arts', '/store/excel', '2', '1', '113', '0', '2015-12-02 11:12:40', '1', null, null);
 INSERT INTO `sys_permission` VALUES ('115', '近实时', 'Lucene近实时测试', 'icon-reload', '/lucene/NRT', '2', '1', '103', '3', '2015-12-11 16:47:56', '1', null, null);
 INSERT INTO `sys_permission` VALUES ('116', 'js_function', 'javaScript', 'icon-agt_utilities', null, '1', '1', '112', '1', '2015-12-21 16:26:23', '1', null, null);
@@ -95,7 +95,7 @@ INSERT INTO `sys_permission` VALUES ('131', '04_construct', 'js对象', 'icon-ag
 INSERT INTO `sys_permission` VALUES ('132', '05_prototype', 'js对象', 'icon-agt_multimedia', '/store/js/2/05_prototype', '2', '1', '127', '4', '2015-12-21 20:18:06', '1', null, null);
 INSERT INTO `sys_permission` VALUES ('133', '06_prototype01_model', 'js对象', 'icon-agt_multimedia', '/store/js/2/06_prototype01_model', '2', '1', '127', '5', '2015-12-21 20:18:07', '1', null, null);
 INSERT INTO `sys_permission` VALUES ('134', '07_protitype02_json', 'js对象', 'icon-agt_multimedia', '/store/js/2/07_protitype02_json', '2', '1', '127', '6', '2015-12-21 20:18:07', '1', null, null);
-INSERT INTO `sys_permission` VALUES ('135', '08_prototype02_json问题', 'js对象', 'icon-agt_multimedia', '/store/js/2/08_prototype02_json问题', '2', '1', '127', '7', '2015-12-21 20:18:07', '1', null, null);
+INSERT INTO `sys_permission` VALUES ('135', '08_prototype02_json_problem', 'js对象', 'icon-agt_multimedia', '/store/js/2/08_prototype02_json_problem', '2', '1', '127', '7', '2015-12-21 20:18:07', '1', null, null);
 INSERT INTO `sys_permission` VALUES ('136', '09_prototype02', 'js对象', 'icon-agt_multimedia', '/store/js/2/09_prototype02', '2', '1', '127', '8', '2015-12-21 20:18:07', '1', null, null);
 INSERT INTO `sys_permission` VALUES ('137', '09_prototype03', 'js对象', 'icon-agt_multimedia', '/store/js/2/09_prototype03', '2', '1', '127', '9', '2015-12-21 20:21:03', '1', null, null);
 INSERT INTO `sys_permission` VALUES ('138', '10_prototype&con', 'js对象', 'icon-agt_multimedia', '/store/js/2/10_prototype&con', '2', '1', '127', '10', '2015-12-21 20:21:04', '1', null, null);
@@ -229,12 +229,12 @@ CREATE TABLE `sys_user` (
   `login_time` datetime DEFAULT NULL COMMENT '上次登录时间',
   `login_count` bigint(20) DEFAULT '0' COMMENT '总登陆次数',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='系统用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='系统用户表';
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', '123', '9bb0f71b526ede9a67fc5a667a3cdbc15dab7f39', '智谦', 'f85b3e354a271983e3d88fe26985821d', '321213', '0', '2015-09-05 16:00:24', '1', '2015-11-15 01:36:52', '1', '本地', '2015-12-21 20:24:32', '1395');
+INSERT INTO `sys_user` VALUES ('1', '123', '9bb0f71b526ede9a67fc5a667a3cdbc15dab7f39', '智谦', 'f85b3e354a271983e3d88fe26985821d', '321213', '0', '2015-09-05 16:00:24', '1', '2015-11-15 01:36:52', '1', '本地', '2015-12-21 22:00:38', '1406');
 
 -- ----------------------------
 -- Table structure for sys_user_role

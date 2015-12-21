@@ -5,7 +5,7 @@ function say(num) {
 	 * 是一个数组，其实就是传递进来的参数
 	 */
 	alert(arguments.length);
-	for(var i=0;i<arguments.length;i++) {
+	for(var i=0;i < arguments.length;i++) {
 		alert(arguments[i]);
 	}
 	alert(num);

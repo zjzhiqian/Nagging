@@ -81,6 +81,6 @@
 // 	function hasPrototypeProperty(obj,prop) {
 // 		return ((!obj.hasOwnProperty(prop))&&(prop in obj))
 // 	}
-<xmp>
+</xmp>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>

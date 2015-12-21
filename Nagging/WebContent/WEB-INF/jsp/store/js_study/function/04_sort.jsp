@@ -49,7 +49,7 @@ function sortByProperty(propertyName) {
 function show() {
 	var p = document.getElementById("person");
 	var str = ""
-	for(var i=0;i<ps.length;i++) {
+	for(var i=0;i < ps.length;i++) {
 		str+=ps[i].name+","+ps[i].age+";
 	}
 	console.log(str)

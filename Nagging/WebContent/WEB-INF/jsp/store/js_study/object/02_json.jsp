@@ -19,7 +19,7 @@
 		{name:"Leon",age:22},
 		{name:"Ada",age:33}
 	];
-	for(var i=0;i<ps.length;i++) {
+	for(var i=0;i < ps.length;i++) {
 		alert(ps[i].name);
 	}
 	/**
@@ -42,6 +42,6 @@
 			friends:["Ada","Chris"]
 		}
 	];
-<xmp>
+</xmp>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>

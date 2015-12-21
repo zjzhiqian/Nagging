@@ -1,4 +1,4 @@
-<xmp>>
+<xmp>
 	function fn1() {
 		
 	}

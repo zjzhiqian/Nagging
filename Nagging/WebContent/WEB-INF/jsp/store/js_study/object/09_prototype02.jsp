@@ -29,6 +29,6 @@
 	console.log(p2)
 	//此时原型中就多了一个Mike,这就是原型所带来的第二个问题
 	p2.say();//leon ada chris mike
-<xmp>
+</xmp>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>

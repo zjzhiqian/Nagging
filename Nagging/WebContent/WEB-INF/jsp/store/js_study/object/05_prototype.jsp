@@ -18,6 +18,6 @@
 	alert(p1.say==p2.say)
 	//通过window没有办法调用say方法，如此就完成了封装
 	// say();
-<xmp>
+</xmp>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>

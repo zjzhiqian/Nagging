@@ -22,7 +22,7 @@ import java.util.concurrent.Executors;
 public class ThreadService {
 	private static ExecutorService threadService;
 	static {
-		threadService=Executors.newFixedThreadPool(50000);
+		threadService=Executors.newFixedThreadPool(500);
 	}
 	
 	public static ExecutorService getThreadService() {

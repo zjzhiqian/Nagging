@@ -97,6 +97,7 @@ public class SysMenuController extends BaseController{
 		
 		//为每个Tree找到Children
 		for(MenuTree tree:trees){
+			tree.setState("closed");
 			List<SysPermission> children=PermissionUtil.FilterMenus(tree.getId()+"", menus,"2");
 			List<MenuTree> childrenTrees=PermissionUtil.copyPermissionToTree(children,"2",menus);
 			tree.setChildren(childrenTrees);
