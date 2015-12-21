@@ -36,7 +36,9 @@
 
 	//重置btn
 	function btnReset() {
-		$("#loginform input").val('');
+		$("#password").val('')
+		$("#username").val('')
+		$("#randomcode").val('')
 		randomcode_refresh();
 	}
 

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<script type="text/javascript">
+	var s = '  213 '
+	console.log(s)	
+	console.log(s.trim())	
+	String.prototype.trim = function() {
+		//js的正则表达式和java很类似，区别就是js是使用//
+		return this.replace(/(^\s+)|(\s+$)/g,"");
+	}
+	
+</script>
+<body>
+</body>
+</html>

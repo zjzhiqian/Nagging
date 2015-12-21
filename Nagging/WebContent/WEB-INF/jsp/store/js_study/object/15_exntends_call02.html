@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<script type="text/javascript">
+	function Parent(name) {
+		this.color = ["red","blue"];
+		this.name = name;
+	}
+	
+	function Child(name,age) {
+		console.log(this)
+		this.age = age;
+		/*
+		 * 使用伪造的方式就可以把子类的构造函数参数传递到
+		 * 父类中
+		 */
+		Parent.call(this,name);
+	}
+	
+	
+	var c1 = new Child("Leon",12);
+	var c2 = new Child("Ada",22);
+	
+	console.log(c1)
+	console.log(c2)
+	
+	
+</script>
+<body>
+</body>
+</html>

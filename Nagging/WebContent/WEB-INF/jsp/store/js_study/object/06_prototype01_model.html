@@ -23,18 +23,42 @@
 	//第三中状态，创建了一个对象之后会有一个_prop_的属性指向原型
 	//在使用时如果在对象内部没有找到属性会去原型中找，_prop_属性是隐藏的
 	var p1 = new Person();
+	
+	
 // 	p1.say();
 	//以下方法可以检测出p1是否有_prop_指向Person的原型
 	//alert(Person.prototype.isPrototypeOf(p1));
-	
+	console.log(p1)
 	//第四种状态
 	var p2 = new Person();
 	//是在自己的空间中定义了一个属性，不会替换原型中的属性
 	p2.name = "Ada";
 	
 	console.log(p2)
-	p2.say();
-	//p1.say();
+	
+	
+	console.log(p2)
+	
+	
+	console.log(p1.hasOwnProperty('name'))
+	console.log(p2.hasOwnProperty('name'))
+	delete p2.name
+	console.log(p2.hasOwnProperty('name'))
+	
+	console.log('name' in p1)
+	console.log('name' in p2)
+	
+	
+	function hasPrototypeProperty(obj,attr){
+		if(attr in obj && (!obj.hasOwnProperty(attr))){
+			return true
+		}
+		return false;
+	}
+	
+	console.log(hasPrototypeProperty(p1,'name'))
+	
+	
 	
 	// //检测某个对象是否是某个函数的原型
 // 	alert(Person.prototype.isPrototypeOf(p2));
@@ -55,14 +79,14 @@
 	//alert("name" in p2);//true
 	//alert("address" in p1);//在原型和自己的空间中都没有，false
 	
-	alert(hasPrototypeProperty(p1,"name"));//true
-	alert(hasPrototypeProperty(p2,"name"));//false
+// 	alert(hasPrototypeProperty(p1,"name"));//true
+// 	alert(hasPrototypeProperty(p2,"name"));//false
 	/**
 	 * 可以通过如下方法检测某个属性是否在原型中存在
 	 */
-	function hasPrototypeProperty(obj,prop) {
-		return ((!obj.hasOwnProperty(prop))&&(prop in obj))
-	}
+// 	function hasPrototypeProperty(obj,prop) {
+// 		return ((!obj.hasOwnProperty(prop))&&(prop in obj))
+// 	}
 	</script>
 
 
