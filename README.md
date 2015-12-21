@@ -1,4 +1,4 @@
 # Nagging
-java web project 
+it's my java web project .
 
-watch \Nagging\doc for more details
+watch \Nagging\doc for more details . 
