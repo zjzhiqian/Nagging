@@ -13,21 +13,20 @@
 			return sum.apply(this, arguments);
 		}
 		
-		
 		function callSum2(num1, num2) {
 			//关键就是第二个参数是数组
 			console.log(this)
 			return sum.apply(this, [ num1, num2 ]);
 		}
-		alert(callSum1(12, 22));
-		alert(callSum2(22, 32));
+		console.log(callSum1(12, 22));
+		console.log(callSum2(22, 32));
 
 		function callSum3(num1, num2) {
 			//call是通过参数列表来完成传递，其他和apply没有任何区别
 			return sum.call(this, num1, num2);
 		}
-		alert(callSum3(22, 33));
+		console.log(callSum3(22, 33));
 		
 </xmp>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>
+<%@ include file="/WEB-INF/jsp/store/JavaScript/include.jsp"%>

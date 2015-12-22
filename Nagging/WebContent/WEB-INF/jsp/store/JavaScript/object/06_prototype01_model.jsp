@@ -27,12 +27,7 @@
 	var p2 = new Person();
 	//是在自己的空间中定义了一个属性，不会替换原型中的属性
 	p2.name = "Ada";
-	
 	console.log(p2)
-	
-	
-	console.log(p2)
-	
 	
 	console.log(p1.hasOwnProperty('name'))
 	console.log(p2.hasOwnProperty('name'))
@@ -42,45 +37,16 @@
 	console.log('name' in p1)
 	console.log('name' in p2)
 	
-	
+	/**
+	 * 可以通过如下方法检测某个属性是否在原型中存在
+	 */
 	function hasPrototypeProperty(obj,attr){
 		if(attr in obj && (!obj.hasOwnProperty(attr))){
 			return true
 		}
 		return false;
 	}
-	
 	console.log(hasPrototypeProperty(p1,'name'))
-	
-	
-	
-	// //检测某个对象是否是某个函数的原型
-// 	alert(Person.prototype.isPrototypeOf(p2));
-	
-	// //检测某个对象的constructor
-	// alert(p1.constructor==Person);
-	
-	// //检测某个属性是否是自己的属性
-	// alert(p1.hasOwnProperty("name"));//false，p1自己的空间中没有值
-	// alert(p2.hasOwnProperty("name"));//true,p2在自己的空间中设置了name属性
-	
-	//delete p2.name;
-	//p2.say();
-	//alert(p2.hasOwnProperty("name"));//由于已经删除了，所以是false
-	
-	//检测某个对象在原型或者自己中是否包含有某个属性，通过in检测
-	//alert("name" in p1);//true
-	//alert("name" in p2);//true
-	//alert("address" in p1);//在原型和自己的空间中都没有，false
-	
-// 	alert(hasPrototypeProperty(p1,"name"));//true
-// 	alert(hasPrototypeProperty(p2,"name"));//false
-	/**
-	 * 可以通过如下方法检测某个属性是否在原型中存在
-	 */
-// 	function hasPrototypeProperty(obj,prop) {
-// 		return ((!obj.hasOwnProperty(prop))&&(prop in obj))
-// 	}
 </xmp>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>
+<%@ include file="/WEB-INF/jsp/store/JavaScript/include.jsp"%>

@@ -13,11 +13,11 @@
 	}
 	var p1 = new Person();
 	var p2 = new Person();
-	p1.say();
-	p2.say();
-	alert(p1.say==p2.say)
+	console.log(p1)
+	console.log(p2)
+	console.log(p1.say==p2.say)
 	//通过window没有办法调用say方法，如此就完成了封装
-	// say();
+	say();
 </xmp>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>
+<%@ include file="/WEB-INF/jsp/store/JavaScript/include.jsp"%>

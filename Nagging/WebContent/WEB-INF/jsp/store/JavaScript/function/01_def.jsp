@@ -20,12 +20,13 @@
 	 */
 	fn2();
 	fn1();
-
+	
+	//普通对象 o1变了,影响了o2
 	var o1 =new Object()
 	o2 = o1 
-	o2.name ='123'
-	console.log(o1.name)
+	o1.name ='123'
+	console.log(o2.name)
 </xmp>
 
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>
+<%@ include file="/WEB-INF/jsp/store/JavaScript/include.jsp"%>

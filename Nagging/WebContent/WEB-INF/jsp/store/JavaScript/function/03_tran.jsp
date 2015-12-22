@@ -12,13 +12,13 @@
 	}
 	
 	function say(str) {
-		alert("hello "+str);
+		console.log('say '+str)
 	}
 	//var say = xxx
 	//调用了say函数
 	callFun(say,"Leon");
 	//调用了sum函数
-	alert(callFun(sum,20));
+	console.log(callFun(sum,20))
 	
 	function fn1(arg) {
 		/**
@@ -34,8 +34,9 @@
 	}
 	//此时f是一个函数对象，可以完成调用
 	var f = fn1(20);
-	alert(f(20));
-	alert(f(11));
+	
+	console.log(f(20))
+	console.log(f(11))
 </xmp>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>
+<%@ include file="/WEB-INF/jsp/store/JavaScript/include.jsp"%>

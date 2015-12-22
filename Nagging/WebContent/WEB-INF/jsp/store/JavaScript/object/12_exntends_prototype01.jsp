@@ -7,7 +7,7 @@
 		}
 		Parent.prototype.pp = "ok";
 		Parent.prototype.showParentValue = function() {
-			alert(this.pv);
+			console.log(this.pv);
 		}
 		
 		function Child() {
@@ -18,7 +18,7 @@
 		 * 就会被重写掉，赋值的对象就不存在在新的原型对象中
 		 */
 		//	Child.prototype.showChildValue = function() {
-		//		alert(this.cv);
+		//		console.log(this.cv);
 		//	}
 		
 		/**
@@ -27,13 +27,13 @@
 		 */
 		Child.prototype = new Parent();
 		Child.prototype.showChildValue = function() {
-			 alert(this.cv);
+			 console.log(this.cv);
 		}
 		/**
 		 * 此时完成的对父类对象的覆盖
 		 */
 		Child.prototype.showParentValue = function() {
-			alert("override parent");
+			console.log("override parent");
 		}
 		/**
 		 * 在使用原型链进行继承一定要注意一下问题：
@@ -45,20 +45,19 @@
 		/**
 		 * 当执行了下面这句话之后，意味着Child的原型又重写了
 		 * 这样就不存在任何的继承关系了
-		 * 使用原型链需要注意的第一个问题
+		 * 这是使用原型链需要注意的第一个问题
 		 */
 		// Child.prototype = {
 			// showChildValue:function() {
-				// alert(this.v);
+				// console.log(this.v);
 			// }
 		// }
 		
 		var c = new Child();
 		c.showParentValue();
 		c.showChildValue();
-		alert(c.pp);
 		console.log(c)
 	
 </xmp>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>
+<%@ include file="/WEB-INF/jsp/store/JavaScript/include.jsp"%>

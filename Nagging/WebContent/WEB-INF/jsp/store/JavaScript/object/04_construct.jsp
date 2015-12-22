@@ -28,20 +28,18 @@
 	 */
 	var p1 = new Person("Leon",22);
 	var p2 = new Person("Ada",32);
-	p1.say(); p2.say();
+	console.log(p1)
+	console.log(p2)
 	/**
 	 * 使用构造函数的方式可以通过以下方式来检测
 	 * 对象的类型
 	 */
-	alert(p1 instanceof Person);
+	console.log(p1 instanceof Person);
 	/**
-	 * 使用构造函数创建所带来的第一个问题就是每一个对象中
-	 * 都会存在一个方法的拷贝，如果对象的行为很多的话
-	 * 空间的占用率就会大大增加
 	 * 可以将函数放到全局变量中定义，这样可以让类中的行为指向
 	 * 同一个函数
 	 */
-	alert(p1.say==p2.say);
+	console.log(p1.say==p2.say);
 </xmp>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>
+<%@ include file="/WEB-INF/jsp/store/JavaScript/include.jsp"%>

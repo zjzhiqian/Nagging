@@ -18,7 +18,9 @@
 	}
 	var p1 = new Person();
 	p1.name = "John";
-	p1.say();//john[ada,chris]
+	
+	console.log(p1.friends)
+	
 	//会在原型中找friends,所以Mike是在原型中增加的
 	p1.friends.push("Mike");//为p1增加了一个朋友
 	
@@ -28,7 +30,7 @@
 	
 	console.log(p2)
 	//此时原型中就多了一个Mike,这就是原型所带来的第二个问题
-	p2.say();//leon ada chris mike
+	console.log(p2.friends);
 </xmp>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>
+<%@ include file="/WEB-INF/jsp/store/JavaScript/include.jsp"%>

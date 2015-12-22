@@ -28,12 +28,12 @@ public class JavaScriptController {
 	
 	@RequestMapping(value="js/1/{val}")
 	public String jsFunction(@PathVariable("val") String value)throws Exception{
-		return "store/js_study/function/"+value;
+		return "store/JavaScript/function/"+value;
 	}
 	
 	@RequestMapping(value="js/2/{val}")
 	public String jsObject(@PathVariable("val") String value)throws Exception{
-		return "store/js_study/object/"+value;
+		return "store/JavaScript/object/"+value;
 	}
 	
 }

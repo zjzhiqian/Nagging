@@ -6,7 +6,7 @@
 	
 	var color = "red";
 	function showColor() {
-		alert(this.color);
+		console.log(this.color);
 	}
 	/**
 	 * 创建了一个类，有一个color的属性和一个show的方法
@@ -24,4 +24,4 @@
 	showColor();//red
 </xmp>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>
+<%@ include file="/WEB-INF/jsp/store/JavaScript/include.jsp"%>

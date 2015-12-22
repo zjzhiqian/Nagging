@@ -54,7 +54,7 @@ public class ExcelController {
 	
 	@RequestMapping("excel")
 	public String showDemoPage(){
-		return "store/excel";
+		return "store/Excel/excel";
 	}
 	
 	/**
@@ -76,7 +76,7 @@ public class ExcelController {
 	
 	@RequestMapping(value="importExcel",method=RequestMethod.GET)
 	public String importExcelPage(){
-		return "store/excelDialog";
+		return "store/Excel/excelDialog";
 	}
 	
 	/**

@@ -20,9 +20,10 @@
 	 */
 	var p1 = createPerson("Leon",22);
 	var p2 = createPerson("Ada",33);
-	p1.say();
-	p2.say();
+	console.log(p1)
+	console.log(p2)
 	
+	console.log(typeof(p1))
 </xmp>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>
+<%@ include file="/WEB-INF/jsp/store/JavaScript/include.jsp"%>

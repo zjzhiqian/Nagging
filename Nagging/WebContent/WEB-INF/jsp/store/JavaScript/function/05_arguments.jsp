@@ -4,11 +4,13 @@ function say(num) {
 	 * 在函数对象中有一个属性叫做arguments,通过这个属性可以获取相应的参数值，这个属性
 	 * 是一个数组，其实就是传递进来的参数
 	 */
-	alert(arguments.length);
-	for(var i=0;i < arguments.length;i++) {
-		alert(arguments[i]);
+	console.log('argLength: ' + arguments.length);
+	var args = []
+	for(var i=0 ; i < arguments.length ; i++) {
+		args.push(arguments[i])
 	}
-	alert(num);
+	console.log(args)
+	console.log(num);
 }
 /**
  * 在arguments这个对象中有一个callee的方法，arguments.callee(arg)可以反向的调用
@@ -26,14 +28,14 @@ function say(num) {
 	 */
 	var cf = factorial;
 	//此时不会报错
-	alert(cf(5));
+	console.log(cf(5));
 	factorial = null;
 	//此时由于cf这个函数依然使用factorial这个名称来调用，但是factorial已经指向null了，所以就会报错
 	//如上情况就需要使用arguments.callee方法来调用
-	alert(cf(5));
-
+	console.log(cf(5));
+console.log('--------say--------')
 say(1,2,3);
 
 </xmp>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>
+<%@ include file="/WEB-INF/jsp/store/JavaScript/include.jsp"%>

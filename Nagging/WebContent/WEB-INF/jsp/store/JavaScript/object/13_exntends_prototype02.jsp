@@ -12,7 +12,6 @@
 		}
 		
 		function Child() {
-			
 			this.cv = "child";
 		}
 		/**
@@ -38,10 +37,10 @@
 		var c1 = new Child();
 		//Child中的原型的color被修改
 		c1.color.push("blue");
-		alert(c1.color);//red,yellow blue
+		console.log(c1.color);//red,yellow blue
 		var c2 = new Child();
-		alert(c2.color);//red yellow blue
+		console.log(c2.color);//red yellow blue
 	
 </xmp>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>
+<%@ include file="/WEB-INF/jsp/store/JavaScript/include.jsp"%>

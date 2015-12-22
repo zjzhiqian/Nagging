@@ -6,7 +6,7 @@
 	
 	var color = "red";
 	function showColor() {
-		alert(this.color);
+		console.log(this.color);
 	}
 	/**
 	 * 创建了一个类，有一个color的属性和一个show的方法
@@ -17,6 +17,7 @@
 	
 	var c = new Circle("yellow");
 	
+	//类似于method.invoke(object,arguments)
 	showColor.call(this);//使用上下文来调用showColor,结果是red
 	showColor.call(c);//上下文对象是c,结果就是yellow
 	/**
@@ -25,4 +26,4 @@
 	 */
 </xmp>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>
+<%@ include file="/WEB-INF/jsp/store/JavaScript/include.jsp"%>

@@ -24,10 +24,7 @@
 	}
 	var p1 = new Person();
 	console.log(p1)
-// 	p1.say();
-// 	alert(p1.constructor==Person);
-	
-// 	alert(p1.name)
+ 	console.log(p1.constructor==Person);
 </xmp>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>
+<%@ include file="/WEB-INF/jsp/store/JavaScript/include.jsp"%>

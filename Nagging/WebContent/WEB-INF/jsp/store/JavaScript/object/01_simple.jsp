@@ -8,10 +8,9 @@
 	person.name = "Leon";
 	person.age = 33;
 	person.say = function() {
-		alert(this.name+","+this.age);
+		console.log(11);
 	}
-	
-	console.log(person.say)
+	console.log(person)
 </xmp>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>
+<%@ include file="/WEB-INF/jsp/store/JavaScript/include.jsp"%>

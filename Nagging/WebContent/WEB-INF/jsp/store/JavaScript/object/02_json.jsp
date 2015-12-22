@@ -11,7 +11,8 @@
 		}//最后一个属性之后不能有,
 	}
 	
-	person.say();
+	console.log(person)
+	
 	/**
 	 * 通过json依然可以创建对象数组，创建的方式和js的数组一样
 	 */
@@ -19,9 +20,11 @@
 		{name:"Leon",age:22},
 		{name:"Ada",age:33}
 	];
+	var str = ''
 	for(var i=0;i < ps.length;i++) {
-		alert(ps[i].name);
+		str += ps[i].name+" ";
 	}
+	console.log(str)
 	/**
 	 * 创建一组用户，用户的属性有
 	 * name:string,age:int,friends:array
@@ -44,4 +47,4 @@
 	];
 </xmp>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="/WEB-INF/jsp/store/js_study/include.jsp"%>
+<%@ include file="/WEB-INF/jsp/store/JavaScript/include.jsp"%>
