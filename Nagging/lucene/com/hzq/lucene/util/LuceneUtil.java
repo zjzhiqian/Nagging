@@ -160,22 +160,6 @@ public class LuceneUtil {
             }
         }
         return tianyaSearcher;
-		
-//		if (TianYareader == null) {
-//			try {
-//				TianYareader = DirectoryReader.open(getTianYaWriterOne(), false);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//				throw new RuntimeException("获取Writer失败");
-//			}
-//		}
-//
-//		try {
-//			return new IndexSearcher(TianYareader);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			throw new RuntimeException("获取IndexSearcher出错");
-//		}
 	}
 	
 	

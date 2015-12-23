@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : Nagging
+Source Server         : localhost
 Source Server Version : 50529
 Source Host           : localhost:3306
 Source Database       : shiro
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50529
 File Encoding         : 65001
 
-Date: 2015-12-22 07:17:49
+Date: 2015-12-23 16:52:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,7 +35,7 @@ CREATE TABLE `sys_permission` (
   `modifyuserid` varchar(20) DEFAULT NULL COMMENT '修改人用户编号',
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=146 DEFAULT CHARSET=utf8 COMMENT='功能权限';
+) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8 COMMENT='功能权限';
 
 -- ----------------------------
 -- Records of sys_permission
@@ -98,7 +98,7 @@ INSERT INTO `sys_permission` VALUES ('134', '07_protitype02_json', 'js对象', '
 INSERT INTO `sys_permission` VALUES ('135', '08_prototype02_json_problem', 'js对象', 'icon-agt_multimedia', '/store/js/2/08_prototype02_json_problem', '2', '1', '127', '7', '2015-12-21 20:18:07', '1', null, null);
 INSERT INTO `sys_permission` VALUES ('136', '09_prototype02', 'js对象', 'icon-agt_multimedia', '/store/js/2/09_prototype02', '2', '1', '127', '8', '2015-12-21 20:18:07', '1', null, null);
 INSERT INTO `sys_permission` VALUES ('137', '09_prototype03', 'js对象', 'icon-agt_multimedia', '/store/js/2/09_prototype03', '2', '1', '127', '9', '2015-12-21 20:21:03', '1', null, null);
-INSERT INTO `sys_permission` VALUES ('138', '10_prototype&con', 'js对象', 'icon-agt_multimedia', '/store/js/2/10_prototype&con', '2', '1', '127', '10', '2015-12-21 20:21:04', '1', null, null);
+INSERT INTO `sys_permission` VALUES ('138', '10_prototypeAndcon', 'js对象', 'icon-agt_multimedia', '/store/js/2/10_prototypeAndcon', '2', '1', '127', '10', '2015-12-21 20:21:04', '1', null, null);
 INSERT INTO `sys_permission` VALUES ('139', '11_dynamic_prototype', 'js对象', 'icon-agt_multimedia', '/store/js/2/11_dynamic_prototype', '2', '1', '127', '11', '2015-12-21 20:21:04', '1', null, null);
 INSERT INTO `sys_permission` VALUES ('140', '12_exntends_prototype01', 'js对象', 'icon-agt_multimedia', '/store/js/2/12_exntends_prototype01', '2', '1', '127', '12', '2015-12-21 20:21:04', '1', null, null);
 INSERT INTO `sys_permission` VALUES ('141', '13_exntends_prototype02', 'js对象', 'icon-agt_multimedia', '/store/js/2/13_exntends_prototype02', '2', '1', '127', '13', '2015-12-21 20:22:05', '1', null, null);
@@ -106,6 +106,18 @@ INSERT INTO `sys_permission` VALUES ('142', '14_exntends_call01', 'js对象', 'i
 INSERT INTO `sys_permission` VALUES ('143', '15_exntends_call02', 'js对象', 'icon-agt_multimedia', '/store/js/2/15_exntends_call02', '2', '1', '127', '15', '2015-12-21 20:22:05', '1', null, null);
 INSERT INTO `sys_permission` VALUES ('144', '16_exntends_call03', 'js对象', 'icon-agt_multimedia', '/store/js/2/16_exntends_call03', '2', '1', '127', '16', '2015-12-21 20:22:05', '1', null, null);
 INSERT INTO `sys_permission` VALUES ('145', '17_exntends_com', 'js对象', 'icon-agt_multimedia', '/store/js/2/17_exntends_com', '2', '1', '127', '17', '2015-12-21 20:22:06', '1', null, null);
+INSERT INTO `sys_permission` VALUES ('146', 'js_closed', 'js闭包', 'icon-agt_utilities', null, '1', '1', '112', '2', '2015-12-23 08:34:02', '1', null, null);
+INSERT INTO `sys_permission` VALUES ('147', '18_colsed_seq', 'js闭包', 'icon-agt_multimedia', '/store/js/3/18_colsed_seq', '2', '1', '146', '0', '2015-12-23 08:34:49', '1', null, null);
+INSERT INTO `sys_permission` VALUES ('148', '19_colsed_scope', 'js闭包', 'icon-agt_multimedia', '/store/js/3/19_colsed_scope', '2', '1', '146', '1', '2015-12-23 08:38:27', '1', null, null);
+INSERT INTO `sys_permission` VALUES ('149', '20_colsed_compare', 'js闭包', 'icon-agt_multimedia', '/store/js/3/20_colsed_compare', '2', '1', '146', '2', '2015-12-23 08:40:57', '1', null, null);
+INSERT INTO `sys_permission` VALUES ('150', '21_colsed_var', 'js闭包', 'icon-agt_multimedia', '/store/js/3/21_colsed_var', '2', '1', '146', '3', '2015-12-23 08:40:57', '1', null, null);
+INSERT INTO `sys_permission` VALUES ('151', '22_colsed_var2', 'js闭包', 'icon-agt_multimedia', '/store/js/3/22_colsed_var2', '2', '1', '146', '4', '2015-12-23 08:40:57', '1', null, null);
+INSERT INTO `sys_permission` VALUES ('152', '23_colsed_this', 'js闭包', 'icon-agt_multimedia', '/store/js/3/23_colsed_this', '2', '1', '146', '5', '2015-12-23 08:40:58', '1', null, null);
+INSERT INTO `sys_permission` VALUES ('153', '24_colsed_this2', 'js闭包', 'icon-agt_multimedia', '/store/js/3/24_colsed_this2', '2', '1', '146', '6', '2015-12-23 08:40:58', '1', null, null);
+INSERT INTO `sys_permission` VALUES ('154', '25_colsed_blockScope', 'js闭包', 'icon-agt_multimedia', '/store/js/3/25_colsed_blockScope', '2', '1', '146', '7', '2015-12-23 08:40:58', '1', null, null);
+INSERT INTO `sys_permission` VALUES ('155', '26_colsed_blockScope2', 'js闭包', 'icon-agt_multimedia', '/store/js/3/26_colsed_blockScope2', '2', '1', '146', '8', '2015-12-23 08:40:58', '1', null, null);
+INSERT INTO `sys_permission` VALUES ('156', '27_colsed_private', 'js闭包', 'icon-agt_multimedia', '/store/js/3/27_colsed_private', '2', '1', '146', '9', '2015-12-23 08:40:59', '1', null, null);
+INSERT INTO `sys_permission` VALUES ('157', '28_colsed_private2', 'js闭包', 'icon-agt_multimedia', '/store/js/3/28_colsed_private2', '2', '1', '146', '10', '2015-12-23 08:40:59', '1', null, null);
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -142,72 +154,84 @@ CREATE TABLE `sys_role_permission` (
 -- ----------------------------
 -- Records of sys_role_permission
 -- ----------------------------
-INSERT INTO `sys_role_permission` VALUES ('29', '13', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '14', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '29', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '32', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '76', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '77', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '78', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '15', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '5', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '9', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '11', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '12', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '16', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '22', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '23', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '24', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '25', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '26', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '27', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '28', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '97', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '98', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '99', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '100', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '102', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '105', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '103', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '104', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '110', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '111', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '115', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '106', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '107', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '109', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '112', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '113', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '114', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '116', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '117', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '118', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '119', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '120', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '121', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '122', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '123', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '124', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '125', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '127', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '128', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '129', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '130', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '131', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '132', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '133', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '134', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '135', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '136', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '137', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '138', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '139', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '140', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '141', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '142', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '143', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '144', '2015-12-21 20:23:37', '1');
-INSERT INTO `sys_role_permission` VALUES ('29', '145', '2015-12-21 20:23:37', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '13', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '14', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '29', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '32', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '76', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '77', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '78', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '15', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '5', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '9', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '11', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '12', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '16', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '22', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '23', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '24', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '25', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '26', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '27', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '28', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '97', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '98', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '99', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '100', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '102', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '105', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '103', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '104', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '110', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '111', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '115', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '106', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '107', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '109', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '112', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '113', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '114', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '146', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '147', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '148', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '149', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '150', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '151', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '152', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '153', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '154', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '155', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '156', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '157', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '116', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '117', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '118', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '119', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '120', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '121', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '122', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '123', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '124', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '125', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '127', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '128', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '129', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '130', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '131', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '132', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '133', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '134', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '135', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '136', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '137', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '138', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '139', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '140', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '141', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '142', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '143', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '144', '2015-12-23 08:47:45', '1');
+INSERT INTO `sys_role_permission` VALUES ('29', '145', '2015-12-23 08:47:45', '1');
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -234,7 +258,7 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', '123', '9bb0f71b526ede9a67fc5a667a3cdbc15dab7f39', '智谦', 'f85b3e354a271983e3d88fe26985821d', '321213', '0', '2015-09-05 16:00:24', '1', '2015-11-15 01:36:52', '1', '本地', '2015-12-21 22:00:38', '1406');
+INSERT INTO `sys_user` VALUES ('1', '123', '9bb0f71b526ede9a67fc5a667a3cdbc15dab7f39', '智谦', 'f85b3e354a271983e3d88fe26985821d', '321213', '0', '2015-09-05 16:00:24', '1', '2015-11-15 01:36:52', '1', '本地', '2015-12-23 14:47:36', '1426');
 
 -- ----------------------------
 -- Table structure for sys_user_role
