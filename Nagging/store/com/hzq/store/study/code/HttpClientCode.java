@@ -9,7 +9,7 @@
  * -------------------------------------------------------------------------
  * 2015年12月3日 huangzhiqian 创建版本
  */
-package com.hzq.test.a;
+package com.hzq.store.study.code;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +29,7 @@ import org.apache.http.util.EntityUtils;
  * 
  * @author huangzhiqian
  */
-public class ddd {
+public class HttpClientCode {
 	private static CloseableHttpClient httpclient = null;
 	
 	private static final String url = "http://202.121.199.138/nature/time/AddTime.asp?Timestamp=1449540489167";
@@ -44,6 +44,7 @@ public class ddd {
 		for(int i=0;i<120;i++){
 			sendHttp();
 		}
+		
 	}
 
 	private static void sendHttp(){

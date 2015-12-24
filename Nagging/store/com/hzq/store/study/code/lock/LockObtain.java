@@ -9,7 +9,7 @@
  * -------------------------------------------------------------------------
  * 2015年12月22日 huangzhiqian 创建版本
  */
-package com.hzq.store.study.code;
+package com.hzq.store.study.code.lock;
 
 import java.io.IOException;
 import java.nio.channels.FileChannel;
@@ -25,7 +25,7 @@ import java.util.concurrent.Executors;
 
 /**
  * 
- * 
+ * 指定时间和时间间隔获取锁,获取超时抛异常
  * @author huangzhiqian
  */
 public class LockObtain {

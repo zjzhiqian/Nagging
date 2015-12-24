@@ -69,7 +69,7 @@ public class IndexCreator {
 	}
 	
 	/**
-	 * 生成单目录索引TB
+	 * 多线程索引posts
 	 * @param posts
 	 * @return
 	 * @author huangzhiqian
@@ -77,15 +77,50 @@ public class IndexCreator {
 	 */
 	public static boolean ToOnePathForTB(List<TaoBaoPost> posts) {
 		IndexWriter writer = LuceneUtil.getIndexWriter(ConstantLucene.Index_TaoBaoPost_Path,LuceneUtil.getCreateAnalyzer());
+		ExecutorService service = null ;
+		int dividedNum = 10;
 		try {
-			indexDocForTB(writer, posts);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		} finally {
+			service = Executors.newFixedThreadPool(dividedNum);
+			List<List<TaoBaoPost>> dividedPosts =DivideList(posts, dividedNum);
+			CountDownLatch latch=new CountDownLatch(dividedNum);
+			for(int i = 0 ;i < dividedNum ; i ++){
+				service.execute(new MultyThreadIndex(writer, dividedPosts.get(i),latch));
+			}
+			try {
+				latch.await();//等待索引完毕
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}finally {
+			service.shutdown();
 			LuceneUtil.closeWriter(writer);
 		}
 		return true;
+	}
+	
+	/**
+	 * 多线程但目录索引Task类
+	 * @author huangzhiqian
+	 *
+	 */
+	private static class MultyThreadIndex implements  Runnable {
+		private final IndexWriter writer;
+		private final List<TaoBaoPost> posts;
+		private final CountDownLatch latch;
+		private MultyThreadIndex(IndexWriter writer,List<TaoBaoPost> posts,CountDownLatch latch){
+			this.writer = writer;
+			this.posts = posts;
+			this.latch = latch;
+		}
+		public void run() {
+			try {
+				indexDocForTB(writer, posts);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}finally{
+				latch.countDown();
+			}
+		}
 	}
 	
 

@@ -63,7 +63,7 @@ public class CreIndexController {
 				List<TaoBaoPost> posts = taoBaoPostService.findLimitedPost(i,step);
 				//TB
 				if("0".equals(multi)){
-					//单目录
+					//单目录(多线程索引)
 					flag=IndexCreator.ToOnePathForTB(posts);
 					if(!flag){
 						break; //生成出错,退出
