@@ -58,7 +58,7 @@ public class CreIndexController {
 				}
 			}
 		}else if ("2".equals(type)){
-			int step=100000;
+			int step=50000;
 			for(int i=0;i<800000;i=i+step){
 				List<TaoBaoPost> posts = taoBaoPostService.findLimitedPost(i,step);
 				//TB

@@ -22,6 +22,5 @@
             timeToLiveSeconds="120"
             diskExpiryThreadIntervalSeconds="120"
             memoryStoreEvictionPolicy="LRU"
-            />
-	<diskStore path="D:/cache" />
+      />
 </ehcache>

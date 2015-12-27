@@ -16,7 +16,7 @@
 	}
 	
 	var fs = fn1();
-	for(var i=0;i<fs.length;i++) {
+	for(var i=0;i< fs.length;i++) {
 		//每一个fs都是在不同作用域链中，num也是保存在不同的作用域中，所以输出0-9
 		console.log(fs[i]())
 	}

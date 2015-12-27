@@ -31,6 +31,7 @@ import org.apache.lucene.document.NumericDocValuesField;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
+import org.wltea.analyzer.lucene.IKAnalyzer;
 
 import com.hzq.lucene.constant.ConstantLucene;
 import com.hzq.lucene.entity.TaoBaoPost;
@@ -76,7 +77,7 @@ public class IndexCreator {
 	 * @date 2015年11月23日
 	 */
 	public static boolean ToOnePathForTB(List<TaoBaoPost> posts) {
-		IndexWriter writer = LuceneUtil.getIndexWriter(ConstantLucene.Index_TaoBaoPost_Path,LuceneUtil.getCreateAnalyzer());
+		IndexWriter writer = LuceneUtil.getIndexWriter(ConstantLucene.Index_TaoBaoPost_Path,new IKAnalyzer());
 		ExecutorService service = null ;
 		int dividedNum = 10;
 		try {
@@ -103,11 +104,11 @@ public class IndexCreator {
 	 * @author huangzhiqian
 	 *
 	 */
-	private static class MultyThreadIndex implements  Runnable {
+	private  static   class MultyThreadIndex implements  Runnable {
 		private final IndexWriter writer;
-		private final List<TaoBaoPost> posts;
+		private final List<?> posts;
 		private final CountDownLatch latch;
-		private MultyThreadIndex(IndexWriter writer,List<TaoBaoPost> posts,CountDownLatch latch){
+		private MultyThreadIndex(IndexWriter writer,List<?> posts,CountDownLatch latch){
 			this.writer = writer;
 			this.posts = posts;
 			this.latch = latch;
@@ -265,9 +266,10 @@ public class IndexCreator {
 	 * @author huangzhiqian
 	 * @date 2015年11月23日
 	 */
-	private static void indexDocForTB(IndexWriter writer, List<TaoBaoPost> posts) throws IOException {
+	private static void indexDocForTB(IndexWriter writer, List<?> posts) throws IOException {
 		Document doc = null;
-		for (TaoBaoPost post : posts) {
+		for (Object p : posts) {
+			TaoBaoPost post = (TaoBaoPost)p;
 			doc = new Document();
 			// ID
 			if(post.getContent()==null||StringUtils.isEmpty(post.getContent())){
@@ -332,13 +334,31 @@ public class IndexCreator {
 		@Override
 		public Boolean call() throws Exception {
 			countDownLatch1.await();
-			IndexWriter writer = LuceneUtil.getIndexWriter(path,LuceneUtil.getCreateAnalyzer());
+			IndexWriter writer = LuceneUtil.getIndexWriter(path,LuceneUtil.getIKAnalyzer());
 			try {
 				if(posts!=null && posts.size()>0){
 					if(posts.get(0) instanceof TianYaPost ){
 						indexDoc(writer, (List<TianYaPost>)posts);
 					}else if(posts.get(0) instanceof TaoBaoPost){
-						indexDocForTB(writer, (List<TaoBaoPost>)posts);
+						ExecutorService service = null;
+						int dividedNum = 10;
+						try{
+							CountDownLatch latch = new CountDownLatch(dividedNum);
+							service = Executors.newFixedThreadPool(dividedNum);
+							List<List<T>> dividedPosts =DivideList(posts, dividedNum);
+							for(int i = 0 ;i < dividedNum ; i ++){
+								service.execute(new MultyThreadIndex(writer, dividedPosts.get(i),latch));
+							}
+							try {
+								latch.await();//等待索引完毕
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}finally{
+							if(service!=null){
+								service.shutdown();
+							}
+						}
 					}
 				}
 			} catch (IOException e) {

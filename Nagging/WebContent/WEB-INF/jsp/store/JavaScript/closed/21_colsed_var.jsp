@@ -18,7 +18,7 @@
 	}
 	
 	var fs = fn1();
-	for(var i=0;i<fs.length;i++) {
+	for(var i=0;i < fs.length;i++) {
 		//此时通过闭包来调用所有函数，当输出i的时候会去上一级的作用域中查找
 		//这个时候i的值已经10，所以连续输出了10个10
 		console.log(fs[i]())

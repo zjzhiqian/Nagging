@@ -7,7 +7,7 @@
 		//匿名函数
 		return function(obj1,obj2) {
 			if(obj1[prop]>obj2[prop]) return 1;
-			else if(obj1[prop]<obj2[prop]) return -1;
+			else if(obj1[prop] < obj2[prop]) return -1;
 			else return 0;
 		}
 	}
