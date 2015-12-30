@@ -51,13 +51,10 @@ public class GrabTBController {
 		doHttp();
 	}
 	
-	
 	@RequestMapping(value="getDetailData",method=RequestMethod.GET)
 	public void doUpdate(){
 		int step=100000;
-		
 		for(int i=800000;i<900000;i=i+step){
-			
 			List<TaoBaoPost> posts=taoBaoPostService.findLimitedPost(i,step);
 			for(TaoBaoPost post:posts){
 				if(StringUtils.isEmpty(post.getContent())){

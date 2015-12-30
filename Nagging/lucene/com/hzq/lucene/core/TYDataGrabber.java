@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
@@ -101,12 +102,12 @@ public class TYDataGrabber {
 						String postUrl = "http://bbs.tianya.cn" + href.trim();
 						post.setUrl(postUrl);
 						// 开启异步线程根据url抓取帖子内容,帖子新增时间,并且set到Post里面
-						ThreadService.getThreadService().execute(new TianYaPageTask(post, postUrl));
+						ThreadService.gettyGrabService().execute(new TianYaPageTask(post, postUrl));
 					}
 
 				}
 				// 解析List异步线程
-				ThreadService.getThreadService().execute(new TianYaListTask(post, tdEle));
+				ThreadService.gettyGrabService().execute(new TianYaListTask(post, tdEle));
 				GrabTYController.getDataList().add(post);
 			}
 			// 下一页按钮的url(开启异步线程根据下一页url继续解析)
@@ -114,15 +115,13 @@ public class TYDataGrabber {
 			nexts = nexts.get(0).select("a");
 			// 如果不包含下一页表示解析结束
 			if (!nexts.text().contains("下一页")) {
-				// 睡眠60秒,保证其他线程的解析出来的数据set到Post中
-				try {
-					Thread.sleep(120000L);
-				} catch (InterruptedException e) {
-					// doNothing
+				ThreadService.gettyGrabService().shutdown();
+				//isTerminated 所有任务都完成 返回true,否则false,必须先shutdown
+				while(!ThreadService.gettyGrabService().isTerminated()){
+					TimeUnit.SECONDS.sleep(5);
 				}
+				//TODO这段代码执行不到
 				GrabTYController.FinishFlag = true;
-				System.err.println(tianyaUrl);
-				System.exit(0);
 			}
 			for (Element next : nexts) {
 				if (next.text().indexOf("下一页") != -1) {
@@ -210,7 +209,8 @@ public class TYDataGrabber {
 				}
 			} catch (ConnectTimeoutException | java.net.SocketException | java.net.SocketTimeoutException e) {
 				if (post.getRetryCount().incrementAndGet() < 10) {
-					ThreadService.getThreadService().execute(new TianYaPageTask(post, postUrl));
+					//少于10次执行失败,继续执行此任务
+					ThreadService.gettyGrabService().execute(new TianYaPageTask(post, postUrl));
 				}
 			} catch (Exception e) {
 

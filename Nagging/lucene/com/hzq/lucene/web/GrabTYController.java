@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,15 +27,14 @@ import com.hzq.lucene.util.ThreadService;
  */
 public class GrabTYController {
 	
-	private static volatile long getCount=0;
-	
+	private static AtomicInteger getCount= new AtomicInteger(0);
 	@Autowired
 	TianYaPostService tianYaPostService;
 	
 	/**天涯帖子抓取数据List**/
 	public static List<TianYaPost> dataList;
 	/**天涯数据是否抓取完毕Flag**/
-	public static boolean FinishFlag;
+	public static volatile boolean FinishFlag;
 	
 	public static List<TianYaPost> getDataList() {
 		return dataList;
@@ -59,13 +59,13 @@ public class GrabTYController {
 	public Json startGrab(){
 		FinishFlag=false;
 		//把抓取数量设置为0
-		getCount=0;
+		getCount=new AtomicInteger(0);
 		if(dataList.size()>0){
 			dataList.clear();
 		}
 		tianYaPostService.deleteAllTianYaData();
 		//开启异步线程执行任务
-		ThreadService.getThreadService().execute(new TianYaDataTask());
+		ThreadService.gettyGrabService().execute(new TianYaDataTask());
 		return new Json(true,"抓取开始");
 	}
 	
@@ -79,7 +79,7 @@ public class GrabTYController {
 					for(TianYaPost post:posts){
 						if(post.getContent()!=null){
 							dataList.remove(post);
-							getCount++;
+							getCount.addAndGet(1);
 							if(post.getContent().length()>20000){
 								post.setContent("此贴数据太长,暂不存入");
 							}
@@ -93,7 +93,7 @@ public class GrabTYController {
 					List<TianYaPost> posts=new ArrayList<TianYaPost>();
 					posts.addAll(dataList);
 					dataList.removeAll(posts);
-					getCount=getCount+dataList.size();
+					getCount.addAndGet(dataList.size());
 					tianYaPostService.savePosts(posts);
 				}
 				return new Json(false,String.format("抓取完毕,抓取到了%d条数据", getCount));

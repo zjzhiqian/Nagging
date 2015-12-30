@@ -21,6 +21,8 @@ import java.util.concurrent.Executors;
  */
 public class ThreadService {
 	private static ExecutorService threadService;
+	
+	private static volatile ExecutorService tyGrabService;
 	static {
 		threadService=Executors.newFixedThreadPool(500);
 	}
@@ -31,6 +33,15 @@ public class ThreadService {
 	public static void setThreadService(ExecutorService threadService) {
 		ThreadService.threadService = threadService;
 	}
+	
+	public synchronized static ExecutorService gettyGrabService() {
+		if(tyGrabService==null){
+			tyGrabService =Executors.newFixedThreadPool(1); 
+		}
+		return threadService;
+	}
+	
+	
 	
 }
 

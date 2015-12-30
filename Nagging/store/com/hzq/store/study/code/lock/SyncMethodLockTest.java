@@ -9,7 +9,7 @@
  * -------------------------------------------------------------------------
  * 2015年12月23日 huangzhiqian 创建版本
  */
-package com.hzq.store.study.code;
+package com.hzq.store.study.code.lock;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
