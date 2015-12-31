@@ -22,7 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class JsonUtil {
 	
-	private static ObjectMapper mapper;
+	private static ObjectMapper mapper;//这个是线程安全的,可以是单例
 	
 	private static ObjectMapper getMapper() {
 		if(mapper==null) {
