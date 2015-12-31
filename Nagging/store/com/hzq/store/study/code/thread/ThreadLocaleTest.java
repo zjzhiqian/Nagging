@@ -9,7 +9,7 @@
  * -------------------------------------------------------------------------
  * 2015年11月30日 huangzhiqian 创建版本
  */
-package com.hzq.store.study.code;
+package com.hzq.store.study.code.thread;
 
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 
- * ThreadLocale 线程本地存储,5个线程用到了value,每个线程都由Random生成的值
+ * ThreadLocale 线程本地存储
  * @author huangzhiqian
  */
 public class ThreadLocaleTest {

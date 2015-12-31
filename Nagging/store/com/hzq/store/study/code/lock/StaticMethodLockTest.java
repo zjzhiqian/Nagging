@@ -2,7 +2,11 @@ package com.hzq.store.study.code.lock;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
+/**
+ * static方法 StaticMethodLockTest.class锁 多个对象公用
+ * @author huangzhiqian
+ *
+ */
 public class StaticMethodLockTest {
 	
 	public  synchronized static void testMethodLock(){

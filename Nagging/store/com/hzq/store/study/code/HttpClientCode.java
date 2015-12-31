@@ -26,7 +26,7 @@ import org.apache.http.util.EntityUtils;
 
 /**
  * 
- * 
+ * HttpClient简单示例代码
  * @author huangzhiqian
  */
 public class HttpClientCode {

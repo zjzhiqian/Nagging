@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 
- * 
+ * wait和notifyAll
  * @author huangzhiqian
  */
 public class WaitAndNotify {	

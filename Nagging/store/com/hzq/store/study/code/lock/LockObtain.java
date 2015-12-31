@@ -60,13 +60,14 @@ public class LockObtain {
 			}
 
 		}
+		System.out.println("Thread :"+Thread.currentThread().getName()+" 尝试获取锁,结果"+obtained);
+		
 		return obtained;
 	}
 
 	private static final boolean obtain(long lockWaitTimeout) throws IOException {
 		boolean locked = obtain(path);
 		long maxSleepCount = lockWaitTimeout / LOCK_POLL_INTERVAL;
-		
 		long sleepCount = 0;
 		while (!locked) {
 			if (sleepCount++ >= maxSleepCount) {
@@ -79,14 +80,13 @@ public class LockObtain {
 			}
 			
 			locked = obtain(path);
-			System.out.println("尝试重新获取锁....");
 		}
 		return locked;
 
 	}
 
 	public static void main(String[] args) throws IOException {
-		ExecutorService service = Executors.newFixedThreadPool(3);
+		ExecutorService service = Executors.newFixedThreadPool(2);
 		service.execute(new task());
 		service.execute(new task());
 		service.shutdown();
@@ -98,7 +98,7 @@ public class LockObtain {
 		@Override
 		public void run() {
 			try {
-				obtain(20000);
+				obtain(7000);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

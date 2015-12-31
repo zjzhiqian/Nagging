@@ -16,7 +16,7 @@ import java.util.concurrent.Executors;
 
 
 /**
- * 
+ * synchronized方法使用的是this锁
  * 
  * @author huangzhiqian
  */

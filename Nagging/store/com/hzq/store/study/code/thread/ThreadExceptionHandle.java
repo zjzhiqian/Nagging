@@ -9,7 +9,7 @@
  * -------------------------------------------------------------------------
  * 2015年11月27日 huangzhiqian 创建版本
  */
-package com.hzq.store.study.code;
+package com.hzq.store.study.code.thread;
 
 import java.io.IOException;
 import java.lang.Thread.UncaughtExceptionHandler;
@@ -20,7 +20,7 @@ import java.util.concurrent.ThreadFactory;
 
 /**
  * 
- * 
+ * ExecutorService执行线程抛出异常处理
  * @author huangzhiqian
  */
 public class ThreadExceptionHandle {
@@ -46,7 +46,7 @@ class task implements Runnable {
 	
 	@Override
 	public void run(){
-		throw new RuntimeException("ERRORMSG");
+		throw new RuntimeException("运行时异常");
 	}
 	
 }
@@ -54,7 +54,7 @@ class task implements Runnable {
 class handler implements UncaughtExceptionHandler{
 	@Override
 	public void uncaughtException(Thread t, Throwable e) {
-		System.out.println(e.getMessage());
+		System.err.println("Error Accured,msg : "+e.getMessage());
 	}
 	
 	
