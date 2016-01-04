@@ -19,7 +19,7 @@ CREATE TABLE `sys_permission` (
   `modifyuserid` varchar(20) DEFAULT NULL COMMENT '修改人用户编号',
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8 COMMENT='功能权限';￥
+) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8 COMMENT='功能权限';
 
 
 INSERT INTO `sys_permission` VALUES ('5', '用户查询', '用户查询权限', 'user:query', null, '3', '1', '15', '1', null, null, '2015-09-23 17:32:05', '1');
