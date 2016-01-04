@@ -1,4 +1,4 @@
-package com.hzq.exception.handler;
+package com.hzq.system.exception.handler;
 
 import java.io.IOException;
 import java.io.PrintWriter;

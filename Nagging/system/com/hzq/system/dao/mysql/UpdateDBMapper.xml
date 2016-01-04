@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzq.system.dao.UpdateDBMapper">
+	<insert id="addUpdateDBLog" parameterType="com.hzq.system.entity.UpdateDB" >
+		insert into t_sys_update_db
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="1==1">
+				addtime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="name != null">
+				#{name},
+			</if>
+			<if test="1==1">
+				now(),
+			</if>
+		</trim>
+	</insert>
+	<select id="getUpdateDBByName" parameterType="java.lang.String" resultType="com.hzq.system.entity.UpdateDB">
+		select id,name,addtime from t_sys_update_db where name=#{name}
+	</select>
+	<select id="isHasUpdateDB" resultType="int">
+		select count(1) from INFORMATION_SCHEMA.TABLES where table_name ='t_sys_update_db' and TABLE_SCHEMA=database()
+	</select>
+	<update id="createUpdateDB">
+		CREATE TABLE t_sys_update_db (
+		  id int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+		  name varchar(200) DEFAULT '' COMMENT '更新sql文件名',
+		  addtime datetime DEFAULT NULL COMMENT '执行时间',
+		  PRIMARY KEY (`id`)
+		) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='数据库结构更新日志'
+	</update>
+</mapper>

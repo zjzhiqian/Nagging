@@ -25,7 +25,6 @@ import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
 
 /**
@@ -64,8 +63,7 @@ public class HttpClientCode {
 					FileUtils.copyInputStreamToFile(entity.getContent(), new File("E:\\test.txt"));
 				}
 				EntityUtils.consume(entity);
-				
-				List<Cookie> cookie = store.getCookies();
+//				List<Cookie> cookies = store.getCookies();
 				System.out.println("111");
 				
 			} finally {
