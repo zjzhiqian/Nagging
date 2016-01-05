@@ -73,13 +73,14 @@
 			<tx:method name="*" rollback-for="java.lang.Exception"/>
 		</tx:attributes>
 	</tx:advice>
+	<!-- 注解事务,优先于配置文件,rollback-for取最大的并集 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
 	<aop:config>
-		<aop:pointcut expression="execution(* com.hzq.*.service.*.*(..))" 
-			id="txPointCut"/>
+		<aop:pointcut expression="execution(* com.hzq.*.service.*.*(..))"  id="txPointCut"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"/>	
 	</aop:config>
 	
-	<!-- 文件上传 -->
+	<!-- fileUpload -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding" value="UTF-8"></property>
@@ -116,16 +117,5 @@
         </property>
     </bean>
     
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 </beans>

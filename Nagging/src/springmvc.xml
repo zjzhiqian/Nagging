@@ -63,7 +63,7 @@
 	
 	
 	<aop:config proxy-target-class="true"></aop:config>
-	<aop:aspectj-autoproxy /> 
+	<aop:aspectj-autoproxy />
 	<!-- Shiro注解提供支持 -->
 	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"></bean>
 	<bean class="com.hzq.system.aspect.SysLogAspect"></bean>

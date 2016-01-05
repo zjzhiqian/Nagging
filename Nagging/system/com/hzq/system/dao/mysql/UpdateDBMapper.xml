@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hzq.system.dao.UpdateDBMapper">
 	<insert id="addUpdateDBLog" parameterType="com.hzq.system.entity.UpdateDB" >
-		insert into t_sys_update_db
+		insert into sys_update_db
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
 				id,
@@ -27,13 +27,13 @@
 		</trim>
 	</insert>
 	<select id="getUpdateDBByName" parameterType="java.lang.String" resultType="com.hzq.system.entity.UpdateDB">
-		select id,name,addtime from t_sys_update_db where name=#{name}
+		select id,name,addtime from sys_update_db where name=#{name}
 	</select>
 	<select id="isHasUpdateDB" resultType="int">
-		select count(1) from INFORMATION_SCHEMA.TABLES where table_name ='t_sys_update_db' and TABLE_SCHEMA=database()
+		select count(1) from INFORMATION_SCHEMA.TABLES where table_name ='sys_update_db' and TABLE_SCHEMA=database()
 	</select>
 	<update id="createUpdateDB">
-		CREATE TABLE t_sys_update_db (
+		CREATE TABLE sys_update_db (
 		  id int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
 		  name varchar(200) DEFAULT '' COMMENT '更新sql文件名',
 		  addtime datetime DEFAULT NULL COMMENT '执行时间',

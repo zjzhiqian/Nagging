@@ -93,7 +93,7 @@ public class UpdateDBServiceImpl implements UpdateDBService{
                     sqlExec.setSrc(new File(updateSql));
                     // 要指定这个属性，不然会出错
                     sqlExec.setProject(new Project());
-                    //设定分隔符 sql文件中 多条sql语句 以￥分割
+                    //设定分隔符
                     sqlExec.setDelimiter(";");
                     sqlExec.setKeepformat(true);
                     sqlExec.execute();
@@ -106,14 +106,13 @@ public class UpdateDBServiceImpl implements UpdateDBService{
                     addUpdateDB.setName(fileName);
                     updateDBMapper.addUpdateDBLog(addUpdateDB);
                 }
-
 			}
         }
 		
 		return false;
 	}
 	
-	public String getUpdatePath() throws Exception{
+	private String getUpdatePath() throws Exception{
 		String path = getClass().getClassLoader().getResource("").getPath().replaceAll("%20", " ");
 		int pos = -1;
 		if (path.indexOf("/") != -1) {
@@ -136,7 +135,7 @@ public class UpdateDBServiceImpl implements UpdateDBService{
 	    return path;
 	}
 	
-	public String getClassPath() throws Exception{
+	private String getClassPath() throws Exception{
 		String path = getClass().getClassLoader().getResource("").getPath().replaceAll("%20", " ");
 		int pos = -1;
 		if (path.indexOf("/") != -1) {
