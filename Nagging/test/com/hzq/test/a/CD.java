@@ -10,12 +10,43 @@
  * 2015年12月31日 huangzhiqian 创建版本
  */
 package com.hzq.test.a;
+
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+
+
 /**
  * 
  * 
  * @author huangzhiqian
  */
 public class CD {
+		public static void main(String[] args) throws InterruptedException {
+			ExecutorService service = Executors.newFixedThreadPool(3);
+			Future<String> fu = service.submit(new mTask());
+			TimeUnit.SECONDS.sleep(1);
+			System.out.println(fu.isDone());
+			fu.cancel(true);
+			service.shutdown();
+			TimeUnit.SECONDS.sleep(3);
+			System.out.println(fu.isDone());
+		}
+		
+		
+		static class mTask implements Callable<String>{
 
+			@Override
+			public String call() throws Exception {
+				System.out.println("1");
+				TimeUnit.SECONDS.sleep(3);
+				System.out.println("2");
+				return "Result";
+			}
+			
+			
+		}
 }
 
