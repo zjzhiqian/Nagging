@@ -89,33 +89,33 @@
 	
 	
 	<!-- LuceneNRT索引定时任务配置 -->
-    <bean id="luceneIndexJob" class="com.hzq.lucene.job.LuceneNRTJob"></bean>
-    <!-- 调用对象 调用对象的方法 -->
-    <bean id="luceneTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-        <property name="targetObject">
-            <ref bean="luceneIndexJob"/>
-        </property>
-        <property name="targetMethod">
-            <value>doIndex</value>
-        </property>
-    </bean>
-    <!-- LuceneNRT触发时间 -->
-    <bean id="luceneTimer" class="org.springframework.scheduling.quartz.CronTriggerBean">
-        <property name="jobDetail">
-            <ref bean="luceneTask"/>
-        </property>
-        <property name="cronExpression">
-            <value>0/10 * * * * ?</value>
-        </property>
-    </bean>
+<!--     <bean id="luceneIndexJob" class="com.hzq.lucene.job.LuceneNRTJob"></bean> -->
+<!--     调用对象 调用对象的方法 -->
+<!--     <bean id="luceneTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+<!--         <property name="targetObject"> -->
+<!--             <ref bean="luceneIndexJob"/> -->
+<!--         </property> -->
+<!--         <property name="targetMethod"> -->
+<!--             <value>doIndex</value> -->
+<!--         </property> -->
+<!--     </bean> -->
+<!--     LuceneNRT触发时间 -->
+<!--     <bean id="luceneTimer" class="org.springframework.scheduling.quartz.CronTriggerBean"> -->
+<!--         <property name="jobDetail"> -->
+<!--             <ref bean="luceneTask"/> -->
+<!--         </property> -->
+<!--         <property name="cronExpression"> -->
+<!--             <value>0/10 * * * * ?</value> -->
+<!--         </property> -->
+<!--     </bean> -->
     
-    <bean id="startQuertz" lazy-init="false" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-        <property name="triggers">
-            <list>
-                <ref bean="luceneTimer"/>
-            </list>
-        </property>
-    </bean>
+<!--     <bean id="startQuertz" lazy-init="false" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean"> -->
+<!--         <property name="triggers"> -->
+<!--             <list> -->
+<!--                 <ref bean="luceneTimer"/> -->
+<!--             </list> -->
+<!--         </property> -->
+<!--     </bean> -->
     
 	
 </beans>
