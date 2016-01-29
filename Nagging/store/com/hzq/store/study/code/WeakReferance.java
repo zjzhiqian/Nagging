@@ -26,13 +26,11 @@ public class WeakReferance {
 		Object object = new Object();
 		// 通过赋值创建 StrongReference
 		Object referent = object;
-		System.out.println(referent == object);
-		/************** true **********************/
+		System.out.println(referent == object); //true
 		object = null;
 		System.gc();
 		// StrongReference 在 GC 后不会被回收
-		System.out.println(null == referent);
-		/************** false **********************/
+		System.out.println(null == referent); //false
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -44,8 +42,7 @@ public class WeakReferance {
 		object = null;
 		System.gc();
 		// 一旦没有指向 referent 的强引用, WeakReference 在 GC 后会被自动回收
-		System.out.println(null == referent.get());
-		/************** true **********************/
+		System.out.println(null == referent.get()); //true
 	}
 	
 	static void commonMap() {

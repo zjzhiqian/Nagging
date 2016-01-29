@@ -34,13 +34,8 @@ https://github.com/ml-distribution/analyzer-profile
 https://github.com/mlcsdev/mlcsseg
 https://github.com/daydayfantasy/ansj_seg
 
-
-
 Exception in thread "main" org.apache.lucene.search.highlight.InvalidTokenOffsetsException: Token jif exceeds length of provided text sized 14
 
 @throws InvalidTokenOffsetsException thrown if any token's endOffset exceeds the provided text's length
-
-
 https://github.com/medcl/elasticsearch-rtf
-
 https://github.com/DmitryKey/luke/releases
