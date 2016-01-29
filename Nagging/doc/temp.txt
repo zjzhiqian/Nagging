@@ -13,7 +13,7 @@ iframe嵌入时,未登录跳转页面 如何从iframe跳出来?(已解决)
 if (window != top) 
 	top.location.href = location.href; 
 	
-修改密码界面 能否让第一个先选中?(已解决)
+修改密码界面 让第一个先选中
 $("#old-psw").textbox().next("span").find("input").focus();
 
 org.apache.shiro.session.ExpiredSessionException
@@ -21,10 +21,10 @@ org.apache.shiro.session.ExpiredSessionException
 
 Analyzer的StopFilter和LowerCaseFilter
 
-//			config.setInfoStream(System.out);
-		
 ##同义词扩展 只需在查询或者索引的时候扩展一次就行
-		如果索引时扩展,则硬盘空间消耗大,查询速度比较慢   这时用高亮索引时的处理 要用同义词分词器
+		如果索引时扩展,则硬盘空间消耗大,查询速度比较慢   这
+//			config.setInfoStream(System.out);
+		时用高亮索引时的处理 要用同义词分词器
 		如果查询时扩展,则硬盘控件消耗小,查询速度比较快	
 
 public class PayloadAttributeImpl extends AttributeImpl implements PayloadAttribute, Cloneable
