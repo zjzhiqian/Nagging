@@ -15,24 +15,26 @@ package com.hzq.store.study.code;
  * 
  * @author huangzhiqian
  */
-public class LinkStack<T> {
-	private static class Node<U>{
-		U item;
-		Node<U> next;
-		
-		Node(){
-			this.item=null;
-			this.next=null;
-		}
-		Node(U item,Node<U> top){
-			this.item=item;
-			this.next=top;
-		}
-		
-		boolean end(){
-			return item==null&&next==null;
-		}
+
+class Node<U>{
+	U item;
+	Node<U> next;
+	
+	Node(){
+		this.item=null;
+		this.next=null;
 	}
+	Node(U item,Node<U> top){
+		this.item=item;
+		this.next=top;
+	}
+	
+	boolean end(){
+		return item==null&&next==null;
+	}
+}
+
+public class LinkStack<T> {
 	private Node<T> top=new Node<T>();
 	
 	public void push(T item){
@@ -58,8 +60,5 @@ public class LinkStack<T> {
 		}
 		
 	}
-	
-	
-	
 }
 
