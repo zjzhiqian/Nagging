@@ -376,6 +376,4 @@ public class LuceneUtil {
 		return highlighter;
 	}
 
-
-
 }
