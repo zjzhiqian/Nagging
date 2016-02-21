@@ -152,7 +152,7 @@
 		$("#randomcode").val("1111");
 		$("#username").val("123");
 		$("#password").val("123456");
-		loginsubmit();
+		//loginsubmit();
 
 	})
 </script>

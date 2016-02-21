@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.analysis.util.CharArraySet;
 
 import com.hzq.lucene.util.LuceneUtil;
@@ -17,6 +18,8 @@ public class ConstantLucene {
 	
 	//********************索引相关********************//
 	private static final String PathPreFix = getIndexPath() ;
+//	private static final String PathPreFix = "c:\\luceneIndEex\\" ;
+	
 	
 	/**
 	 * TianYa帖子索引储存路径
@@ -73,6 +76,10 @@ public class ConstantLucene {
 	
 	
 	private static String getIndexPath(){
+		String osName = System.getProperty("os.name");
+		if(StringUtils.equalsIgnoreCase(osName, "linux")){
+			return File.separator+"netdata"+File.separator+"index"+File.separator;
+		}
 		String path = LuceneUtil.class.getClassLoader().getResource("").getPath().replaceAll("%20", " ");
 		int pos = -1;
 		if (path.indexOf("/") != -1) {
@@ -88,7 +95,6 @@ public class ConstantLucene {
 				path = path + "\\Index\\";
 			}
 		}
-		String osName = System.getProperty("os.name");
 		if ((osName != null) && (osName.toLowerCase().startsWith("windows"))) {
 			path = path.replaceFirst("/", "");
 		}

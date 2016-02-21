@@ -47,8 +47,10 @@ public class LuceneNRTJob {
 	public void doIndex(){
 		nrtLock.lock();
 		try{
-			indexDoc(LuceneUtil.getTianYaWriterOne(), posts);
-			posts.clear();
+		   if(posts.size()>0){
+			 indexDoc(LuceneUtil.getTianYaWriterOne(), posts);
+			  posts.clear();
+		   }
 		}catch (Exception e){
 			e.printStackTrace();
 			throw new RuntimeException();
