@@ -46,6 +46,14 @@ public class Constant {
 	 */
 	public  static final String SHIRO_KICK_KEY = "shiro_kicked";
 	
-	
+	/**
+	 * 读数据源(无事务)
+	 */
+    public static final String DATASOURCE_READ = "dataSourceForRead";  
+    
+    /**
+     * 默认数据源(写,有事务)
+     */
+    public static final String DATASOURCE_DEFAULT = "defaultdataSource";  
 }
 

@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hzq.common.base.BaseController;
+import com.hzq.common.base.DatabaseContextHolder;
 import com.hzq.common.entity.Grid;
 import com.hzq.common.entity.Json;
 import com.hzq.common.entity.QueryCondition;
@@ -114,6 +115,9 @@ public class SysUserController extends BaseController {
 	@ResponseBody
 	public Grid<SysUser> showUsers(HttpServletRequest request) {
 		QueryCondition condition = Utils.parseRequestToCondition(request);
+		
+//		DatabaseContextHolder.setDateBaseType(Constant.DATASOURCE_READ);
+		
 		Grid<SysUser> rs = sysUserService.getDataGridResult(condition);
 		return rs;
 	}

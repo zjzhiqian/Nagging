@@ -8,6 +8,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hzq.common.entity.QueryCondition;
+import com.hzq.system.constant.Constant;
 import com.hzq.system.entity.ShiroUser;
 
 /**
@@ -102,4 +103,14 @@ public abstract class BaseService <T extends Serializable >{
 	protected boolean deleteCondition(QueryCondition queryCondition){
 		return mapper.deleteCondition(queryCondition)>0;
 	}
+	
+	protected void setReadOnlyDataSource(){
+		DatabaseContextHolder.setDateBaseType(Constant.DATASOURCE_READ);
+	}
+	
+	protected void setDefaultDataSource(){
+		DatabaseContextHolder.setDateBaseType(Constant.DATASOURCE_DEFAULT);
+	}
+	
+	
 }
