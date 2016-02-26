@@ -49,10 +49,9 @@ public class SysUserServiceImpl extends BaseService<SysUser> implements SysUserS
 			return json;
 		}else{
 			boolean flag=insert(user);	
-			
-			if("1".equals("1")){
-				throw new RuntimeException();
-			}
+//			if("1".equals("1")){
+//				throw new RuntimeException();
+//			}
 			json.setFlag(flag);
 			if(flag){
 				json.setMsg("添加用户["+user.getUsername()+"]成功");

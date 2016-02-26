@@ -30,12 +30,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hzq.common.base.BaseController;
-import com.hzq.common.base.DatabaseContextHolder;
 import com.hzq.common.entity.Grid;
 import com.hzq.common.entity.Json;
 import com.hzq.common.entity.QueryCondition;
-import com.hzq.common.util.Utils;
 import com.hzq.common.util.SaltGenerator;
+import com.hzq.common.util.Utils;
 import com.hzq.system.annotation.Log;
 import com.hzq.system.constant.Constant;
 import com.hzq.system.entity.ShiroUser;

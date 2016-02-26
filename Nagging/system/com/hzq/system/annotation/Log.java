@@ -26,9 +26,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)  
 @Documented 
 public @interface Log {
-	
 	String remark() default "";  
     String operaType() default "0";    
-    
 }
-

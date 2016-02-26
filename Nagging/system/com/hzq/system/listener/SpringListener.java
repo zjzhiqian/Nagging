@@ -17,8 +17,8 @@ public class SpringListener implements ApplicationListener<ContextRefreshedEvent
 		if(!isStart){
 //			执行更新数据库方法
 			try {
-//				UpdateDBService updateDBService = (UpdateDBService)SpringContextUtils.getBean("updateDBServiceImpl");
-//				updateDBService.updateDB();
+				UpdateDBService updateDBService = (UpdateDBService)SpringContextUtils.getBean("updateDBServiceImpl");
+				updateDBService.updateDB();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}finally{

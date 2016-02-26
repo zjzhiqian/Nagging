@@ -9,7 +9,7 @@
  * -------------------------------------------------------------------------
  * 2016年2月25日 huangzhiqian 创建版本
  */
-package com.hzq.test.a;
+package com.hzq.test.springJunit;
 
 import java.util.Date;
 
@@ -18,7 +18,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hzq.common.util.SaltGenerator;
@@ -33,10 +32,9 @@ import com.hzq.system.service.SysUserService;
  * @author huangzhiqian
  */
 @RunWith(SpringJUnit4ClassRunner.class) //用于配置spring中测试的环境 
-@ContextConfiguration(locations={"../../../../applicationContext-spring.xml","../../../../springmvc.xml","../../../../applicationContext-shiro.xml"}) //用于指定配置文件所在的位置 
-//@ContextConfiguration(locations={"../../../../ttttt.xml","../../../../springmvc.xml","../../../../applicationContext-shiro.xml"}) //用于指定配置文件所在的位置 
+@ContextConfiguration(locations={"classpath:applicationContext-spring.xml","classpath:applicationContext-shiro.xml"}) //用于指定配置文件所在的位置 
+//@ContextConfiguration(locations={"classpath:ttttt.xml","classpath:springmvc.xml","classpath:applicationContext-shiro.xml"}) //用于指定配置文件所在的位置 
 public class Junit {
-//	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	@Transactional
 	@Test
 	public void tt(){
