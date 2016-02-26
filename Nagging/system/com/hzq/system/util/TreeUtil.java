@@ -1,6 +1,7 @@
 package com.hzq.system.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class TreeUtil {
 				newTreeDataList.add(MenuTree);
 			}
 		}
-		newTreeDataList.sort(new MenuTreeComparator());
+		Collections.sort(newTreeDataList,new MenuTreeComparator());
 		return newTreeDataList;
 	}
 	

@@ -1,5 +1,6 @@
 package com.hzq.system.util;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -76,7 +77,7 @@ public class PermissionUtil {
 				}
 			}
 			if(rsList.size()>1){
-				rsList.sort(new SysPermissionComparator());
+				Collections.sort(rsList,new SysPermissionComparator());
 			}
 		}	
 		return rsList;
@@ -199,13 +200,9 @@ public class PermissionUtil {
 	}
 
 	
-	
 	public static  void sort(List<SysPermission> p){
-		p.sort(new SysPermissionComparator());
+		Collections.sort(p,new SysPermissionComparator());
 	}
-	
-	
-	
 	
 	
 	
