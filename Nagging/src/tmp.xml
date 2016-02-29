@@ -22,7 +22,7 @@
 
 	
 	
-	<bean name="druidDataSource" class="com.alibaba.druid.pool.xa.DruidXADataSource" destroy-method="close" >
+	<bean id="druidDataSource" name="druidDataSource" class="com.alibaba.druid.pool.xa.DruidXADataSource" destroy-method="close" >
 		<property name="url" value="${url}" />
 		<property name="username" value="${user}" />
 		<property name="password" value="${psw}" />
@@ -53,8 +53,8 @@
 	</bean>
 	
 	
-	<bean id="defaultDataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean" init-method="init" destroy-method="close">
-        <property name="uniqueResourceName" value="zjtze21eweqwds"/> 
+	<bean id="defaultDataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean">
+        <property name="uniqueResourceName" value="read_write"/>
         <property name="xaDataSource">      
             <ref bean="druidDataSource"/>
         </property>  
@@ -85,7 +85,23 @@
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.hzq.*.dao" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
 	</bean>
+	
+
+	<!--sqlSessionFactoryQuery -->
+	<bean id="sqlSessionFactoryQuery" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="defaultDataSource" />
+		<property name="configLocation" value="classpath:MyBatis-Configuration.xml"></property>
+		<property name="mapperLocations" value="classpath*:com/hzq/*/dao/mysql/*Mapperq.xml" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.hzq.*.daoq" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryQuery"></property>
+	</bean>
+	
+	
 	
 	
 	
