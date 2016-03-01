@@ -16,7 +16,6 @@
 		<property name="cacheManager" ref="cacheManager"/>
 		<!-- session管理器 -->
 		<property name="sessionManager" ref="sessionManager" />
-		
 	</bean>
 
 	<!-- realm -->
