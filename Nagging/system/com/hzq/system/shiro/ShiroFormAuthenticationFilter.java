@@ -162,6 +162,9 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
 				boolean logInflag = executeLogin(request, response);// 尝试登陆,返回是否登陆成功(返回false是登陆成功,返回true是登陆失败)
 				// 登录成功,如果在异地有登录,则踢出那边用户
 				if (!logInflag) {
+					
+					
+					
 					KickSessionOtherPlace(username, subject);
 				}
 				return logInflag;
@@ -201,7 +204,8 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
 		String lastIp=Utils.getIP((HttpServletRequest) request);
 		sysUserService.updateUserForLogin(shirouser.getId(),lastIp);
 		SecurityUtils.getSubject().getSession().setAttribute("user", shirouser);
-
+		sysUserService.addLogInLog(shirouser,lastIp);
+			
 		return super.onLoginSuccess(token, subject, request, response);
 	}
 

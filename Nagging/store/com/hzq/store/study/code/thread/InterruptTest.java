@@ -27,6 +27,7 @@ public class InterruptTest {
 	
 	private static class mtask implements Callable<String> {
 
+		@SuppressWarnings("unused")
 		@Override
 		public String call() {
 			int j = 0 ;

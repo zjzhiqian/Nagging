@@ -23,6 +23,7 @@ import org.apache.tools.ant.taskdefs.SQLExec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.druid.filter.config.ConfigTools;
 import com.hzq.common.util.ResourcesUtil;
 //import com.hd.agent.common.util.PropertiesUtils;
 //import com.hd.agent.system.model.UpdateDB;
@@ -73,7 +74,7 @@ public class UpdateDBServiceImpl implements UpdateDBService{
 		String username =  map.get("user");
 		String password =  map.get("psw");
 		//密码解密
-//		password = ConfigTools.decrypt(passwordEncrypt);
+		password = ConfigTools.decrypt(password);
 		
         for(File fileObject :fileList){
         	String fileName = fileObject.getName();

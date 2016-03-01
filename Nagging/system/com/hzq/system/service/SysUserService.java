@@ -5,6 +5,7 @@ import java.util.List;
 import com.hzq.common.entity.Grid;
 import com.hzq.common.entity.Json;
 import com.hzq.common.entity.QueryCondition;
+import com.hzq.system.entity.ShiroUser;
 import com.hzq.system.entity.SysUser;
 import com.hzq.system.entity.SysUserRole;
 
@@ -84,6 +85,14 @@ public interface SysUserService {
 	 * @date 2015年9月29日
 	 */
 	void updateUserForLogin(Integer id, String lastIp);
-
+	
+	/**
+	 * 登陆日志
+	 * @param shirouser
+	 * @param lastIp
+	 * @author huangzhiqian
+	 * @date 2016年3月1日
+	 */
+	void addLogInLog(ShiroUser shirouser, String lastIp);
 	
 }

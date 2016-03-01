@@ -14,10 +14,12 @@ import com.hzq.common.entity.Json;
 import com.hzq.common.entity.QueryCondition;
 import com.hzq.common.util.SaltGenerator;
 import com.hzq.system.constant.Constant;
+import com.hzq.system.dao.SysLogMapper;
 import com.hzq.system.dao.SysUserMapper;
 import com.hzq.system.dao.SysUserRoleMapper;
 //import com.hzq.system.dao.SysUserRoleMapper;
 import com.hzq.system.entity.ShiroUser;
+import com.hzq.system.entity.SysLog;
 import com.hzq.system.entity.SysUser;
 import com.hzq.system.entity.SysUserRole;
 import com.hzq.system.service.SysUserService;
@@ -34,6 +36,8 @@ public class SysUserServiceImpl extends BaseService<SysUser> implements SysUserS
 	@Autowired
 	private SysUserRoleMapper sysUserRoleMapper;
 	
+	@Autowired
+	private SysLogMapper sysLogMapper;
 	
 	public SysUser findUserByUsername(String username) {
 		return sysUserMapper.findUserByUsername(username);
@@ -197,5 +201,18 @@ public class SysUserServiceImpl extends BaseService<SysUser> implements SysUserS
 	public void updateUserForLogin(Integer id, String lastIp) {
 		sysUserMapper.doAfterLogIn(id,lastIp);
 		
+	}
+
+	@Override
+	public void addLogInLog(ShiroUser shirouser, String lastIp) {
+		SysLog sysLog =new SysLog();
+		sysLog.setAddtime(new Date());
+		sysLog.setContent("登陆系统");
+		sysLog.setIp(lastIp);
+		sysLog.setKeyname("LOG_IN");
+		sysLog.setType("0");
+		sysLog.setName(shirouser.getNick());
+		sysLog.setUserid(shirouser.getId()+"");
+		sysLogMapper.insert(sysLog);
 	}
 }

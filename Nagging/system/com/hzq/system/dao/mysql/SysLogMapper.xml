@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzq.system.dao.SysLogMapper" >
+    <sql id="conditionQuerySql" >
+        <trim prefix="where" prefixOverrides="and|or" >
+            <if test="condition.id != null" >
+                 and id = #{condition.id,jdbcType=BIGINT}
+            </if>
+            <if test="condition.type != null" >
+                 and type = #{condition.type,jdbcType=CHAR}
+            </if>
+            <if test="condition.content != null" >
+                 and content = #{condition.content,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="condition.keyname != null" >
+                 and keyname = #{condition.keyname,jdbcType=VARCHAR}
+            </if>
+            <if test="condition.addtime != null" >
+                 and addtime = #{condition.addtime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="condition.userid != null" >
+                 and userid = #{condition.userid,jdbcType=VARCHAR}
+            </if>
+            <if test="condition.name != null" >
+                 and name = #{condition.name,jdbcType=VARCHAR}
+            </if>
+            <if test="condition.ip != null" >
+                 and ip = #{condition.ip,jdbcType=VARCHAR}
+            </if>
+            <if test="condition.dataid != null" >
+                 and dataid = #{condition.dataid,jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </sql>
+
+    <resultMap id="BaseResultMap" type="com.hzq.system.entity.SysLog" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="type" property="type" jdbcType="CHAR" />
+        <result column="content" property="content" jdbcType="LONGVARCHAR" />
+        <result column="keyname" property="keyname" jdbcType="VARCHAR" />
+        <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+        <result column="userid" property="userid" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="ip" property="ip" jdbcType="VARCHAR" />
+        <result column="dataid" property="dataid" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, type, content, keyname, addtime, userid, name, ip, dataid
+    </sql>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select 
+        <include refid="Base_Column_List" />
+        from sys_log
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <insert id="insert" parameterType="com.hzq.system.entity.SysLog" >
+        insert into sys_log
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="type != null" >
+                type,
+            </if>
+            <if test="content != null" >
+                content,
+            </if>
+            <if test="keyname != null" >
+                keyname,
+            </if>
+            <if test="addtime != null" >
+                addtime,
+            </if>
+            <if test="userid != null" >
+                userid,
+            </if>
+            <if test="name != null" >
+                name,
+            </if>
+            <if test="ip != null" >
+                ip,
+            </if>
+            <if test="dataid != null" >
+                dataid,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="type != null" >
+                #{type,jdbcType=CHAR},
+            </if>
+            <if test="content != null" >
+                #{content,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="keyname != null" >
+                #{keyname,jdbcType=VARCHAR},
+            </if>
+            <if test="addtime != null" >
+                #{addtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userid != null" >
+                #{userid,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="ip != null" >
+                #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="dataid != null" >
+                #{dataid,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.hzq.system.entity.SysLog" >
+        update sys_log
+        <set >
+            <if test="type != null" >
+                type = #{type,jdbcType=CHAR},
+            </if>
+            <if test="content != null" >
+                content = #{content,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="keyname != null" >
+                keyname = #{keyname,jdbcType=VARCHAR},
+            </if>
+            <if test="addtime != null" >
+                addtime = #{addtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userid != null" >
+                userid = #{userid,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="ip != null" >
+                ip = #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="dataid != null" >
+                dataid = #{dataid,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Long" >
+        delete from sys_log
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <select id="conditionQuery" parameterType="com.hzq.common.entity.QueryCondition" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" /> from sys_log <include refid="conditionQuerySql" />
+        <if test="condition.beginIndex != null" >
+             <![CDATA[ limit #{condition.beginIndex} , #{condition.rows} ]]>
+        </if>
+    </select>
+
+    <select id="conditionCountQuery" parameterType="com.hzq.common.entity.QueryCondition" resultType="int" >
+        select count(1) from sys_log <include refid="conditionQuerySql"/>
+    </select>
+
+    <delete  id="deleteCondition" parameterType="com.hzq.common.entity.QueryCondition" >
+        delete from sys_log  <include refid="conditionQuerySql"/>
+    </delete >
+
+</mapper>
