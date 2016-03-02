@@ -151,7 +151,7 @@
 
 		$("#randomcode").val("1111");
 		$("#username").val("123");
-		$("#password").val("123456");
+		$("#password").val("${validateCode}");
 		//loginsubmit();
 
 	})

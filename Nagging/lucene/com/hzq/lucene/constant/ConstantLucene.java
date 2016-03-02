@@ -17,8 +17,8 @@ import com.hzq.lucene.util.LuceneUtil;
 public class ConstantLucene {
 	
 	//********************索引相关********************//
-//	private static final String PathPreFix = getIndexPath() ;
-	private static final String PathPreFix = "c:\\luceneIndex\\" ;
+	private static final String PathPreFix = getIndexPath() ;
+//	private static final String PathPreFix = "c:\\luceneIndex\\" ;
 	
 	
 	/**
