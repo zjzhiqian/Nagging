@@ -45,7 +45,7 @@
 		<property name="minEvictableIdleTimeMillis" value="300000" />
 		<!-- 监控数据库 -->
 		<!-- sql统计功能就不能用 <property name="filters" value="stat,log4j" /> -->
-		<property name="filters" value="config" />
+		<property name="filters" value="config,stat" />
 		<property name="connectionProperties" value="config.decrypt=true"/>
 	</bean>
 
