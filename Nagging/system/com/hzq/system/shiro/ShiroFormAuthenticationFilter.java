@@ -152,12 +152,9 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
 				if(!randomcode.toLowerCase().equals(validateCode.toLowerCase())){
 					
 //				 	如果校验失败，将验证码错误失败信息，通过shiroLoginFailure设置到request中
-					//TODO 取消万能验证码1111
-					if(!"1111".equals(randomcode)){
-						req.setAttribute("shiroLoginFailure","validataCodeError");
-						//拒绝访问，不再校验账号和密码
-						return true;
-					}
+					req.setAttribute("shiroLoginFailure","validataCodeError");
+					//拒绝访问，不再校验账号和密码
+					return true;
 				}	
 				boolean logInflag = executeLogin(request, response);// 尝试登陆,返回是否登陆成功(返回false是登陆成功,返回true是登陆失败)
 				// 登录成功,如果在异地有登录,则踢出那边用户

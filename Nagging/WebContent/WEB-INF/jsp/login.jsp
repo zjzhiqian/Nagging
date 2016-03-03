@@ -28,6 +28,7 @@
 </style>
 
 <script type="text/javascript">
+
 	//刷新验证码
 	function randomcode_refresh() {
 		var time = new Date().getTime();
@@ -149,9 +150,8 @@
 		})
 		$("#username").focus();
 
-		$("#randomcode").val("1111");
 		$("#username").val("123");
-		$("#password").val("123456");
+		$("#password").val("a123456");
 		//loginsubmit();
 
 	})
