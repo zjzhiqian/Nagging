@@ -28,5 +28,7 @@ public interface UpdateDBMapper {
 
 	void addUpdateDBLog(UpdateDB addUpdateDB);
 
+	int deleteAllUpdateInfo();
+
 }
 

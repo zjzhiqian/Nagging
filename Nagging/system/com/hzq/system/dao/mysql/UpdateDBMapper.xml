@@ -40,4 +40,9 @@
 		  PRIMARY KEY (`id`)
 		) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='数据库结构更新日志'
 	</update>
+	
+	<delete id="deleteAllUpdateInfo">
+		delete from sys_update_db
+	</delete>
+	
 </mapper>

@@ -158,6 +158,12 @@ public class UpdateDBServiceImpl implements UpdateDBService{
 		}
 	    return path;
 	}
+
+	@Override
+	public void restDB() throws Exception {
+		updateDBMapper.deleteAllUpdateInfo();
+		updateDB();
+	}
 	
 }
 

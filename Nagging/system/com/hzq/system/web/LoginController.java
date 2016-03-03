@@ -18,9 +18,14 @@ import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.hzq.common.entity.Json;
+import com.hzq.system.service.UpdateDBService;
 
 /**
  * 
@@ -30,6 +35,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 
 public class LoginController {
+	
+	@Autowired
+	UpdateDBService updateDBService;
+	
 	private static final String IndexErrorKey="loginErrorMsg";
 	
 	@RequestMapping(value="",method=RequestMethod.GET)
@@ -102,6 +111,22 @@ public class LoginController {
 	public String kickedRedirectToLogin(HttpServletRequest request){
 		request.setAttribute("iskicked", true);
 		return "login";
+	}
+	
+	
+	@RequestMapping("resetDB")
+	@ResponseBody
+	public Json resetDB(){
+		Json j = new Json();
+		try{
+			updateDBService.restDB();
+			j.setFlag(true);
+			j.setMsg("更新成功");
+		}catch(Exception e){
+			e.printStackTrace();
+			return j;
+		}
+		return j;
 	}
 		
 }

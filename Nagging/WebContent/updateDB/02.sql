@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS `sys_log`;
 CREATE TABLE `sys_log` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '日志编号',
   `type` char(1) DEFAULT '0' COMMENT '日志类型0其他操作1查询2新增3修改4删除',
