@@ -83,6 +83,7 @@
 				/images/** = anon
 				/js/** = anon
 				/styles/** = anon
+				/resetDB = anon
 				/validatecode.jsp = anon  <!-- 验证码不需要拦截 -->
 				/ = anon
 				/kicked = anon

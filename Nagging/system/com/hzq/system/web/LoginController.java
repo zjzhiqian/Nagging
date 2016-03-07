@@ -114,7 +114,7 @@ public class LoginController {
 	}
 	
 	
-	@RequestMapping("resetDB")
+	@RequestMapping(value="resetDB",method=RequestMethod.POST)
 	@ResponseBody
 	public Json resetDB(){
 		Json j = new Json();

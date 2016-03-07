@@ -42,6 +42,24 @@
 		$("#randomcode").val('')
 		randomcode_refresh();
 	}
+	
+	//重置数据库
+	function DBReset(){
+		loading()
+		$.ajax({
+		    url:"${ctx}/resetDB",
+			dataType:'json',
+			success:function(data){
+				loaded()
+			    if(data&&data.flag){
+			    	alertinfo("重置成功")
+			    }else{
+			    	alerterror(data.msg)
+			    }
+			}
+		})
+	
+	}
 
 	//登录提示方法
 	function loginsubmit() {
@@ -63,6 +81,7 @@
 </script>
 </head>
 <body style="background: #f6fdff url(${ctx}/images/login/bg1.jpg) repeat-x;">
+<input id="btn-reset" type="reset" onclick="DBReset()" class="indexbtnlink" value="重置数据库" /></td>
 	<form id="loginform" name="loginform" action="${ctx}/login" method="post">
 		<div class="logincon">
 			<div class="cen_con">
@@ -151,7 +170,7 @@
 		$("#username").focus();
 
 		$("#username").val("123");
-		$("#password").val("a123456");
+		$("#password").val("123456");
 		//loginsubmit();
 
 	})

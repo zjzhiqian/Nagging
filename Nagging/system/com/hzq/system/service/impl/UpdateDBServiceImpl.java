@@ -161,7 +161,10 @@ public class UpdateDBServiceImpl implements UpdateDBService{
 
 	@Override
 	public void restDB() throws Exception {
-		updateDBMapper.deleteAllUpdateInfo();
+		int i = updateDBMapper.isHasUpdateDB();
+		if(i!=0){
+			updateDBMapper.deleteAllUpdateInfo();
+		}
 		updateDB();
 	}
 	
