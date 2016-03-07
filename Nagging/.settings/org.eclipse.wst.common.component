@@ -9,6 +9,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/IKAnalyzer"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/store"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/highlight"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/linux_scripts"/>
         <property name="java-output-path" value="/Nagging/build/classes"/>
         <property name="context-root" value="Nagging"/>
     </wb-module>

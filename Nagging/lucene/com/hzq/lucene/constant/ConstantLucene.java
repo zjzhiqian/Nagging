@@ -16,6 +16,9 @@ import com.hzq.lucene.util.LuceneUtil;
  */
 public class ConstantLucene {
 	
+	public static final boolean isDisabled = true ;
+	
+	
 	//********************索引相关********************//
 	private static final String PathPreFix = getIndexPath() ;
 //	private static final String PathPreFix = "c:\\luceneIndex\\" ;

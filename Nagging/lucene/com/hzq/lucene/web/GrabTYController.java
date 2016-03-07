@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hzq.common.entity.Json;
+import com.hzq.lucene.constant.ConstantLucene;
 import com.hzq.lucene.core.TYDataGrabber;
 import com.hzq.lucene.entity.TianYaPost;
 import com.hzq.lucene.service.TianYaPostService;
@@ -57,6 +58,11 @@ public class GrabTYController {
 	@RequestMapping("tianyaBegin")
 	@ResponseBody
 	public Json startGrab(){
+		
+		if(ConstantLucene.isDisabled){
+			return new Json(false,"服务器IO,流量有限,此功能暂被禁止");
+		}
+		
 		FinishFlag=false;
 		//把抓取数量设置为0
 		getCount=new AtomicInteger(0);
@@ -72,6 +78,10 @@ public class GrabTYController {
 	@RequestMapping("tianyaShowNum")
 	@ResponseBody
 	public synchronized Json showGrabNum(){
+		if(ConstantLucene.isDisabled){
+			return new Json(false,"服务器IO,流量有限,此功能暂被禁止");
+		}
+		
 			if(!FinishFlag){
 				if(dataList.size()>0){
 					List<TianYaPost> posts=new ArrayList<TianYaPost>();

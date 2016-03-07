@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hzq.common.entity.Json;
+import com.hzq.lucene.constant.ConstantLucene;
 import com.hzq.lucene.core.IndexCreator;
 import com.hzq.lucene.entity.TaoBaoPost;
 import com.hzq.lucene.entity.TianYaPost;
@@ -40,6 +41,10 @@ public class CreIndexController {
 	@RequestMapping("index/{type}/{multi}")
 	@ResponseBody
 	public Json postIndex(@PathVariable String type,@PathVariable String multi) {
+		if(ConstantLucene.isDisabled){
+			return new Json(false,"服务器IO,流量有限,此功能暂被禁止");
+		}
+		
 		Long time1=System.currentTimeMillis();
 		boolean flag=false; String msg="系统错误";
 		if("1".equals(type)){
@@ -96,6 +101,10 @@ public class CreIndexController {
 	@RequestMapping("suggest/{type}")
 	@ResponseBody
 	public Json  suggestCreator(HttpServletRequest req,@PathVariable("type")String type){
+		if(ConstantLucene.isDisabled){
+			return new Json(false,"服务器IO,流量有限,此功能暂被禁止");
+		}
+		
 		Long time1=System.currentTimeMillis(); 
 		boolean flag=true;
 		if("1".equals(type)){ //TY部分
@@ -120,6 +129,6 @@ public class CreIndexController {
 		
 	}
 	
-	
+
 
 }
