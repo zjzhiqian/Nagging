@@ -1,4 +1,4 @@
-package com.hzq.store.study.code.thread;
+package com.hzq.store.study.code.thread2;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -14,6 +14,8 @@ package com.hzq.store.study.code;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
+import com.hzq.system.entity.SysPermission;
+
 /**
  * 
  * Integer 内部类Cache  -128~127是缓存，其它要new Integer(1000)
@@ -31,6 +33,10 @@ public class IntegerTest {
 		System.out.println(e == f);// 1
 		int g = 100, h = 100;
 		System.out.println(g == h);// 2
+		
+		Integer i = new Integer(2);
+		Integer j = new Integer(2);
+		System.out.println(i==j);
 
 	}
 
