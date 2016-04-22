@@ -1,6 +1,8 @@
 # Nagging
 it's my java web project .
 
-watch \Nagging\doc for more details . 
+using springMVC,spring,Mybatis,easyui,lucene,shiro
 
-QQ516095191 
+
+watch \Nagging\doc for more details . 
+Q516095191 to concact me 
